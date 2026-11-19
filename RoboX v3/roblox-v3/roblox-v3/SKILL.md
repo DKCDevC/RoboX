@@ -34,9 +34,9 @@ The refs are the floor. Every episode must also pass `upgrades.md` (≥10 of 14)
 | `templates/` | script sheet, shot list, cue sheet, **rotation log**, hero cast file, caption preset |
 | `examples/` | 2 gold scripts: a quality comparison **after** your first draft. Never open them before (they anchor: round 2 rebuilt gold-1 beat for beat) |
 | `tools/` | zero-token Python: `script_check.py`, `plan_timing.py` (sheet → planned words.json + cuts.txt), `shotlist_check.py`, `pacing_check.py`, `make_caps.py`, `move_check.py`, `measure.py` (colour); `sheetlib.py` is their shared parser; `patterns.txt`, `skeletons.txt` are their data |
-| `studio_kit/` | `bridge.mjs` + `start_bridge.bat`, `rb.py` (run Luau / capture), `lib*.lua` (the MT kit; `lib10.lua` = R6 actors + animations, test with `r6_test.lua`), `make_faces_v2.py`, `make_clothes.py`, render/stitch/join scripts, `checks.ps1` |
+| `studio_kit/` | `bridge.mjs` + `start_bridge.bat`, `rb.py` (run Luau / capture), `load.py` (kit + episode into Studio, in order), `fov.py`, `render.py`, `stitch.py`, `join.py`, `tiles4k.py` (all take `--ep <episode folder>`; layout in `episode.py`, starter in `episode_template/`), `lib*.lua` (the MT kit; `lib10.lua` = R6 actors + animations, test with `r6_test.lua`), `make_faces_v2.py`, `make_clothes.py`, `checks.ps1` |
 | `agents/` | the 8 research-team agents, to rerun when new reference videos are added |
-| `legacy/` | retired: `blender.md` + Blender kit, `style-toon.md`, `pipeline-obs-mac.md` (shot runner + OBS), `mcp-setup.md` tests, `lighting-presets.lua`, `make_caps_toon.py`, `assemble.py` |
+| `legacy/` | retired: `blender.md` + Blender kit, `style-toon.md`, `pipeline-obs-mac.md` (shot runner + OBS), `mcp-setup.md` tests, `lighting-presets.lua`, `make_caps_toon.py`, `assemble.py`, `studio_kit/` (the per-episode render/stitch/join variants of the first test episode) |
 
 **What to read.** Planning an episode (script, shot list, cue sheet, caption plan): `look-reference.md`, `script.md`, `templates/`, `checklist.md` [plan] items, the tools, `look.md` §0–3, §5, §6, §9, §16, `lighting-color.md` §4–5, all of `audio.md`, `pacing.md` §2–5, `captions.md` §0–1, and `pipeline.md` (steps + build budget). Building: `studio.md` (and `SETUP.md` once). Editing: `pipeline.md` steps 5–10. Paths outside the skill (`<project>/…`) may not exist in your session: a log or cast file supplied in the brief replaces them.
 
@@ -50,7 +50,7 @@ The refs are the floor. Every episode must also pass `upgrades.md` (≥10 of 14)
 5. **Shot list + cue sheet + caption plan** from the timestamps (`templates/`). For a plan, use `plan_timing.py`'s planned words.json, then rebuild from the real one.
 6. **QA the plan** with checklist.md: the plan score (a) must be ≥8 in every area, no HARD fail.
 7. **Build** in Roblox Studio (`studio.md` §7 order): world, light file, cast with real R6 avatars + Roblox R6 animations (`studio.md` §3.1, `lib10.lua`; run `r6_test.lua` first), moves, clip scan, check sheet of every shot.
-8. **Render** with `studio_kit\start_bridge.bat` + `render2.py` → `stitch.py` → `join.py`. Tell the user the render time first. Run a 15 s end-to-end test before the first full episode (`pipeline.md`).
+8. **Render** with `studio_kit\start_bridge.bat`, then `load.py` → `fov.py` → `render.py` → `stitch.py` → `join.py`, all with `--ep <episode folder>`. Tell the user the render time first (≈0.8 s per capture, 2 captures per frame). Run a 15 s end-to-end test before the first full episode (`pipeline.md`).
 9. **Edit** (`pipeline.md` steps 5–8): checks, captions from timestamps, music events, SFX, mix to −14 LUFS, export.
 10. **QA the cut** with checklist.md: the strict score (b) must be ≥8 in every area. Then export. IG "AI info" label on when the narration is a TTS/clone. Update the episode's row in ROTATION-LOG.md.
 
@@ -85,7 +85,7 @@ The refs are the floor. Every episode must also pass `upgrades.md` (≥10 of 14)
 - Hand the user a script that fails the script.md self-check (voice, logic and twist tests included), or count an unchecked item as a pass.
 
 ## Known mistakes (add here when a review note repeats)
-- Never hand the user one still frame per shot with a camera zoom as "the video". Every shot must be animated in Roblox Studio (breathing, blinks, talking mouths, reactions, walks, camera move). Working pattern: `MT.actor` + `MT.walkTo` / `MT.anim` in each shot (`lib10.lua`), rendered with `studio_kit/start_bridge.bat` / `render2.py`. If time is short, say so before building, not after.
+- Never hand the user one still frame per shot with a camera zoom as "the video". Every shot must be animated in Roblox Studio (breathing, blinks, talking mouths, reactions, walks, camera move). Working pattern: `MT.actor` + `MT.walkTo` / `MT.anim` in each shot (`lib10.lua`), rendered with `studio_kit/render.py --ep <episode>`. If time is short, say so before building, not after.
 - Never render a centre 9:16 crop of a landscape Studio capture (about 590 px wide, then stretched). It looked blurry next to the refs. Use the tiled capture in `studio.md` §2.
 - Never stretch the head unevenly (old 2.0×1.75×1.8 head). The hair sank into it. The head scales the same on every axis, and the hair uses the same k.
 - Never pack people closer than R6 shoulders allow (2.6-stud crowd grid = bodies inside bodies). Use ≥4.4 studs, and let `MT.resolve` push the crowd out of the cast.

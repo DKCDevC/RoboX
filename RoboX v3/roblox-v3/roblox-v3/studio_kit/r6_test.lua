@@ -8,21 +8,25 @@ local function say(s) table.insert(out, s) end
 
 local old = workspace:FindFirstChild("R6Test"); if old then old:Destroy() end
 local folder = Instance.new("Folder"); folder.Name = "R6Test"; folder.Parent = workspace
-local floor = Instance.new("Part"); floor.Anchored = true; floor.Size = Vector3.new(40, 1, 40); floor.Position = Vector3.new(0, -0.5, 0)
+local floor = Instance.new("Part"); floor.Anchored = true; floor.Size = Vector3.new(40, 1, 40); floor.Position = Vector3.new(40, 0.5, 40)   -- away from the template SpawnLocation; top at y = 1
 floor.Color = Color3.fromRGB(200, 204, 210); floor.Parent = folder
 
 -- 1. build
 local ok, m = pcall(function()
-	return Players:CreateHumanoidModelFromDescription(Instance.new("HumanoidDescription"), Enum.HumanoidRigType.R6)
+	local desc = Instance.new("HumanoidDescription")       -- default body colours are black; give it skin
+	local skin = Color3.fromHex("#E8B98F")
+	desc.HeadColor, desc.TorsoColor, desc.LeftArmColor, desc.RightArmColor, desc.LeftLegColor, desc.RightLegColor = skin, skin, skin, skin, skin, skin
+	return Players:CreateHumanoidModelFromDescription(desc, Enum.HumanoidRigType.R6)
 end)
 if not ok then return "FAIL build: " .. tostring(m) end
 m.Name = "R6Actor"
 for _, d in ipairs(m:GetDescendants()) do if d:IsA("LuaSourceContainer") then d:Destroy() end end
 local hum = m:FindFirstChildOfClass("Humanoid")
 local root = m:FindFirstChild("HumanoidRootPart")
+m.PrimaryPart = root   -- Roblox sets Head as PrimaryPart; without this PivotTo puts the head at the root height
 for _, p in ipairs(m:GetDescendants()) do if p:IsA("BasePart") then p.Anchored = (p == root); p.CanCollide = false end end
 m.Parent = folder
-m:PivotTo(CFrame.new(0, 3, 0))
+m:PivotTo(CFrame.new(40, 4, 40))   -- root 3 studs above the floor top: feet on the floor
 say("build OK, RigType=" .. tostring(hum.RigType) .. ", parts=" .. #m:GetChildren())
 local animator = hum:FindFirstChildOfClass("Animator") or Instance.new("Animator", hum)
 
@@ -66,6 +70,6 @@ end
 legAt("step", walk.Length / 4)
 local cam = workspace.CurrentCamera
 cam.CameraType = Enum.CameraType.Scriptable
-cam.CFrame = CFrame.lookAt(Vector3.new(7, 4, -9), Vector3.new(0, 2.6, 0))
+cam.CFrame = CFrame.lookAt(Vector3.new(47, 5, 31), Vector3.new(40, 3.6, 40))
 say("verdict: route C works if build OK, walk/idle/wave loaded, and at least one mode says OK. Set MT.ANIM_MODE to that mode.")
 return table.concat(out, "\n")

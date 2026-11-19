@@ -87,6 +87,7 @@ function MT.actor(name, spec, at, facing)
 	hum.DisplayDistanceType = Enum.HumanoidDisplayDistanceType.None
 	hum.HealthDisplayType = Enum.HumanoidHealthDisplayType.AlwaysOff
 	local root = m:FindFirstChild("HumanoidRootPart")
+	m.PrimaryPart = root      -- Roblox sets Head as PrimaryPart; PivotTo must move the root (verified 2026-11-19)
 	for _, p in ipairs(m:GetDescendants()) do
 		if p:IsA("BasePart") then p.Anchored = (p == root); p.CanCollide = false; p.CanQuery = (p ~= root) end
 	end

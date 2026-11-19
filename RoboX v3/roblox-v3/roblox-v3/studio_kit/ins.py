@@ -1,4 +1,5 @@
 import json, sys, rb
+rb.sid = rb.studio_id()
 # ins.py name:assetId ...
 for pair in sys.argv[1:]:
     name, aid = pair.split(":")

@@ -1,4 +1,5 @@
 import json, sys, rb
+rb.sid = rb.studio_id()
 qs = sys.argv[1:]
 out = {}
 for q in qs:

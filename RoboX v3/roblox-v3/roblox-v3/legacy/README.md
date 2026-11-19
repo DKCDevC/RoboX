@@ -10,4 +10,5 @@ Kept so nothing is lost. The current skill is one look (`../look-reference.md`) 
 | `tools/assemble.py` | cut OBS takes at the white slates | `studio_kit/join.py` |
 | `templates/mcp-setup.md` | Studio MCP tests A–C and the 2-minute decal test for the shot-runner route | MCP setup in `SETUP.md` §2 |
 | `templates/lighting-presets.lua` | mood presets (`normalDay`, `sad`, …) and `P.cleanFreeModelFx()` | `assets/lighting/reference/lighting-<family>.lua` |
+| `studio_kit/` render2, render4k(_v2), stitch4k(_v2), join_4k, join4k_parts_v2, prestitch_v2, redo_stitch, checks.sh, and the old render/stitch/join/tiles4k | per-episode copies from the first test episode (hard-coded `videos/monster-test/`, `../shots/shots.json`) | `studio_kit/render.py`, `stitch.py`, `join.py`, `tiles4k.py`, `fov.py`, `load.py` with `--ep` |
 | `first-test-prompt.md` | first 15 s test prompt for the OBS route | "First test" in `pipeline.md` |

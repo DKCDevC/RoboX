@@ -23,3 +23,5 @@ desktop.ini
 **/studio_kit/studio_id.txt
 **/renders/
 *.blend1
+**/studio_kit/episode.txt
+**/studio_kit/search_*.json
