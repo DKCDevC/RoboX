@@ -1,28 +1,9 @@
--- E01 "In this town, you only get 100 words a day": 39 shots (times in shots.json, frame counts in MT.N).
+-- E01 "In this town, you only get 100 words a day": 39 shots (times in shots.json; frame counts come from load.py).
+-- Helpers (MT.shot, MT.cast, MT.counter, MT.camOn, MT.family, MT.around, MT.chatter) live in studio_kit/lib11.lua.
 local MT = shared.MT
-MT.SHOTS = {}
-local N = MT.N
-local idx = 0
-local function shot(id, def)
-	idx += 1
-	def.idx = idx; def.n = N[id]
-	MT.SHOTS[id] = def
-end
-local cast, counter, anim, face, walk = MT.cast, MT.counter, MT.anim, MT.actorFace, MT.walkTo
-local function around(cx, cy, r, k, i0, faceAt)   -- k kids in a ring facing (cx, cy)
-	local list = {}
-	for j = 1, k do
-		local a = (j - 1) / k * 2 * math.pi + 0.3
-		local x, y = cx + r * math.cos(a), cy + r * math.sin(a)
-		local name = "kid" .. (i0 + j)
-		cast(name, { x, y }, MT.faceTo({ x, y }, faceAt or { cx, cy }), "happy")
-		table.insert(list, name)
-	end
-	return list
-end
-local function chatter(list, f)   -- everyone in the list talks (mouths flap out of step)
-	for j, k in ipairs(list) do face(k, (math.floor((f + j * 3) / 5) % 2 == 0) and "happy_t" or "happy") end
-end
+MT.resetShots()
+local shot, cast, counter, anim, face, walk = MT.shot, MT.cast, MT.counter, MT.anim, MT.actorFace, MT.walkTo
+local around, chatter = MT.around, MT.chatter
 
 ---------------------------------------------------------------- rule (0-5.8 s)
 shot("s01", { build = function()
@@ -169,7 +150,7 @@ end })
 shot("s22", { build = function()
 	MT.setPorch({ night = true }); MT.family("dark-neutral-vivid")
 	MT.sign("cal", { "DAYS AT 0", "6 / 7" }, { -5, 12.15, 5.4 }, 3.2, 2.6, { bg = "#FFFFFF", border = "#3A3F4A", colors = { "#3A3F4A", "#E8452C" }, sizes = { 0.26, 0.5 } })
-	cast("grandpa", { -1.4, 10.4, 1 }, -150, "sad")
+	cast("grandpa", { -1.4, 10.4, 1 }, -150, "sad"); MT.faceLight("grandpa")
 	return { { -7.2, 6.6, 5 }, { -5, 12.2, 5.3 }, 28, push = 0.7 }
 end, act = function(f) counter("grandpa", 0) end })
 
@@ -204,7 +185,8 @@ shot("s27", { build = function()
 	cast("jay", { 0.6, 3.2 }, 0, "sparkle_oh")
 	return MT.camOn("jay", 4.4, 4.6, 5.1, 0, 30, 1.2)
 end, act = function(f) counter("jay", 100, { glow = true }) end,
-	flash = function(f) return f <= 4 and (4 - f) * 0.9 or 0 end })
+	flash = function(f) return MT.flashAt(f, 1, 5, 3.5) end,          -- white flash on the twist
+	shake = function(f) return MT.punch(f, 1, 2.2, 8) end })          -- and a hit that dies away
 
 ---------------------------------------------------------------- reveal + climax (43-55 s)
 local ring = {}
@@ -247,7 +229,7 @@ shot("s33", { build = function()
 	for j = 1, 8 do local name = "kid" .. j; cast(name, { (j % 2 == 0 and 1 or -1) * (1.2 + (j % 4) * 1.6), 34 + j * 1.6 }, 0, "laugh"); table.insert(runners, name) end
 	return { { 0, -7, 1.4 }, { 0, 12, 3.4 }, 24, push = 0.6 }
 end, act = function(f, n)
-	walk("jay", f, 1, n, { 0, 30 }, { 0, -1.5 }, true); counter("jay", 100)
+	MT.runAt("jay", f, 1, n, { 0, 30 }, { 0, -7 }, 3.2); counter("jay", 100)   -- runs at the low camera until he fills the frame
 	for j, k in ipairs(runners) do
 		local x = (j % 2 == 0 and 1 or -1) * (1.2 + (j % 4) * 1.6)
 		walk(k, f, 1, n, { x, 34 + j * 1.6 }, { x, 3 + j * 1.2 }, true); counter(k, 60 + j * 4)
@@ -305,14 +287,14 @@ end, speak = "mom" })
 
 shot("s39", { build = function()
 	MT.setPorch(); MT.family("dark-neutral-vivid")
-	cast("jay", { -1, 3.2 }, 30, "oh")
+	cast("jay", { -1, 3.2 }, 30, "oh"); MT.faceLight("jay")
 	return MT.camOn("jay", 4.2, 5.4, 4.8, 0.5, 30, 0.5)
 end, act = function(f) counter("jay", 100) end })
 
 shot("s40", { build = function()
 	MT.setPorch(); MT.family("dark-neutral-vivid")
-	cast("mom", { 3.4, 4.6 }, -25, "smile")
+	cast("mom", { 3.4, 4.6 }, -25, "smile"); MT.faceLight("mom")
 	return MT.camOn("mom", 4.8, 4.8, 5.3, 0.4, 30, 0.9)
 end, act = function(f) counter("mom", 2) end })
 
-return "shots E01: " .. idx
+return "shots E01: " .. MT.shotIdx

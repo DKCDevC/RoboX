@@ -1,7 +1,10 @@
 # Bold "Roblox story" face set: thick ink outlines, big white eyes, expressive brows and mouths, tears/sweat/blush.
 # 24 faces, 1024x1024 RGBA each (drawn at 4x, downscaled), plus an atlas preview.
 from PIL import Image, ImageDraw
-import math, os
+import math, os, sys
+# --zoom: how much the features fill the head (E01 shipped 1.18; at 1.32 the eyes and mouth read better in wides,
+# the 'faces a bit small on the head' note of the E01 review). make_talk_faces.py works with either.
+ZOOM = float(sys.argv[sys.argv.index('--zoom') + 1]) if '--zoom' in sys.argv else 1.18
 S = 4; N = 1024 * S
 INK = (22, 18, 24, 255); WHITE = (255, 255, 255, 255); MOUTH = (92, 22, 34, 255); TONGUE = (238, 110, 128, 255)
 TEAR = (150, 214, 255, 255); TEAR_D = (40, 92, 160, 255); BLUSH = (255, 120, 140, 120); RED = (226, 64, 70, 255)
@@ -180,7 +183,7 @@ def face(name):
     elif name == "stare":
         eye(d, EL, EY, rx=84, ry=84, pr=0.14, glint=False); eye(d, ER, EY, rx=84, ry=84, pr=0.14, glint=False)
         line(d, [(EL - 80, EY - 120), (EL + 80, EY - 120)], 24); line(d, [(ER - 80, EY - 120), (ER + 80, EY - 120)], 24); line(d, [(470, MY + 10), (554, MY + 10)], LW)
-    k = 1.18; cx, cy = 512 * S, 590 * S
+    k = ZOOM; cx, cy = 512 * S, 590 * S
     big = im.resize((int(N * k), int(N * k)), Image.LANCZOS)
     ox, oy = int(cx * k - cx), int(cy * k - cy)
     im = big.crop((ox, oy, ox + N, oy + N))

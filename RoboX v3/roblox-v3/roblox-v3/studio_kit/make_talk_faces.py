@@ -14,7 +14,7 @@ import numpy as np
 
 S = 4                          # draw at 4x, then shrink (same as make_faces_v2)
 INK = (22, 18, 24, 255); MOUTH = (92, 22, 34, 255); TONGUE = (238, 110, 128, 255); WHITE = (255, 255, 255, 255)
-BOX = (110, 680, 914, 1010)    # mouth area on the 1024 px face (eyes and blush end above y 670)
+BOX = (50, 680, 974, 1016)    # mouth area on the 1024 px face (eyes and blush end above y 670)
 
 
 def is_open(a):

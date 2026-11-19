@@ -29,7 +29,7 @@ Follow `script.md` and the `roblox-town-script` skill: rule in sentence 1, first
 From `script.md` + `words.json` with `templates/shot-list.md`, `templates/cue-sheet.md` (before the voice exists, use `plan_timing.py`'s `words_planned.json`). One row per shot, cut 1 frame before each sentence start (`pacing.md`), shot length, moves and look family per `look-reference.md`, a look-family shift on the twist cut (`lighting-color.md` §4). Run `python tools/shotlist_check.py shotlist.md`; fix every FAIL or write why. QA the plan with `checklist.md` (plan score ≥8 per area). The user reads the table before anything is built.
 
 ## Step 4. Build, animate, render in Studio
-Everything in `studio.md`, in its §7 order, from a copy of `studio_kit/episode_template/` as the episode folder E: `python load.py --ep E` → `MT.quality()` → clip scan → check sheet of every shot (`.\checks.ps1`) → `python fov.py --ep E` → `python render.py --ep E` → `python stitch.py --ep E --jobs 2` → `python join.py --ep E` (all in `studio_kit/`). Lighting: `assets/lighting/reference/lighting-<family>.lua`.
+Everything in `studio.md`, in its §7 order, from a copy of `studio_kit/episode_template/` as the episode folder E: `python load.py --ep E` (kit through lib11 + the episode) → `MT.quality()` → clip scan → check sheet of every shot (`.\checks.ps1`) → `python fov.py --ep E` → `python render.py --ep E` → `python stitch.py --ep E --jobs 2` → `python join.py --ep E` (all in `studio_kit/`). Lighting: `assets/lighting/reference/lighting-<family>.lua`.
 - **Tell the user the render time before starting.** Measured on E01 (2026-11-19, 39 shots, 63.6 s, 1,908 frames, 3,816 captures): 0.8-0.95 s per capture, about 60 min of capture plus a few minutes of stitching (run `stitch.py` while it renders); a 2.5 min episode ≈ 2.5 h. 4K is 3–4 captures per frame. Disk: about 0.9 GB of captures + 0.6 GB of stitched frames per minute of video; the final MP4 is about 100 MB.
 - Before the full render, make a check sheet: `render.py --tiles 1 --n 1 --force` (one landscape capture per shot, about 1 min for 40 shots), centre-crop each to 9:16 and tile them. On E01 two rounds of this caught 15 framing problems (backs to camera, people hidden behind props, shots too wide, a building swallowing a sign).
 - Episode layout (shots.json, lua/, audio/, frames/, out/): `studio_kit/episode.py`. Verified end to end on the 2-shot template on 2026-11-19 (load → fov → render → stitch → join → 1080×1920 30 fps MP4).
@@ -38,6 +38,8 @@ Everything in `studio.md`, in its §7 order, from a copy of `studio_kit/episode_
 ## Step 5. Edit
 1. Checks on the caption-free picture: `python tools/move_check.py edit/picture.mp4 cuts.txt` (cuts.txt = the shot list's start times), `python tools/measure.py --video edit/picture.mp4 --times …` (colour), `python tools/pacing_check.py` (pacing.md §7).
 2. Finish (captions, music, SFX) with the scripted route below; CapCut desktop (free) is the fallback when a scene needs hand trimming.
+
+`join.py` applies the reference grade by default (contrast and saturation +6 %, vignette angle 0.24 = corner/centre 0.89 measured), before the captions; `--no-grade` turns it off.
 
 ## Step 6. Captions
 Spec: `look-reference.md` §7 (1–2 words, lowercase white, soft shadow, one red ALL-CAPS key word, centre at 65 % height). Make `caps.ass` with `tools/make_caps.py` and the v3 flags in `captions.md` §0, burn in with ffmpeg. Colour tests always run on the caption-free picture.

@@ -9,9 +9,13 @@
 --n N              only the first N frames of each shot (framing tests).  --force re-captures frames that exist.
 --wait S           seconds Studio gets to draw a frame before its capture (default 0.12; at 0.03 tiles came out one
                    pose behind on 2026-11-19 and the stitched frames showed a doubled band). Raise it if seams double.
-Captures land in <episode>/frames/raw<tiles>/<id>/NNNNN.png. Watch progress in bridge.log / render_progress.txt."""
-import json, os, sys, time
-import episode, rb
+Captures land in <episode>/frames/raw<tiles>/<id>/NNNNN.png. Watch progress in bridge.log / render_progress.txt.
+Before queuing, preflight.py checks Studio (Edit mode, loaded episode, a real non-blank capture of the right size) and
+stops on the first problem; it also maximises and raises the Studio window (--no-fix: stop instead); --no-preflight
+skips it, --accept-size takes a new capture size. While rendering, the bridge
+stops by itself after 3 blank captures in a row or 6 failed frames, and parks the rest of the queue in queue_hold/."""
+import json, os, shutil, sys, time
+import episode, preflight, rb
 
 argv = sys.argv[1:]
 ep = episode.ep_dir(argv)
@@ -20,9 +24,21 @@ force = bool(episode.pop_flag(argv, "--force", False, has_value=False))
 wait = float(episode.pop_flag(argv, "--wait", "0.12"))
 lim = episode.pop_flag(argv, "--n")
 lim = int(lim) if lim else None
+skip_pre = bool(episode.pop_flag(argv, "--no-preflight", False, has_value=False))
+accept_size = bool(episode.pop_flag(argv, "--accept-size", False, has_value=False))
+no_fix = bool(episode.pop_flag(argv, "--no-fix", False, has_value=False))
 if tiles not in (1, 2, 4):
     sys.exit("--tiles is 1, 2 or 4")
 todo = episode.pick(ep, argv)
+held = os.path.join(rb.HERE, "queue_hold")
+if os.path.isdir(held) and os.listdir(held):
+    print(f"note: {len(os.listdir(held))} job(s) parked by the bridge after a stopped render are discarded (this run queues fresh jobs)")
+    shutil.rmtree(held, ignore_errors=True)
+stopped = os.path.join(rb.HERE, "render_stopped.txt")
+if os.path.exists(stopped):
+    print("last render was stopped by the bridge:", open(stopped).read().strip()); os.remove(stopped)
+if not skip_pre:
+    preflight.run(ep, todo[0][0], accept_size, fix=not no_fix)
 sid = rb.studio_id()
 
 FN = {1: "frame", 2: "frameTile", 4: "frameTileN"}[tiles]

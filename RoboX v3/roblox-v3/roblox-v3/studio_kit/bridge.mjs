@@ -88,13 +88,27 @@ for (;;) {
   try {
     if (j.batch) { res = []; for (const [k, b] of j.batch.entries()) res.push(await one(b, tag + "_" + k)); }
     else if (j.render) { const R = j.render; res = { frames: 0, errors: [] }; const [a, b] = R.frames;
+      // Guard (E01, 2026-11-19): a hidden/minimised Studio returns white captures of about 10 KB, and Play mode makes every
+      // frame fail. Stop after 3 blank captures in a row or 6 failed frames, delete the blanks, and park the rest of the queue.
+      const minBytes = R.minBytes || 14000; let blanks = [];
       for (let fr = a; fr <= b; fr++) {
         const fn = path.resolve(HERE, R.out, String(fr).padStart(5, "0") + ".png"); if (fs.existsSync(fn) && !R.force) { res.frames++; continue; }
         const e = await call("tools/call", { name: R.tool, arguments: { ...(R.args || {}), [R.code_arg]: R.template.replaceAll("{{F}}", String(fr)) } }, 60000);
-        if (e.error || e?.result?.isError) { res.errors.push({ fr, e: JSON.stringify(e).slice(0, 300) }); if (res.errors.length > 5) break; continue; }
+        if (e.error || e?.result?.isError) { res.errors.push({ fr, e: JSON.stringify(e).slice(0, 300) }); if (res.errors.length > 5) { res.stopped = "6 frames failed (Play mode? Studio closed?)"; break; } continue; }
         const c = saveImages(await call("tools/call", R.capture, 60000), path.resolve(HERE, R.out, String(fr).padStart(5, "0") + ".png"), tag);
-        if (c.error || c?.result?.isError) { res.errors.push({ fr, c: JSON.stringify(c).slice(0, 300) }); if (res.errors.length > 5) break; continue; }
-        res.frames++; if (fr % 20 === 0) fs.writeFileSync(path.join(HERE, "render_progress.txt"), `${tag} ${fr}/${b}`); } }
+        if (c.error || c?.result?.isError) { res.errors.push({ fr, c: JSON.stringify(c).slice(0, 300) }); if (res.errors.length > 5) { res.stopped = "6 captures failed"; break; } continue; }
+        const bytes = (c?.result?.content || []).find((x) => x.bytes)?.bytes || 0;
+        if (bytes && bytes < minBytes) { blanks.push(fn); if (blanks.length >= 3) { res.stopped = "3 blank captures in a row (Studio window hidden, covered or minimised)"; break; } }
+        else blanks = [];
+        res.frames++; if (fr % 20 === 0) fs.writeFileSync(path.join(HERE, "render_progress.txt"), `${tag} ${fr}/${b}`); }
+      if (res.stopped) {
+        for (const p of blanks) { try { fs.rmSync(p); } catch {} }
+        const H = path.join(HERE, "queue_hold"); fs.mkdirSync(H, { recursive: true });
+        const rest = fs.readdirSync(Q).filter((x) => x.endsWith(".json"));
+        for (const x of rest) fs.renameSync(path.join(Q, x), path.join(H, x));
+        fs.writeFileSync(path.join(HERE, "render_stopped.txt"), `${new Date().toISOString()} ${tag}: ${res.stopped}; ${rest.length} job(s) parked in queue_hold/\n`);
+        log("RENDER STOPPED:", tag, res.stopped, "-", rest.length, "job(s) parked in queue_hold/. Fix Studio, then run render.py again.");
+      } }
     else res = await one(j, tag);
   } catch (e) { res = { error: String(e) }; }
   out("done/" + f, { ms: Date.now() - t0, res }); log("job", f, "done in", Date.now() - t0, "ms");

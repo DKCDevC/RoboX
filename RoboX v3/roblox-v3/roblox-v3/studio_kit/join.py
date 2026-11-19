@@ -17,6 +17,9 @@ src = episode.pop_flag(argv, "--src", "hd")
 caps = episode.pop_flag(argv, "--caps")
 music = episode.pop_flag(argv, "--music") or (episode.path(ep, "audio", "music.mp3") if os.path.exists(episode.path(ep, "audio", "music.mp3")) else None)
 music_db = float(episode.pop_flag(argv, "--music-db", "-16"))
+# Reference grade (look-reference.md: slight vignette, corner/centre about 0.89; punchier contrast). vignette angle 0.24
+# measured on flat grey = 0.891. Applied to the picture before captions, so the captions stay white. --no-grade turns it off.
+GRADE = "" if episode.pop_flag(argv, "--no-grade", False, has_value=False) else ",eq=contrast=1.06:saturation=1.06,vignette=angle=0.24"
 folder = {"hd": "hd", "4k": "4k", "raw1": "raw1"}.get(src) or sys.exit("--src is hd, 4k or raw1")
 outdir = episode.path(ep, "out", make=True)
 
@@ -54,7 +57,7 @@ ext = os.path.splitext(lst[0])[1]
 # 2. picture track
 pic = os.path.join(outdir, "picture.mp4")
 vf = {"hd": "scale=1080:1920:flags=lanczos,setsar=1", "4k": "setsar=1",
-      "raw1": "crop=trunc(ih*9/16/2)*2:ih,scale=1080:1920:flags=lanczos,setsar=1"}[src]
+      "raw1": "crop=trunc(ih*9/16/2)*2:ih,scale=1080:1920:flags=lanczos,setsar=1"}[src] + GRADE
 run(["-framerate", str(episode.FPS), "-i", os.path.join(seq, "%05d" + ext), "-frames:v", str(len(lst)), "-vf", vf,
      "-c:v", "libx264", "-crf", "16", "-preset", "veryfast", "-pix_fmt", "yuv420p", "-g", "15", "-movflags", "+faststart", pic + ".part.mp4"])
 os.replace(pic + ".part.mp4", pic)

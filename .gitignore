@@ -34,3 +34,6 @@ episodes/*/audio/music_auto.wav
 episodes/*/qa_*.jpg
 episodes/*/check_sheet_*.jpg
 episodes/*/peek_*.jpg
+**/studio_kit/queue_hold/
+**/studio_kit/render_stopped.txt
+**/studio_kit/caps/preflight.png

@@ -127,8 +127,9 @@ function MT.placeActor(name)
 	local a = MT.actors[name]
 	local f = rad(a.facing)
 	local fwd = Vector3.new(math.sin(f), 0, math.cos(f))
-	local p = a.pos + Vector3.new(0, 3 * a.scale + (a.lift or 0), 0)
-	a.model:PivotTo(CFrame.lookAt(p, p + fwd))
+	local feet = a.pos + Vector3.new(0, a.lift or 0, 0)
+	-- tilt (degrees, positive = backwards) turns the body about its feet, so a fall lands where the actor stood (lib11 MT.fallBack)
+	a.model:PivotTo(CFrame.lookAt(feet, feet + fwd) * CFrame.Angles(rad(a.tilt or 0), 0, 0) * CFrame.new(0, 3 * a.scale, 0))
 end
 
 -- what an actor plays this frame: anim(name, clip, startFrame, speed)
@@ -193,7 +194,7 @@ function MT.frame(id, f)
 	if MT.cur ~= id then MT.build(id) end
 	local def = MT.SHOTS[id]
 	for name, a in pairs(MT.actors) do      -- reset before def.act runs inside frameBase
-		a.pos, a.facing, a.lift, a.want = a.base.pos, a.base.facing, 0, nil
+		a.pos, a.facing, a.lift, a.want, a.tilt = a.base.pos, a.base.facing, 0, nil, 0
 		local face = a.base.face
 		if def.speak == name then
 			-- mouth only: <face>_t has the same eyes and brows (make_talk_faces.py); a whole-face swap to "talk" flickered
