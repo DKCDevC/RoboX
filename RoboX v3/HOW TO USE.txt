@@ -1,0 +1,39 @@
+HOW TO USE THE SKILLS (Windows & Mac, free)
+==========================================
+
+1. Download roblox-v3.zip and roblox-town-script.zip.
+
+2. UNZIP both (it won't work if you don't).
+   Windows: right-click > Extract All
+   Mac: double-click the .zip
+   Now you have 2 folders: roblox-v3 and roblox-town-script.
+
+3. Open Claude (Claude Code or the Claude desktop app).
+
+4. Drag the roblox-town-script folder into the chat and type:
+   Create a skill from this folder.
+
+5. Drag the roblox-v3 folder into the chat and type:
+   Create a skill from this folder.
+
+6. Start making stories:
+   Use roblox-town-script. Give me 10 "In this town" story ideas.
+
+
+BUILD THE VIDEO IN ROBLOX STUDIO (WINDOWS)
+------------------------------------------
+Use Claude Code / PowerShell on the same Windows PC as Roblox Studio.
+1. Double-click roblox-v3\roblox-v3\setup_windows.bat (one-time install:
+   Python packages from requirements.txt, Node.js, ffmpeg check).
+2. In Roblox Studio: Assistant > Manage MCP Servers >
+   turn on "Enable Studio as MCP server".
+3. For batch renders, double-click:
+   roblox-v3\roblox-v3\studio_kit\start_bridge.bat
+   (auto-detects %LOCALAPPDATA%\Roblox\Versions\...\StudioMCP.exe).
+4. Always run scripts with `python ...` (not `python3 ...`).
+   See roblox-v3\roblox-v3\SETUP.md and templates\mcp-setup.md for details.
+5. Tell Claude:
+   Use roblox-v3. Help me connect Roblox Studio.
+
+
+Free to use. Please don't sell it.

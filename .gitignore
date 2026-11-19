@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+*.bak
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Runtime / render outputs
+**/studio_kit/queue/
+**/studio_kit/done/
+**/studio_kit/caps/
+**/studio_kit/frames*/
+**/studio_kit/parts*/
+**/studio_kit/bridge.log
+**/studio_kit/bridge_stderr.log
+**/studio_kit/bridge_alive.txt
+**/studio_kit/render_progress.txt
+**/studio_kit/tools.json
+**/studio_kit/_ck.lua
+**/studio_kit/studio_id.txt
+**/renders/
+*.blend1
