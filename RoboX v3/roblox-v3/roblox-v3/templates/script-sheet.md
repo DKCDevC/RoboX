@@ -1,6 +1,6 @@
 # Script sheet: [episode title]
 
-Copy this file into the episode folder and fill it in. One row = one spoken sentence (two very short sentences may share a row). A row is a timing unit, not a shot: the shot list splits 10+-word rows and may merge ≤4-word rows (`pacing.md` rule 5). Rules behind each column: `script.md` (words, beats, pauses), `pacing.md` (cuts, shot length), `audio.md` (music, SFX), `captions.md` (highlights), `look.md` and the lighting presets (`normalDay`, `sad`, `sadWarm`, `scaryNight`, `twistReveal`, `dreamMemory` in `lighting-presets.lua`).
+Copy this file into the episode folder and fill it in. One row = one spoken sentence (two very short sentences may share a row). A row is a timing unit, not a shot: the shot list splits 10+-word rows and may merge ≤4-word rows (`pacing.md` rule 5). Rules behind each column: `script.md` (words, beats, pauses), `pacing.md` (cuts, shot length), `audio.md` (music, SFX), `captions.md` (highlights), `look.md`, and the look families of `look-reference.md` §2 (`mid-neutral-normal`, `mid-warm-vivid`, `dark-neutral-vivid`, `bright-warm-vivid`, `dark-warm-vivid`, `bright-neutral-normal`; files in `assets/lighting/reference/`).
 The tools read this table by its header names: `tools/plan_timing.py` fills the time column, `tools/script_check.py` runs the script.md §9.3 numbers.
 
 ## Header (fill before the table)

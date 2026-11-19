@@ -23,7 +23,7 @@ Double-click `setup_windows.bat`, or run in PowerShell:
 
 ### 1. Install core tools (PowerShell)
 
-If you don't have Python 3.10+, Node.js, ffmpeg, or Blender 4.2+ yet, install them with `winget`:
+If you don't have Python 3.10+, Node.js or ffmpeg yet, install them with `winget`:
 
 ```powershell
 # Python & Node.js (skip if already installed)
@@ -33,7 +33,7 @@ winget install OpenJS.NodeJS.LTS
 # ffmpeg (to join rendered frames into an mp4)
 winget install Gyan.FFmpeg
 
-# Blender 4.2+ (fallback 3D renderer)
+# Blender 4.2+ (optional: only for the retired Blender route in legacy/)
 winget install BlenderFoundation.Blender
 ```
 
@@ -69,7 +69,12 @@ Leave the telemetry box off. Do not sign up for Premium.
 
 1. Open Roblox Studio (any Baseplate place).
 2. **Assistant → … → Manage MCP Servers →** turn on **Enable Studio as MCP server**.
-3. **Assistant Settings → MCP Servers → Quick connect → Claude Code** (or run the manual command in `templates\mcp-setup.md`).
+3. **Assistant Settings → MCP Servers → Quick connect → Claude Code** If Quick connect doesn't work, register `StudioMCP.exe` directly in PowerShell (this also avoids the username-with-spaces bug in `mcp.bat`), then restart both Studio and Claude Code:
+   ```powershell
+   $mcpExe = Get-ChildItem "$env:LOCALAPPDATA\Roblox\Versions\version-*\StudioMCP.exe" | Sort-Object LastWriteTime -Descending | Select-Object -First 1 -ExpandProperty FullName
+   claude mcp add --transport stdio --scope user Roblox_Studio -- $mcpExe
+   ```
+   Check with `claude mcp list`, then ask Claude: *"Call list_roblox_studios and tell me the studio_id."*
 4. To run batch renders with `studio_kit\`, double-click `studio_kit\start_bridge.bat` (keep the console window open). `bridge.mjs` auto-discovers `%LOCALAPPDATA%\Roblox\Versions\version-*\StudioMCP.exe`.
 
 ## 3. Python packages for the helper tools
@@ -78,11 +83,11 @@ Leave the telemetry box off. Do not sign up for Premium.
 python -m pip install -r requirements.txt
 ```
 
-## 4. Test the Blender kit
+## 4. Optional, legacy: test the Blender kit (only if you use the retired Blender route, `legacy/blender.md`)
 
 ```powershell
 cd "<your project folder>\skills\roblox-v3"
-blender -b -P shots\example_shot.py -- draft still
+blender -b -P legacy\shots\example_shot.py -- draft still
 explorer renders\example_shot
 ```
 

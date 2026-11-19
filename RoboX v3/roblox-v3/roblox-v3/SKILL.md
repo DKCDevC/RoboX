@@ -1,61 +1,57 @@
 ---
 name: roblox-v3
-description: Make Roblox 3D story reels/shorts (vertical, 60 s–3 min, first-person narration) in the reference look measured frame by frame: saturated sunny sets, real R6 avatars with custom expressive faces, characters walking and running, push-ins, shake, depth of field, fast ~1 s cuts, small lowercase captions with one red key word. Covers script, voice, captions, pacing, camera, lighting files, faces, movement and the Roblox Studio / Blender build. Use for ANY Roblox-look story video when the user asks for roblox v3 or the reference style.
+description: Make Roblox 3D story reels/shorts (vertical, 60 s–3 min, first-person narration) in the reference look measured frame by frame: saturated sunny sets, real R6 avatars with custom expressive faces, characters walking and running, push-ins, shake, depth of field, fast ~1 s cuts, small lowercase captions with one red key word. Covers script, voice, captions, pacing, camera, lighting files, faces, movement and the Roblox Studio build on Windows. Use for ANY Roblox-look story video when the user asks for roblox v3 or the reference style.
 ---
 
-# Roblox story reels (v3: reference look, 2026-11-16)
+# Roblox story reels (v3: reference look; docs consolidated 2026-11-19)
 
-**Style = reference look** . Read `look-reference.md` FIRST. It was measured from every frame of 5 reference Shorts (34,398 frames, 660 shots; data in `your analysis folder`). **Where it disagrees with `style-toon.md`, `look.md`, `lighting-color.md`, `pacing.md` or `captions.md`, `look-reference.md` wins.** Lighting: `assets/lighting/reference/lighting-<family>.lua` (paste in the Studio command bar; starting values).
-The older skill `roblox` (bright toon) stays as it was. Script shape: the `roblox-town-script` skill.
+**One look, one build route.**
+- **Look = `look-reference.md`. Read it first.** Measured from every frame of 5 reference Shorts (34,398 frames, 660 shots). Its §10 is the single list of older numbers it replaces in `look.md`, `lighting-color.md`, `pacing.md` and `captions.md`; everything else in those files still applies.
+- **Build = Roblox Studio on Windows, driven by Claude through the Studio MCP** (`studio.md`), with free Creator Store assets and the kit in `studio_kit/`. Lighting: `assets/lighting/reference/lighting-<family>.lua`.
+- **Script shape:** the `roblox-town-script` skill and `script.md`.
+- `legacy/` holds the retired routes (Blender kit, the Mac shot-runner + OBS pipeline, Moon Animator notes, the bright-toon style). Don't read it unless the user asks for one of those.
 
-**v2.1 (2026-11-15):** read `studio.md` §8–9 first: the visible-rule story shape, grey blockout → world → light → R15 cast with real Roblox animations (`StepAnimations`) → one shot per second. **Build engine = Roblox Studio, driven by Claude (v4, the creator's call 2026-11-14)** with free Creator Store assets: read `studio.md` (picture quality, real R6 characters with clothes, hair fit, the no-clipping rule, physics). Blender (`blender.md`) is the fallback.
-
-**Earlier build engine = Blender, free** (the creator's decision). `blender.md` replaces the Roblox Studio / Moon Animator / OBS build. Where a file still says Luau, `execute_luau`, `screen_capture`, Motor6D, `LightingStyle` or OBS, keep its intent and numbers and do it with the Blender kit.
-
-The research behind the rules (`your analysis folder`, `team/*.md`) lives outside the skill; every number you need is inside these files.
+The research behind the rules lives outside the skill; every number you need is inside these files. Paths like `<project>/…` mean the user's own project folder.
 Tags inside the files: **REF-RANGE** = measured on the refs · **HYPOTHESIS** = a beat-the-refs bet; keep it only if the user's analytics agree · **POLICY** = a platform or legal rule.
 The refs are the floor. Every episode must also pass `upgrades.md` (≥10 of 14).
 
 ## Files
 | file | use it for |
 |---|---|
-| `look-reference.md` | **the target style (v3)**: 6 look families with measured numbers, camera grammar, edit rhythm, faces, movement, captions, effects, never-do list |
+| `look-reference.md` | **the target look**: 6 look families with measured numbers, camera grammar, edit rhythm, faces, movement, captions, effects, never-do list, **§10 overrides** |
 | `assets/lighting/reference/` | one Studio command-bar lighting file per look family |
-| `style-toon.md` | **the target style**: look numbers, sets, characters, the 24 faces and face rules, camera, captions, comedy script shape, audio, kit recipe, checks |
 | `script.md` | world-rule formula and scoring, beat map by % for any 60–180 s runtime, twist families, sentence rules, **the pause rule** (§6), banned phrases, self-check |
-| `look.md` | shot sizes, camera, faces and decals, posing, sets, how to show the rule on screen, ending shot |
-| `lighting-color.md` | LightingStyle presets per mood, colour targets, twist palette shift, how to measure a capture |
+| `studio.md` | **the build**: Studio MCP + bridge, tiled 1080x1920 / 4K capture, R6 characters with clothes, hair fit, the two cast routes (§3.1), no-clipping, physics, order of work (§7) |
+| `pipeline.md` | the whole episode in order on Windows: folder, script, voice, shot list, build, edit, captions, mix, export, disclosure, QA, build budget, first test |
+| `look.md` | shot sizes, angles, the first shot, showing the rule on screen, sets, signs, ending shot, continuity (numbers per look-reference §10) |
+| `lighting-color.md` | colour script of an episode, twist colour shift, practicals, measuring a capture (numbers per look-reference §10) |
+| `pacing.md` | cuts on sentence starts, hook, pauses, holds (shot lengths per look-reference §10) |
+| `captions.md` | §0 = v3 caption spec + `make_caps.py` flags; timing, accents, safe zones |
 | `audio.md` | ElevenLabs voice settings, pauses, character voices, music events, SFX, mix targets, library map, rotation |
-| `pacing.md` | cut rules, shot lengths, holds, first 3 s / 10 s, pacing self-check script |
-| `captions.md` | caption spec at 1080x1920, highlight rule, safe zones, `make_caps.py` (timestamps → captions) |
-| `studio.md` | **the build (v4)**: Roblox Studio via its MCP, tiled 1080x1920 capture, real R6 + own clothes, hair at head scale, auto no-clipping, physics helpers; kit in `studio_kit/` |
-| `blender.md` | **the fallback build**: Blender kit, hero, faces, poses, cameras, looks, render, free sets, shot checks |
-| `SETUP.md` | one-time free install on Windows (Roblox Studio MCP, Blender MCP, ffmpeg, Python deps) |
-| `scripts/` `assets/` `shots/` | `rbxkit.py` (the kit), `faces.py` + `face_atlas.png` (24 faces, preview in `face_atlas_preview.jpg`), `example_toon.py` (toon-style template), `example_shot.py` (old moody look) |
-| `pipeline.md` | episode folder, edit, export, disclosure, build budget. Its Roblox Studio / OBS build steps are replaced by `blender.md` |
 | `upgrades.md` | the 14 upgrades over the refs + what to rotate every episode |
 | `checklist.md` | QA rubric, /10 per area; anything under 8 gets fixed |
-| `templates/` | script sheet, shot list, cue sheet, **rotation log** (every rotating field, one rule each), hero cast file, caption preset; `lighting-presets.lua` and `mcp-setup.md` are the old Roblox Studio route (reference only) |
+| `SETUP.md` | one-time free install on Windows (`setup_windows.bat`, Studio MCP, bridge) |
+| `templates/` | script sheet, shot list, cue sheet, **rotation log**, hero cast file, caption preset |
 | `examples/` | 2 gold scripts: a quality comparison **after** your first draft. Never open them before (they anchor: round 2 rebuilt gold-1 beat for beat) |
-| `tools/` | zero-token Python: `script_check.py` (script numbers), `plan_timing.py` (sheet → planned words.json + cuts.txt), `shotlist_check.py`, `pacing_check.py`, `make_caps.py` (one-word captions), `make_caps_toon.py` (toon phrase captions), `move_check.py`, `measure.py` (colour), `assemble.py` (cut OBS takes, 60→30 fps); `sheetlib.py` is their shared parser; `patterns.txt` (voice and no-copy patterns), `skeletons.txt` (story skeletons + signature moves), `ref_lines.txt` (the refs' scripts) and `market_titles.txt` are their data |
-| `agents/` | the 8 research-team agents (copies of `.claude/agents/`), to rerun when new reference videos are added |
-| `research/` | REPORT.md (10-bullet summary), GAPS.md (14 ways to beat the refs), TRAINING-LOG.md (3 rounds). Full data: `your analysis folder` |
-| `first-test-prompt.md` | ready-to-paste prompt for the first 15 s test (written for the Roblox Studio route; adapt to `blender.md`) |
+| `tools/` | zero-token Python: `script_check.py`, `plan_timing.py` (sheet → planned words.json + cuts.txt), `shotlist_check.py`, `pacing_check.py`, `make_caps.py`, `move_check.py`, `measure.py` (colour); `sheetlib.py` is their shared parser; `patterns.txt`, `skeletons.txt` are their data |
+| `studio_kit/` | `bridge.mjs` + `start_bridge.bat`, `rb.py` (run Luau / capture), `lib*.lua` (the MT kit), `make_faces_v2.py`, `make_clothes.py`, render/stitch/join scripts, `checks.ps1` |
+| `agents/` | the 8 research-team agents, to rerun when new reference videos are added |
+| `legacy/` | retired: `blender.md` + Blender kit, `style-toon.md`, `pipeline-obs-mac.md` (shot runner + OBS), `mcp-setup.md` tests, `lighting-presets.lua`, `make_caps_toon.py`, `assemble.py` |
 
-**What to read.** Planning an episode (script, shot list, cue sheet, caption plan): `script.md`, `templates/`, `checklist.md` [plan] items, the tools, `look.md` §0–3, §5, §6.1, §7.1, §9 and §16, `lighting-color.md` §1–5, all of `audio.md` (the cue sheet needs it), `pacing.md` §2–5, `captions.md` §1, and the build budget in `pipeline.md`. Paths outside the skill (`your project folder/…`, `team/…`) may not exist in your session: a log or cast file supplied in the brief replaces them. Building: `blender.md` (and `SETUP.md` once), then the rest of `look.md` and `lighting-color.md` for intent and numbers. Editing: `pipeline.md`.
+**What to read.** Planning an episode (script, shot list, cue sheet, caption plan): `look-reference.md`, `script.md`, `templates/`, `checklist.md` [plan] items, the tools, `look.md` §0–3, §5, §6, §9, §16, `lighting-color.md` §4–5, all of `audio.md`, `pacing.md` §2–5, `captions.md` §0–1, and `pipeline.md` (steps + build budget). Building: `studio.md` (and `SETUP.md` once). Editing: `pipeline.md` steps 5–10. Paths outside the skill (`<project>/…`) may not exist in your session: a log or cast file supplied in the brief replaces them.
 
 **Fallbacks.** No Agent tool: the blind guess test is UNCHECKED; leave `pretwist.txt` for the orchestrating session or the user to read. No `humanizer` skill: do script.md §10 step 7's six-item pass by hand.
 
 ## Workflow (always in this order)
 1. **Rule.** Write 5 one-sentence world rules and score each with the script.md rubric. Keep the best one that's outside the crowded "X is deadly" lane.
-2. **Rotation.** Read the last 5 rows of `your project folder/projects/ROTATION-LOG.md` (fields and rules: `templates/rotation-log.md`). Twist family not in the last 5; reveal ≥10 points from the last episode. A field the log doesn't have yet is free: choose and log it.
-3. **Script.** Rule, beat map, 10-slot skeleton and tone (script.md §0.2, §9.4), then the first draft, **all before opening `examples/`**. Only then compare with the golds for quality. Then the humanizer pass, `tools/plan_timing.py`, `tools/script_check.py` (with `--log` and `--pretwist`) and the blind guess test (script.md §3.3), in `templates/script-sheet.md`. **the user reads it and edits before any voice is generated or anything is built. Never skip his read.** A plan package may draft steps 5–6 on planned timing before his read; mark it "waiting on the user's read".
-4. **Voice.** your ElevenLabs voice (or a free text-to-speech voice). **Ask before spending credits** (character count from `script_check.py`). Get word timestamps (Whisper/Parakeet), then set the designed pauses (script.md §6).
+2. **Rotation.** Read the last 5 rows of `<project>/projects/ROTATION-LOG.md` (fields and rules: `templates/rotation-log.md`). Twist family not in the last 5; reveal ≥10 points from the last episode. A field the log doesn't have yet is free: choose and log it.
+3. **Script.** Rule, beat map, 10-slot skeleton and tone (script.md §0.2, §9.4), then the first draft, **all before opening `examples/`**. Only then compare with the golds for quality. Then the humanizer pass, `tools/plan_timing.py`, `tools/script_check.py` (with `--log` and `--pretwist`) and the blind guess test (script.md §3.3), in `templates/script-sheet.md`. **The user reads it and edits before any voice is generated or anything is built. Never skip that read.** A plan package may draft steps 5–6 on planned timing before the read; mark it "waiting on the user's read".
+4. **Voice.** ElevenLabs voice (or a free text-to-speech voice). **Ask before spending credits** (character count from `script_check.py`). Get word timestamps (WhisperX / faster-whisper), then set the designed pauses (script.md §6).
 5. **Shot list + cue sheet + caption plan** from the timestamps (`templates/`). For a plan, use `plan_timing.py`'s planned words.json, then rebuild from the real one.
 6. **QA the plan** with checklist.md: the plan score (a) must be ≥8 in every area, no HARD fail.
-7. **Build** in Blender (`blender.md`): one shot .py per scene from the shot list and `words.json`; check framing with `-- draft still` renders first.
-8. **Render** each scene locally (`-- final`, PNG frames → ffmpeg mp4, or `studio_kit\start_bridge.bat` + `render2.py` for Studio). Run a 15 s end-to-end test before the first full episode.
-9. **Edit** (pipeline.md): cuts on sentence starts, captions from timestamps, music events, SFX, mix to −14 LUFS.
+7. **Build** in Roblox Studio (`studio.md` §7 order): world, light file, cast (§3.1 route), moves, clip scan, check sheet of every shot.
+8. **Render** with `studio_kit\start_bridge.bat` + `render2.py` → `stitch.py` → `join.py`. Tell the user the render time first. Run a 15 s end-to-end test before the first full episode (`pipeline.md`).
+9. **Edit** (`pipeline.md` steps 5–8): checks, captions from timestamps, music events, SFX, mix to −14 LUFS, export.
 10. **QA the cut** with checklist.md: the strict score (b) must be ≥8 in every area. Then export. IG "AI info" label on when the narration is a TTS/clone. Update the episode's row in ROTATION-LOG.md.
 
 ## The 21 rules that matter most (reference look; numbers from look-reference.md)
@@ -83,16 +79,16 @@ The refs are the floor. Every episode must also pass `upgrades.md` (≥10 of 14)
 21. **Characters move.** Something moves on its own in about 63 % of screen time; about a third of shots have someone walking or running (real R6 walk/run animations, big arm swings). Use: running straight at a low static camera until he fills the frame, walking across frame, entering and leaving frame, being grabbed, falling, flying. Feet stay on the ground with hard sun shadows. 
 
 ## Never
-- Spend ElevenLabs/Higgsfield credits, buy plugins or assets, or use paid add-on features (MCP-for-Blender Premium, Meshy/Tripo/Rodin/World Labs) without the user's OK. Moon Animator is out: we animate in Blender.
+- Spend ElevenLabs/Higgsfield credits, buy plugins or assets (Moon Animator included), or use paid add-on features (Meshy/Tripo/Rodin/World Labs) without the user's OK.
 - Copy a ref's story, music track, opener sound or avatar, or a line shape from the refs or golds (script.md §9.4).
 - Use the refs' bad data fields as evidence (`shots.json` move labels, `audio.json` music_changes/sfx_hits).
 - Hand the user a script that fails the script.md self-check (voice, logic and twist tests included), or count an unchecked item as a pass.
 
 ## Known mistakes (add here when a review note repeats)
-- Never hand the user one still frame per shot with a camera zoom as "the video". Every shot must be animated in Blender or Roblox Studio (breathing, blinks, talking mouths, reactions, walks, camera move). Working pattern: `your project folder/shots/monster.py` (`animate()` + per-shot `@act` actions) and `studio_kit/start_bridge.bat` / `render2.py`. If time is short, say so before building, not after.
+- Never hand the user one still frame per shot with a camera zoom as "the video". Every shot must be animated in Roblox Studio (breathing, blinks, talking mouths, reactions, walks, camera move). Working pattern: `studio_kit/start_bridge.bat` / `render2.py` with per-frame moves (studio.md §3.1). If time is short, say so before building, not after.
 - Never render a centre 9:16 crop of a landscape Studio capture (about 590 px wide, then stretched). It looked blurry next to the refs. Use the tiled capture in `studio.md` §2.
 - Never stretch the head unevenly (old 2.0×1.75×1.8 head). The hair sank into it. The head scales the same on every axis, and the hair uses the same k.
 - Never pack people closer than R6 shoulders allow (2.6-stud crowd grid = bodies inside bodies). Use ≥4.4 studs, and let `MT.resolve` push the crowd out of the cast.
 - Never build a character from plain boxes (box sleeves, box shoes, no clothes). the user: "my roblox guys are looking really bad".
-- Never ship camera moves + face swaps on standing bodies (ep02 "no animation?", 2026-11-16). Our rigs are anchored parts (no Motor6Ds), so use the walk/run cycle in `your project folder/roblox/ep_anim.lua`: phase from distance travelled (feet planted, no sliding), legs ±40° walk / ±60° run, opposite arms ±44°/±72°, hip drop so the tilted leg stands on its edge. `ep_moves.lua` there shows idle life on every rig, talking hands, gestures, reactions, flailing, capes, walkers and moving bits for empty inserts. Check with analyze.py: ≥55 % of frames moving, no still shot.
+- Never ship camera moves + face swaps on standing bodies (ep02 "no animation?", 2026-11-16). Our rigs are anchored parts (no Motor6Ds), so use a walk/run cycle (the original `ep_anim.lua` was not shipped; write it, or take studio.md §3.1 route B): phase from distance travelled (feet planted, no sliding), legs ±40° walk / ±60° run, opposite arms ±44°/±72°, hip drop so the tilted leg stands on its edge. The missing `ep_moves.lua` covered idle life on every rig, talking hands, gestures, reactions, flailing, capes, walkers and moving bits for empty inserts. Check with `tools/move_check.py`: ≥55 % of frames moving, no still shot.
 - Studio can close mid-render (update or crash). Check `bridge.log` for "No studio available" and follow the recovery steps in `studio.md` §1.

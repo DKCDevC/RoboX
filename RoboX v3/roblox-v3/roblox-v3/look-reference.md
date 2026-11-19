@@ -60,5 +60,26 @@ Whole videos: brightness 0.34–0.43, saturation 0.42–0.66 (much more saturate
 - Plain block characters or default faces.
 - ALL-CAPS captions for every word.
 
+## 10. What this file overrides (the one place conflicts are settled)
+`look.md`, `lighting-color.md`, `pacing.md` and `captions.md` were written for an older look (6 moody refs, 458 shots). Their method, checks and every rule **not** listed here still apply. Where they disagree with this table, this table wins. `legacy/style-toon.md` (bright-toon) is retired.
+
+| old file, rule | old value | v3 value |
+|---|---|---|
+| pacing.md §2 rule 3, look.md L9 | mean shot 1.3–2.5 s, median 1.3–2.0 s, 20–48 cuts/min | **median 0.9–1.1 s, 8–12 cuts per 10 s** (§4) |
+| pacing.md §2 rule 4 | 5–6 words per shot | about 3–4 words per shot (follows from 1 s shots at 185–240 wpm) |
+| pacing.md §2 rule 6, look.md L9 | no shot over 3.5 s, 1–2 holds of 4–6 s | **nothing over 2.5 s except one designed hold** |
+| pacing.md §3 first 10 s | ≥4 cuts, shot 1 up to 3.0 s | cut at body pace from the start (8–12 per 10 s); hook on a big set (§4) |
+| look.md L7, L8, L20 | ≥70 % real in-engine moves, push-ins ≤40 % | push in ≈40 % (many big 5–15 % punch-ins), static with moving character ≈15 %, pull out ≈10 %, shake on ≈25 %, roll on hits (§3) |
+| look.md L15, §8 | stiff idle ≤40 %, posed ≥35 %; Motor6D poses, Moon Animator, RoMixamo | **something moves in ≈63 % of screen time, ≈⅓ of shots walk or run** (§6); build it per `studio.md` §3.1 |
+| look.md §7 face kit | 19 layered PNGs per character | bold custom faces, a new face on almost every shot (§5); kit: `studio_kit/make_faces_v2.py` (24 faces) |
+| look.md L19, §9 cast | custom hero rig | real R6-look avatars in real clothes and hair (§5; `studio.md` §3) |
+| lighting-color.md §1, §3 | mood presets in `lighting-presets.lua` (normalDay, sad, …) | 6 look families, files in `assets/lighting/reference/` (§2) |
+| lighting-color.md C1, C2 | median sat 0.35–0.50, ≤10 % of shots over 0.60 | **video sat 0.42–0.66**, brightness 0.34–0.43 (§2) |
+| lighting-color.md C4 | p1 10–25, little crush | near-pure blacks (p1 ≈ 0.003–0.007 of full scale) except the bright families (§2) |
+| lighting-color.md vignette row | none | slight vignette, median ≈0.89; bloom on gold, wings, powers (§2, §8) |
+| captions.md §1 (all of it), studio.md §9.3 | one word, Montserrat 104 px, black outline, yellow accent, centre 70 % | **1–2 words, lowercase white, soft shadow, cap height ≈50 px, centre 65 %, one red ALL-CAPS key word** (§7; flags in `captions.md` §0) |
+
+Still the same in every file: cuts on sentence starts, rule object in shot 1 and ≥50 % of shots, readable signs, the twist-cut colour shift, no-clipping and physics rules, safe zones.
+
 ## Status
 Lighting files in `lighting-<family>.lua` are STARTING values from these numbers. They still need the Step 7 match test in Roblox Studio (`compare.py` against `_summary/family_<family>.png`).

@@ -1,6 +1,6 @@
 # look.md: shots, camera, faces, bodies, sets
 
-> **v2 note (2026-11-14):** the rules and numbers here still apply. Roblox Studio tools named here (Luau CFrame/Motor6D poses, Animation Editor, Moon Animator, RoMixamo, FieldOfView, BillboardGui) are replaced by the Blender kit — see `blender.md` §1 for the mapping.
+> **v3 (2026-11-19):** the target look is `look-reference.md`. Its §10 lists every number in this file it replaces; everything else here still applies. Build route: Roblox Studio, `studio.md`. Tools named in §8 (Moon Animator, RoMixamo, Motor6D PoseLibrary) belong to the retired live-playback route.
 
 
 Tags: **REF-RANGE** = measured in the 6 reference reels (bell, memories, town, dog, monster, train; 458 shots). **HYPOTHESIS** = a beat-the-refs bet, not proven; A/B it on the user's own analytics.
@@ -83,7 +83,7 @@ Sizes used in the shot list: EWS, WS, MS, MCU, CU, ECU, OTS, INS (insert).
 | every emotional push-in on a face (the background should slide behind the head) | rescuing a take that came out static: ≤ +5 % over the whole shot |
 | | stills made with `screen_capture` (they can only move in the edit) |
 
-- **Edit-zoom limit: ≤ +5 % total** on a 1080×1920 capture (HYPOTHESIS: more than that softens the image). If the viewport can be captured bigger than the output (see pipeline.md step 0), the limit rises to output-size ÷ capture-size, for example +33 % for 1440×2560.
+- **Edit-zoom limit: ≤ +5 % total** on a 1080×1920 capture (HYPOTHESIS: more than that softens the image). If the viewport can be captured bigger than the output (see studio.md §2), the limit rises to output-size ÷ capture-size, for example +33 % for 1440×2560.
 - **FOV zoom in-engine** (changing `FieldOfView` without moving the camera) is optically the same flat zoom as an edit zoom, but without softness. Use it for punches; use a physical move (dolly) for everything else.
 - Edit-zoom-only shots ≤20 %, fully static shots ≤10 % (L8). A static shot must be a choice ("everything freezes before the scare"), written in the shot list notes.
 
@@ -139,7 +139,7 @@ Minimum kit per character (HYPOTHESIS: enough for the refs' range of emotions):
 
 **Rules that live on the body** (a crack, a mark, a glowing date, tears that stay) get a 4th Decal on the Head named for the rule (`Mark`, ZIndex 4, same canvas, 1024 px if it is seen in ECU) and drawn **inside the front face area** (a Front decal can't reach the ear) with staged states: forming 25 / 50 / 75 / 100 %, then any shrink or gone states the story needs. The ShotRunner's `setFace(rig, "Mark", state)` swaps any named decal on the Head, so a forming mark is a run of `faces` events 1 frame apart; a mark on another body part is set from an `events` fn.
 
-8 × 4 × 7 = 224 combinations from 19 PNGs. Store the asset IDs in a `FaceLibrary` ModuleScript (`FaceLibrary.Hero.Mouth.O = "rbxassetid://…"`). **Run the 2-minute decal test in templates/mcp-setup.md before drawing the full kit.**
+8 × 4 × 7 = 224 combinations from 19 PNGs. Store the asset IDs in a `FaceLibrary` ModuleScript (`FaceLibrary.Hero.Mouth.O = "rbxassetid://…"`). **Run the 2-minute decal test in legacy/templates/mcp-setup.md before drawing the full kit.**
 
 ### 7.2 Timing
 - **Emotion swap on the key word ±3 frames** (L13). Two ways, both REF-RANGE: cut to a new shot whose face already shows the emotion (bell #33, memories #52), or swap in-shot on the stressed word (bell #24). Brows may lead the mouth by 2–4 frames (HYPOTHESIS: reads as a thought before the reaction).

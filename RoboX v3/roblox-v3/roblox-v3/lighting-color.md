@@ -1,6 +1,6 @@
 # lighting-color.md: renderer, moods, colour script, measurement
 
-> **v2 note (2026-11-14):** colour targets, moods, twist shift and measurement (§2–6) still apply. Roblox renderer settings (§1, `LightingStyle`, Studio quality, `lighting-presets.lua`) are replaced by `k.apply_look()` in Blender — see `blender.md` §1.
+> **v3 (2026-11-19):** the target look is `look-reference.md`. Its §10 lists every number in this file it replaces; everything else here still applies. Build route: Roblox Studio, `studio.md`. The mood presets in §3 and `lighting-presets.lua` (now in `legacy/templates/`) are replaced by the 6 look families in `assets/lighting/reference/`; the colour-script logic in §4 (one look per scene, a hard shift on the twist cut) stays.
 
 
 Tags: **REF-RANGE** = measured in the 6 reference reels. **HYPOTHESIS** = a beat-the-refs bet; A/B it on the user's own analytics.
@@ -12,7 +12,7 @@ Limits: the refs are 720p re-encodes with captions burned in, so their numbers c
 ## 1. Renderer settings (HARD)
 - `Lighting.LightingStyle = Enum.LightingStyle.Realistic` and `Lighting.PrioritizeLightingQuality = true`. **Never write `Lighting.Technology`** (deprecated; superseded by those two). `ShadowSoftness` only works with Realistic.
 - Studio → File → Studio Settings → Rendering: **Editor Quality Level 21** (max) and **Mesh Detail Level00**. Post effects may not show at lower quality.
-- After inserting a free map, run `P.cleanFreeModelFx()` (templates/lighting-presets.lua). Free maps bring their own ColorCorrection, Bloom, Blur and extra Atmospheres, which stack on top of ours.
+- After inserting a free map, run `P.cleanFreeModelFx()` (`legacy/templates/lighting-presets.lua`; copy just that function). Free maps bring their own ColorCorrection, Bloom, Blur and extra Atmospheres, which stack on top of ours.
 - Indoors, don't raise `Lighting.Brightness` to fix a dark room: Roblox's indoor guide says it makes shadows murky. Add a practical instead (§5). Walls ≥1 stud thick so light doesn't leak.
 
 ## 2. Targets for a finished episode (measured with `measure.py`, §6)
@@ -32,7 +32,7 @@ Limits: the refs are 720p re-encodes with captions burned in, so their numbers c
 | C11 | Sad → payoff: the reveal is ≥0.25 brighter than the sad scene | memories (0.27 shop → 0.81 Ollie room); bell hospital is the sad match | HYPOTHESIS from 2 refs: **flip it in ≥1 of every 4 episodes** (payoff goes dark) |
 | — | Vignette, heavy "cinematic" grade | refs have none (corner ÷ centre 0.99–1.19) | OPTIONAL style only; no evidence it helps |
 
-## 3. Mood presets (full values in `templates/lighting-presets.lua`)
+## 3. Mood presets (old route; v3 uses the look families in `look-reference.md` §2. Values kept for reference in `legacy/templates/lighting-presets.lua`)
 
 Key values below; every preset also sets Atmosphere Color/Decay, Bloom Size, CC TintColor, SunRays and DOF so switching never leaves stale values.
 
@@ -80,7 +80,7 @@ Delete per-shot lights after the take: `P.clearShotLights()`.
 ## 6. Measuring a test capture (zero tokens, locally)
 
 1. Record the shots caption-free (captions are added in the edit anyway).
-2. Grab one still per shot, at mid-shot, from the OBS take: `python measure.py --video take.mov --times 1.05,2.60,3.90 …` (the times come from the shot list). Or save stills by hand and name interior shots `int_….png`.
+2. Grab one still per shot, at mid-shot, from the rendered picture: `python measure.py --video picture.mp4 --times 1.05,2.60,3.90 …` (the times come from the shot list). Or save stills by hand and name interior shots `int_….png`.
    Avoid paying tokens for this: `screen_capture` returns images to Claude, so use it for framing checks, not for measuring.
 3. Read the PASS/FAIL lines. Fix in this order, one lever at a time, then re-measure:
    - brightness → `ExposureCompensation` (start with ±0.3 per 0.05 of bright; HYPOTHESIS, re-measure);

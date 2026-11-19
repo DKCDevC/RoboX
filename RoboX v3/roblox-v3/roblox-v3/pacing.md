@@ -1,5 +1,7 @@
 # pacing.md: cuts, hook, pauses, holds
 
+> **v3 (2026-11-19):** the target look is `look-reference.md`. Its §10 lists every number in this file it replaces; everything else here still applies. Build route: Roblox Studio, `studio.md`. The shot-length and cut-rate numbers in §2–§4 are replaced (1 s shots); the sentence-start cut rules and pause rules are not.
+
 Tags: **REF-RANGE** = measured in the 6 reference reels; **HYPOTHESIS** = beat-the-refs bet, A/B it on the user's analytics.
 Limits: no view data, so refs are not proven good. Never use `shots.json` `move` labels (wrong about 49 % of the time) or `audio.json` `music_changes` / `sfx_hits` as evidence. Camera-move rules live in the look file of this skill, not here. n = 6, and town and dog are one template.
 

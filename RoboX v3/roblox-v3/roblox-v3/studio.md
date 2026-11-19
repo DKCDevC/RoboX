@@ -1,6 +1,6 @@
 # studio.md: building in Roblox Studio (v4, 2026-11-14)
 
-the creator's call on 2026-11-14: build the episode **in Roblox Studio, driven by Claude**, with free Creator Store assets, and make it look as good as the reels he sends. This file is the Studio route. `blender.md` stays the fallback.
+the creator's call on 2026-11-14: build the episode **in Roblox Studio, driven by Claude**, with free Creator Store assets, and make it look as good as the reels he sends. This file is **the** build route. (The Blender route is retired to `legacy/blender.md`; use it only if the user asks.) Target look: `look-reference.md`.
 Working example: `your project folder/roblox/` (96 animated shots, 4,462 frames). The kit is copied in `studio_kit/`.
 
 ## 1. How Claude drives Studio (free, local on Windows)
@@ -25,6 +25,12 @@ Working example: `your project folder/roblox/` (96 animated shots, 4,462 frames)
 - **Head = standard R6 proportions, scaled the same on every axis** (`MT.HEAD = 1.25`: part (2,1,1)×H, SpecialMesh Head 1.25, centre 0.5×H above the neck). Never stretch the head unevenly (the old 2.0×1.75×1.8): hair can't fit a stretched head and sinks into it.
 - **Hair = Creator Store accessories at the same scale k = H**, placed by their own `HairAttachment` against the head point (0, 0.6×k, 0). Then hair sits exactly as it does in the game, with no sinking and no floating. To dye hair, set the mesh colour and clear TextureId.
 - **Accessory offset maths:** handle = head × HeadPoint × (HandleAttachment)⁻¹, and (T(p)·R)⁻¹ = R⁻¹·T(−p): rotate first, then translate. The reverse order looks fine for hairs whose attachment has no rotation, but shifts hairs with a 180° attachment (`hair_kardi`, `hair_fluffy`) about 0.6 studs, so the back of the scalp shows. Check every new hair from the front and the back on a test row before you use it.
+
+### 3.1 Two ways to cast and move people (pick one per episode, tell the user)
+The files disagree here; this is the settled reading.
+- **A. Anchored R6 parts (§3, the kit's default).** Best match for the R6 look in `look-reference.md` §5 and works with the no-clipping code in §4. But every limb is placed by our own code each frame, and the walk/run/idle helpers the notes rely on (`ep_anim.lua`, `ep_moves.lua`) were **not shipped** with the kit; only `MT.walk` in `lib2.lua` exists. Moving shots need that code written first.
+- **B. R15 avatars from HumanoidDescription + real Roblox animations (§9.2 steps 4–5).** Verified 2026-11-15: `CreateHumanoidModelFromDescription` in Edit mode, then `animator:StepAnimations(1/30)` per captured frame. Walks, runs, waves and cheers come for free, frame-exact, with the tiled capture. Costs: R15 proportions, not the R6 look, and `MT.resolve`/`MT.clips` were written for R6 parts (UNVERIFIED on R15).
+Rule 21 (characters move in ≈63 % of screen time) is easier to hit with B until A's walk/run code exists.
 
 ## 4. Nothing goes through anything (hard rule)
 Real objects can't share space. `lib8.lua` enforces it automatically, and every episode must pass it:
@@ -82,4 +88,4 @@ Source: youtu.be/YhjjHh6Y2xc ("How I make viral Roblox stories with Claude for f
 8. **Proof:** check screenshots of every shot, fix problems in one round, then render. Use free assets only, delete every inserted script, never publish.
 
 ### 9.3 Edit
-Warm storyteller voice. Captions **one word at a time** (white, bold, black outline; key words yellow), a few SFX, vertical export. No captions or music inside the Studio footage.
+Warm storyteller voice. Captions follow `look-reference.md` §7 (their one-word yellow style is not ours), a few SFX, vertical export. No captions or music inside the Studio footage.

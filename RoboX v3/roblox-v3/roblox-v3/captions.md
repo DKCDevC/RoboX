@@ -1,6 +1,19 @@
 # captions.md: word-by-word captions at 1080x1920
 
-> **Toon style (the default now): use style-toon.md §6 instead of this spec.** Phrases of 2–4 words, ALL CAPS, about 56 px, one coloured key word, fade-in, made with `tools/make_caps_toon.py`. The one-word spec below is the older moody-ref style.
+> **v3 (2026-11-19):** the caption look is `look-reference.md` §7, not the one-word spec in §1 below (that was the old moody refs; the bright-toon phrase style is retired to `legacy/`). Use §0. The timing, accent-category, safe-zone and generation rules in §1.1–§4 still apply.
+
+## 0. v3 spec and how to make it
+| item | value | tag |
+|---|---|---|
+| Chunking | 1–2 words at a time | REF-RANGE (look-reference §7) |
+| Case | lowercase; the one key word per sentence in ALL CAPS | REF-RANGE |
+| Fill / accent | white; key word red about `#e8452c` | REF-RANGE |
+| Font | bold rounded sans (e.g. Nunito Black or Fredoka Bold, free) | GUESS from glyphs |
+| Size | cap height about 50 px (≈2.7 % of 1920) → font size about 70 px | REF-RANGE (size from cap height is an estimate) |
+| Position | centre at about 65 % of the height = y 1248 | REF-RANGE |
+| Edge | soft dark shadow, no thick outline | REF-RANGE |
+
+Make it with the existing tool and flags: `python tools/make_caps.py words.json caps.ass --sheet script-sheet.md --y 1248 --fs 70 --outline 0 --color E8452C --font "Nunito Black"`. UNVERIFIED: `make_caps.py` keeps each word's case and still draws one word per caption with the old pop, so lowercase `words.json` and write the key words in caps before running, and check one frame against a ref.
 
 Tags: **REF-RANGE** = measured in the 6 refs (4/6 use one word per caption: bell, memories, monster, train; town and dog use 1-3 word phrases); **HYPOTHESIS** = beat-the-refs bet or an unmeasured platform convention. Machine-readable twin: `templates/caption-preset.json`.
 Limits: no view data. Font names are GUESSES from glyph shapes. The caption-onset lead (-54 to -81 ms) was not independently reproduced (the check was inconclusive), so the timing rule below is a window to aim for, verified by hand on 1-2 words per video.
@@ -44,7 +57,7 @@ Reels, Shorts and TikTok overlay a caption/handle block and an action-button col
 | accent words after the hook | names, rule words, 1-2 peaks only; ≤13 %; at most one per sentence; none on function words |
 | caption contrast | renders must be caption-free for the colour tests used elsewhere (white captions clip at 255) |
 
-## 3. Generating captions automatically (zero tokens, on the user's Mac)
+## 3. Generating captions automatically (zero tokens, locally)
 
 Pipeline: narration audio (final voice track) -> word-timestamp transcript JSON -> caption events (ASS file) -> ffmpeg/libass burn-in, or import the ASS into the NLE.
 
