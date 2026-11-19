@@ -31,7 +31,7 @@ From `script.md` + `words.json` with `templates/shot-list.md`, `templates/cue-sh
 Everything in `studio.md`, in its §7 order: libs → `MT.quality()` → clip scan → check sheet of every shot (`.\studio_kit\checks.ps1`) → `fov.json` → `python studio_kit\render2.py <ids> force` → `python studio_kit\stitch.py <ids>` → `python studio_kit\join.py`. Lighting: `assets/lighting/reference/lighting-<family>.lua`.
 - **Tell the user the render time before starting** (about 1.2 s per capture, 2 captures per frame at 1080×1920: roughly 3 h for a 96-shot episode; 4K is 4 captures per frame).
 - The kit scripts read the episode's `shots/shots.json` one folder above `studio_kit/` and `join.py` writes to a hard-coded `videos/<name>/assets/` path: set both for the episode before the first render (UNVERIFIED on a fresh install).
-- Movement: rule 21 in SKILL.md. The walk/run helpers the kit expects (`ep_anim.lua`, `ep_moves.lua`) are **not shipped**; see `studio.md` §3.1 for the two cast routes.
+- Cast and movement: real R6 avatars + Roblox's R6 clips (`studio.md` §3.1, `studio_kit/lib10.lua`). Run `python studio_kit\rb.py lua studio_kit\r6_test.lua` once on a new PC and after Studio updates.
 
 ## Step 5. Edit
 1. Checks on the caption-free picture: `python tools/move_check.py edit/picture.mp4 cuts.txt` (cuts.txt = the shot list's start times), `python tools/measure.py --video edit/picture.mp4 --times …` (colour), `python tools/pacing_check.py` (pacing.md §7).
@@ -87,4 +87,4 @@ Score the cut with `checklist.md` (every area ≥8, U1–U14 ≥10 met) and writ
 Anything over a cap needs a reason and the user's OK.
 
 ## First test: 15 s end to end (do this before a full episode)
-Cost $0 (the user records the lines on a phone or uses an existing take). Pass if: MCP connected and `list_roblox_studios` returns an id; one set + 2 characters + 15 shots built; clip scan empty; check sheet approved; tiled render sharp next to a ref frame; `move_check.py` ≥55 % moving; captions + mix + export pass the numbers above. Write the real minutes per stage and seconds per capture into this file, replacing ESTIMATE / UNVERIFIED.
+Cost $0 (the user records the lines on a phone or uses an existing take). Pass if: MCP connected and `list_roblox_studios` returns an id; `r6_test.lua` passes; one set + 2 characters + 15 shots built; clip scan empty; check sheet approved; tiled render sharp next to a ref frame; `move_check.py` ≥55 % moving; captions + mix + export pass the numbers above. Write the real minutes per stage and seconds per capture into this file, replacing ESTIMATE / UNVERIFIED.

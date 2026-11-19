@@ -7,7 +7,7 @@ Working example: `your project folder/roblox/` (96 animated shots, 4,462 frames)
 - Studio has a built-in MCP server: `%LOCALAPPDATA%\Roblox\Versions\version-<hash>\StudioMCP.exe` (also exposed via `%LOCALAPPDATA%\Roblox\mcp.bat`). Tools used: `execute_luau` (Edit), `screen_capture`, `upload_image`, `search_asset`, `insert_asset`, `list_roblox_studios`.
 - `studio_kit\bridge.mjs` runs on Windows, launched by double-clicking `studio_kit\start_bridge.bat` (or `node studio_kit\bridge.mjs` in PowerShell). It auto-discovers `StudioMCP.exe`, reads `queue\*.json` jobs, and writes `done\*.json`. Its `render` job loops frames: execute a template with `{{F}}`, then `screen_capture` to `<out>\<frame>.png` (the data is JPEG).
 - `python rb.py lua file.lua` runs Luau. `python rb.py cap out.png` captures.
-- **Studio can close by itself**, for example when an update installs. On "No Roblox Studio instances are connected": reopen Studio (Baseplate template), write the new id to `studio_id.txt`, re-insert the library with `ins.py`, run `MT.cleanLib`, and reload the libs in order: faces, lib, lib2, lib3, hair, lib4, lib5, lib6, cloth, lib7, lib8, times, shots. Keep the asset list (name:id) in the project notes.
+- **Studio can close by itself**, for example when an update installs. On "No Roblox Studio instances are connected": reopen Studio (Baseplate template), write the new id to `studio_id.txt`, re-insert the library with `ins.py`, run `MT.cleanLib`, and reload the libs in order: faces, lib, lib2, lib3, hair, lib4, lib5, lib6, cloth, lib7, lib8, lib9, lib10, then the episode's shots. Keep the asset list (name:id) in the project notes.
 - After `screen_capture`, the camera is `Fixed`. **Set `CameraType = Scriptable` before every camera move**, or the move is ignored.
 
 ## 2. Picture quality (the #1 reason the first cut looked bad)
@@ -26,11 +26,13 @@ Working example: `your project folder/roblox/` (96 animated shots, 4,462 frames)
 - **Hair = Creator Store accessories at the same scale k = H**, placed by their own `HairAttachment` against the head point (0, 0.6×k, 0). Then hair sits exactly as it does in the game, with no sinking and no floating. To dye hair, set the mesh colour and clear TextureId.
 - **Accessory offset maths:** handle = head × HeadPoint × (HandleAttachment)⁻¹, and (T(p)·R)⁻¹ = R⁻¹·T(−p): rotate first, then translate. The reverse order looks fine for hairs whose attachment has no rotation, but shifts hairs with a 180° attachment (`hair_kardi`, `hair_fluffy`) about 0.6 studs, so the back of the scalp shows. Check every new hair from the front and the back on a test row before you use it.
 
-### 3.1 Two ways to cast and move people (pick one per episode, tell the user)
-The files disagree here; this is the settled reading.
-- **A. Anchored R6 parts (§3, the kit's default).** Best match for the R6 look in `look-reference.md` §5 and works with the no-clipping code in §4. But every limb is placed by our own code each frame, and the walk/run/idle helpers the notes rely on (`ep_anim.lua`, `ep_moves.lua`) were **not shipped** with the kit; only `MT.walk` in `lib2.lua` exists. Moving shots need that code written first.
-- **B. R15 avatars from HumanoidDescription + real Roblox animations (§9.2 steps 4–5).** Verified 2026-11-15: `CreateHumanoidModelFromDescription` in Edit mode, then `animator:StepAnimations(1/30)` per captured frame. Walks, runs, waves and cheers come for free, frame-exact, with the tiled capture. Costs: R15 proportions, not the R6 look, and `MT.resolve`/`MT.clips` were written for R6 parts (UNVERIFIED on R15).
-Rule 21 (characters move in ≈63 % of screen time) is easier to hit with B until A's walk/run code exists.
+### 3.1 Cast route: C, real R6 avatars + Roblox's R6 animations (chosen 2026-11-19)
+`studio_kit/lib10.lua`. `MT.actor(name, spec, at, facing)` asks Roblox for a real R6 avatar (`CreateHumanoidModelFromDescription(desc, R6)`), dresses it with our `make_clothes.py` templates, our faces and Creator Store hair (welded by `Humanoid:AddAccessory`, so it fits the standard head), and anchors only the root. Movement comes from Roblox's own R6 clips (idle, walk, run, jump, wave, point, cheer, laugh, sit, dance), posed frame-exact in Edit mode with `Animator:StepAnimations`, so it works with the tiled capture.
+- In a shot's `act(f, n, t)`: `MT.walkTo(name, f, f0, f1, from, to, run)` (feet keep pace: clip speed = studs per second / 14.5), `MT.anim(name, "wave", f0)`, `MT.actorFace(name, "oh")`. With no call, an actor plays idle at its build spot. `def.speak = name` flaps the mouth.
+- Close-ups: `MT.cuActor(name, o)` (standard R6 head, not the 1.25× MT head). Clipping: `MT.actorClips()` next to `MT.clips()` on the first, middle and last frame.
+- **Test first (≈1 min):** `python rb.py lua r6_test.lua`. It reports whether the R6 build works in Edit mode, which clips load, and whether `seek` or `step` moves the legs; put the working mode in `MT.ANIM_MODE`. Then `MT.checkAnims()` once per Studio session.
+- UNVERIFIED until that test passes: the R6 build in Edit mode (verified only for R15 on 2026-11-15), `seek` mode, hair from MTLib welding by attachment. If R6 fails, fall back to the same calls with `Enum.HumanoidRigType.R15` and the R15 default clips (§9.2 step 5, verified).
+- Retired options: **A** (anchored parts posed by our own code, `MT.make` / `MT.walk`, §3) stays for props-like characters and crowds that don't walk; its walk/idle helpers `ep_anim.lua` / `ep_moves.lua` were never shipped. **B** (R15) is the fallback above.
 
 ## 4. Nothing goes through anything (hard rule)
 Real objects can't share space. `lib8.lua` enforces it automatically, and every episode must pass it:
@@ -55,7 +57,7 @@ Real objects can't share space. `lib8.lua` enforces it automatically, and every 
 - Check every camera for walls, tree clusters and foreground hair on a check sheet (`.\checks.ps1 id:frame …` in PowerShell) before any full render.
 
 ## 7. Order of work
-build libs → `MT.quality()` → clip scan (§4.3) → check sheet of every shot (`.\checks.ps1 ...`) → `fov.json` (`MT.shotFovs()`) → `python render2.py <all ids> force` → `python stitch.py <ids>` → `python join.py` (crop off, frames are already 1080x1920) → Studio Preview with voice, music and captions. A full 96-shot episode is about 9,000 captures, roughly 3 hours. Tell the user the time before you start.
+build libs (through lib10) → `r6_test.lua` once → `MT.quality()` → clip scan (§4.3, `MT.clips()` + `MT.actorClips()`) → check sheet of every shot (`.\checks.ps1 ...`) → `fov.json` (`MT.shotFovs()`) → `python render2.py <all ids> force` → `python stitch.py <ids>` → `python join.py` (crop off, frames are already 1080x1920) → Studio Preview with voice, music and captions. A full 96-shot episode is about 9,000 captures, roughly 3 hours. Tell the user the time before you start.
 
 ## 8. The ref look, v2 
 What the top refs do, measured on 3 frames (Simon Says, In this town I'd cry everyday):

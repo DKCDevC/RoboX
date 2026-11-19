@@ -21,7 +21,7 @@ The refs are the floor. Every episode must also pass `upgrades.md` (≥10 of 14)
 | `look-reference.md` | **the target look**: 6 look families with measured numbers, camera grammar, edit rhythm, faces, movement, captions, effects, never-do list, **§10 overrides** |
 | `assets/lighting/reference/` | one Studio command-bar lighting file per look family |
 | `script.md` | world-rule formula and scoring, beat map by % for any 60–180 s runtime, twist families, sentence rules, **the pause rule** (§6), banned phrases, self-check |
-| `studio.md` | **the build**: Studio MCP + bridge, tiled 1080x1920 / 4K capture, R6 characters with clothes, hair fit, the two cast routes (§3.1), no-clipping, physics, order of work (§7) |
+| `studio.md` | **the build**: Studio MCP + bridge, tiled 1080x1920 / 4K capture, R6 characters with clothes, hair fit, the cast route (§3.1: real R6 + R6 animations), no-clipping, physics, order of work (§7) |
 | `pipeline.md` | the whole episode in order on Windows: folder, script, voice, shot list, build, edit, captions, mix, export, disclosure, QA, build budget, first test |
 | `look.md` | shot sizes, angles, the first shot, showing the rule on screen, sets, signs, ending shot, continuity (numbers per look-reference §10) |
 | `lighting-color.md` | colour script of an episode, twist colour shift, practicals, measuring a capture (numbers per look-reference §10) |
@@ -34,7 +34,7 @@ The refs are the floor. Every episode must also pass `upgrades.md` (≥10 of 14)
 | `templates/` | script sheet, shot list, cue sheet, **rotation log**, hero cast file, caption preset |
 | `examples/` | 2 gold scripts: a quality comparison **after** your first draft. Never open them before (they anchor: round 2 rebuilt gold-1 beat for beat) |
 | `tools/` | zero-token Python: `script_check.py`, `plan_timing.py` (sheet → planned words.json + cuts.txt), `shotlist_check.py`, `pacing_check.py`, `make_caps.py`, `move_check.py`, `measure.py` (colour); `sheetlib.py` is their shared parser; `patterns.txt`, `skeletons.txt` are their data |
-| `studio_kit/` | `bridge.mjs` + `start_bridge.bat`, `rb.py` (run Luau / capture), `lib*.lua` (the MT kit), `make_faces_v2.py`, `make_clothes.py`, render/stitch/join scripts, `checks.ps1` |
+| `studio_kit/` | `bridge.mjs` + `start_bridge.bat`, `rb.py` (run Luau / capture), `lib*.lua` (the MT kit; `lib10.lua` = R6 actors + animations, test with `r6_test.lua`), `make_faces_v2.py`, `make_clothes.py`, render/stitch/join scripts, `checks.ps1` |
 | `agents/` | the 8 research-team agents, to rerun when new reference videos are added |
 | `legacy/` | retired: `blender.md` + Blender kit, `style-toon.md`, `pipeline-obs-mac.md` (shot runner + OBS), `mcp-setup.md` tests, `lighting-presets.lua`, `make_caps_toon.py`, `assemble.py` |
 
@@ -49,7 +49,7 @@ The refs are the floor. Every episode must also pass `upgrades.md` (≥10 of 14)
 4. **Voice.** ElevenLabs voice (or a free text-to-speech voice). **Ask before spending credits** (character count from `script_check.py`). Get word timestamps (WhisperX / faster-whisper), then set the designed pauses (script.md §6).
 5. **Shot list + cue sheet + caption plan** from the timestamps (`templates/`). For a plan, use `plan_timing.py`'s planned words.json, then rebuild from the real one.
 6. **QA the plan** with checklist.md: the plan score (a) must be ≥8 in every area, no HARD fail.
-7. **Build** in Roblox Studio (`studio.md` §7 order): world, light file, cast (§3.1 route), moves, clip scan, check sheet of every shot.
+7. **Build** in Roblox Studio (`studio.md` §7 order): world, light file, cast with real R6 avatars + Roblox R6 animations (`studio.md` §3.1, `lib10.lua`; run `r6_test.lua` first), moves, clip scan, check sheet of every shot.
 8. **Render** with `studio_kit\start_bridge.bat` + `render2.py` → `stitch.py` → `join.py`. Tell the user the render time first. Run a 15 s end-to-end test before the first full episode (`pipeline.md`).
 9. **Edit** (`pipeline.md` steps 5–8): checks, captions from timestamps, music events, SFX, mix to −14 LUFS, export.
 10. **QA the cut** with checklist.md: the strict score (b) must be ≥8 in every area. Then export. IG "AI info" label on when the narration is a TTS/clone. Update the episode's row in ROTATION-LOG.md.
@@ -85,10 +85,10 @@ The refs are the floor. Every episode must also pass `upgrades.md` (≥10 of 14)
 - Hand the user a script that fails the script.md self-check (voice, logic and twist tests included), or count an unchecked item as a pass.
 
 ## Known mistakes (add here when a review note repeats)
-- Never hand the user one still frame per shot with a camera zoom as "the video". Every shot must be animated in Roblox Studio (breathing, blinks, talking mouths, reactions, walks, camera move). Working pattern: `studio_kit/start_bridge.bat` / `render2.py` with per-frame moves (studio.md §3.1). If time is short, say so before building, not after.
+- Never hand the user one still frame per shot with a camera zoom as "the video". Every shot must be animated in Roblox Studio (breathing, blinks, talking mouths, reactions, walks, camera move). Working pattern: `MT.actor` + `MT.walkTo` / `MT.anim` in each shot (`lib10.lua`), rendered with `studio_kit/start_bridge.bat` / `render2.py`. If time is short, say so before building, not after.
 - Never render a centre 9:16 crop of a landscape Studio capture (about 590 px wide, then stretched). It looked blurry next to the refs. Use the tiled capture in `studio.md` §2.
 - Never stretch the head unevenly (old 2.0×1.75×1.8 head). The hair sank into it. The head scales the same on every axis, and the hair uses the same k.
 - Never pack people closer than R6 shoulders allow (2.6-stud crowd grid = bodies inside bodies). Use ≥4.4 studs, and let `MT.resolve` push the crowd out of the cast.
 - Never build a character from plain boxes (box sleeves, box shoes, no clothes). the user: "my roblox guys are looking really bad".
-- Never ship camera moves + face swaps on standing bodies (ep02 "no animation?", 2026-11-16). Our rigs are anchored parts (no Motor6Ds), so use a walk/run cycle (the original `ep_anim.lua` was not shipped; write it, or take studio.md §3.1 route B): phase from distance travelled (feet planted, no sliding), legs ±40° walk / ±60° run, opposite arms ±44°/±72°, hip drop so the tilted leg stands on its edge. The missing `ep_moves.lua` covered idle life on every rig, talking hands, gestures, reactions, flailing, capes, walkers and moving bits for empty inserts. Check with `tools/move_check.py`: ≥55 % of frames moving, no still shot.
+- Never ship camera moves + face swaps on standing bodies (ep02 "no animation?", 2026-11-16). The old anchored-part rigs had no Motor6Ds, so nothing walked. Now cast real R6 avatars and move them with Roblox's R6 clips (`lib10.lua`, studio.md §3.1): `MT.walkTo` keeps feet in pace with ground speed, idle plays on everyone not acting, wave/point/cheer/laugh for gestures. Check with `tools/move_check.py`: ≥55 % of frames moving, no still shot.
 - Studio can close mid-render (update or crash). Check `bridge.log` for "No studio available" and follow the recovery steps in `studio.md` §1.

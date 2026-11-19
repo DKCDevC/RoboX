@@ -70,7 +70,7 @@ Whole videos: brightness 0.34–0.43, saturation 0.42–0.66 (much more saturate
 | pacing.md §2 rule 6, look.md L9 | no shot over 3.5 s, 1–2 holds of 4–6 s | **nothing over 2.5 s except one designed hold** |
 | pacing.md §3 first 10 s | ≥4 cuts, shot 1 up to 3.0 s | cut at body pace from the start (8–12 per 10 s); hook on a big set (§4) |
 | look.md L7, L8, L20 | ≥70 % real in-engine moves, push-ins ≤40 % | push in ≈40 % (many big 5–15 % punch-ins), static with moving character ≈15 %, pull out ≈10 %, shake on ≈25 %, roll on hits (§3) |
-| look.md L15, §8 | stiff idle ≤40 %, posed ≥35 %; Motor6D poses, Moon Animator, RoMixamo | **something moves in ≈63 % of screen time, ≈⅓ of shots walk or run** (§6); build it per `studio.md` §3.1 |
+| look.md L15, §8 | stiff idle ≤40 %, posed ≥35 %; Motor6D poses, Moon Animator, RoMixamo | **something moves in ≈63 % of screen time, ≈⅓ of shots walk or run** (§6); real R6 avatars + Roblox R6 walk/run/idle clips, `studio.md` §3.1 |
 | look.md §7 face kit | 19 layered PNGs per character | bold custom faces, a new face on almost every shot (§5); kit: `studio_kit/make_faces_v2.py` (24 faces) |
 | look.md L19, §9 cast | custom hero rig | real R6-look avatars in real clothes and hair (§5; `studio.md` §3) |
 | lighting-color.md §1, §3 | mood presets in `lighting-presets.lua` (normalDay, sad, …) | 6 look families, files in `assets/lighting/reference/` (§2) |
