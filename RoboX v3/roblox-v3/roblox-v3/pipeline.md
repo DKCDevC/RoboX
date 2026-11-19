@@ -23,13 +23,15 @@ Follow `script.md` and the `roblox-town-script` skill: rule in sentence 1, first
 - ElevenLabs (settings in `audio.md` §1) or a free TTS voice. **Ask before generating** ("about N characters, 2 takes, OK?").
 - Save `audio/vo.wav`. Set the designed pauses (script.md §6: the pause is the whole silence between the two words).
 - Word timestamps, free: WhisperX / stable-ts forced alignment or faster-whisper (`captions.md` §3) → `words.json`. No paid transcription without asking.
+- No credits at all: `tools/tts_sapi.ps1` (Windows voice, timestamps included; `audio.md` §1.1b).
 
 ## Step 3. Shot list + cue sheet + caption plan
 From `script.md` + `words.json` with `templates/shot-list.md`, `templates/cue-sheet.md` (before the voice exists, use `plan_timing.py`'s `words_planned.json`). One row per shot, cut 1 frame before each sentence start (`pacing.md`), shot length, moves and look family per `look-reference.md`, a look-family shift on the twist cut (`lighting-color.md` §4). Run `python tools/shotlist_check.py shotlist.md`; fix every FAIL or write why. QA the plan with `checklist.md` (plan score ≥8 per area). The user reads the table before anything is built.
 
 ## Step 4. Build, animate, render in Studio
 Everything in `studio.md`, in its §7 order, from a copy of `studio_kit/episode_template/` as the episode folder E: `python load.py --ep E` → `MT.quality()` → clip scan → check sheet of every shot (`.\checks.ps1`) → `python fov.py --ep E` → `python render.py --ep E` → `python stitch.py --ep E --jobs 2` → `python join.py --ep E` (all in `studio_kit/`). Lighting: `assets/lighting/reference/lighting-<family>.lua`.
-- **Tell the user the render time before starting** (measured 2026-11-19: about 0.8 s per capture, 2 captures per frame at 1080×1920, so about 2 h for a 96-shot, 2.5 min episode; 4K is 3–4 captures per frame).
+- **Tell the user the render time before starting.** Measured on E01 (2026-11-19, 39 shots, 63.6 s, 1,908 frames, 3,816 captures): 0.8-0.95 s per capture, about 60 min of capture plus a few minutes of stitching (run `stitch.py` while it renders); a 2.5 min episode ≈ 2.5 h. 4K is 3–4 captures per frame. Disk: about 0.9 GB of captures + 0.6 GB of stitched frames per minute of video; the final MP4 is about 100 MB.
+- Before the full render, make a check sheet: `render.py --tiles 1 --n 1 --force` (one landscape capture per shot, about 1 min for 40 shots), centre-crop each to 9:16 and tile them. On E01 two rounds of this caught 15 framing problems (backs to camera, people hidden behind props, shots too wide, a building swallowing a sign).
 - Episode layout (shots.json, lua/, audio/, frames/, out/): `studio_kit/episode.py`. Verified end to end on the 2-shot template on 2026-11-19 (load → fov → render → stitch → join → 1080×1920 30 fps MP4).
 - Cast and movement: real R6 avatars + Roblox's R6 clips (`studio.md` §3.1, `studio_kit/lib10.lua`). Run `python studio_kit\rb.py lua studio_kit\r6_test.lua` once on a new PC and after Studio updates.
 

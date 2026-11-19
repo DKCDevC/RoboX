@@ -10,10 +10,10 @@
 | Fill / accent | white; key word red about `#e8452c` | REF-RANGE |
 | Font | bold rounded sans (e.g. Nunito Black or Fredoka Bold, free) | GUESS from glyphs |
 | Size | cap height about 50 px (≈2.7 % of 1920) → font size about 70 px | REF-RANGE (size from cap height is an estimate) |
-| Position | centre at about 65 % of the height = y 1248 | REF-RANGE |
-| Edge | soft dark shadow, no thick outline | REF-RANGE |
+| Position | centre at about 65 % of the height = y 1248 on the refs; **use y 1400 (73 %)**: at 65 % the words sat on the eyes and mouth in every close-up (E01, 2026-11-19) | REF-RANGE / E01 fix |
+| Edge | soft dark shadow **plus a thin 3 px dark outline**: shadow alone vanished on white signs and bright flash frames (E01) | REF-RANGE / E01 fix |
 
-Make it with the existing tool and flags: `python tools/make_caps.py words.json caps.ass --sheet script-sheet.md --y 1248 --fs 70 --outline 0 --color E8452C --font "Nunito Black"`. UNVERIFIED: `make_caps.py` keeps each word's case and still draws one word per caption with the old pop, so lowercase `words.json` and write the key words in caps before running, and check one frame against a ref.
+Made this way on E01 (2026-11-19, verified on the export): (1) lowercase every word in `words.json` and write each row's key word in CAPS (the sheet's caption-highlight column, one per sentence); (2) merge neighbouring words into one caption entry ("word a word b", start of the first, end of the second) when both are short (≤12 letters together), inside one sentence, and neither is the key word, so the key word stands alone; hold each caption until the next starts; (3) `python tools/make_caps.py words_caps.json caps.ass --accent-at "<start times of the key words>" --y 1400 --fs 78 --outline 3 --color E8452C --font "Arial Rounded MT Bold"`; (4) put the font file in `<episode>/fonts/` (Windows has it: `C:\Windows\Fonts\ARLRDBD.TTF`) and `join.py --caps caps.ass` burns it in. `make_caps.py` prints the accent share per caption entry, so after pairing it reads above 13 % even when the word share is fine (E01: 12 % of words).
 
 Tags: **REF-RANGE** = measured in the 6 refs (4/6 use one word per caption: bell, memories, monster, train; town and dog use 1-3 word phrases); **HYPOTHESIS** = beat-the-refs bet or an unmeasured platform convention. Machine-readable twin: `templates/caption-preset.json`.
 Limits: no view data. Font names are GUESSES from glyph shapes. The caption-onset lead (-54 to -81 ms) was not independently reproduced (the check was inconclusive), so the timing rule below is a window to aim for, verified by hand on 1-2 words per video.

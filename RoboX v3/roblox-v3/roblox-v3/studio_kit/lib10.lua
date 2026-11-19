@@ -195,7 +195,10 @@ function MT.frame(id, f)
 	for name, a in pairs(MT.actors) do      -- reset before def.act runs inside frameBase
 		a.pos, a.facing, a.lift, a.want = a.base.pos, a.base.facing, 0, nil
 		local face = a.base.face
-		if def.speak == name then face = (math.floor(f / 4) % 2 == 0) and "talk" or a.base.face
+		if def.speak == name then
+			-- mouth only: <face>_t has the same eyes and brows (make_talk_faces.py); a whole-face swap to "talk" flickered
+			local alt = MT.FACES[a.base.face .. "_t"] and (a.base.face .. "_t") or "talk"
+			face = (math.floor(f / 5) % 2 == 0) and alt or a.base.face
 		elseif BLINKY[face] and (def.n or 30) >= 20 and f % 97 >= 90 and f % 97 < 93 then face = "blink" end
 		a.wantFace = face
 	end

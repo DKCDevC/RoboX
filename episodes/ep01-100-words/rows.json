@@ -1,0 +1,402 @@
+[
+ {
+  "n": 1,
+  "start": 0.06,
+  "end": 1.86,
+  "text": "In this town, you only get a hundred words a day.",
+  "sents": [
+   [
+    0.06,
+    "In this town, you only get a hundred words a day."
+   ]
+  ]
+ },
+ {
+  "n": 2,
+  "start": 2.27,
+  "end": 3.47,
+  "text": "My number floats right over my head.",
+  "sents": [
+   [
+    2.27,
+    "My number floats right over my head."
+   ]
+  ]
+ },
+ {
+  "n": 3,
+  "start": 3.87,
+  "end": 5.33,
+  "text": "At zero, your voice just stops.",
+  "sents": [
+   [
+    3.87,
+    "At zero, your voice just stops."
+   ]
+  ]
+ },
+ {
+  "n": 4,
+  "start": 5.83,
+  "end": 8.39,
+  "text": "So every morning, Mom says, \"Save your words, Jay.\"",
+  "sents": [
+   [
+    5.83,
+    "So every morning, Mom says, \"Save your words, Jay.\""
+   ]
+  ]
+ },
+ {
+  "n": 5,
+  "start": 8.83,
+  "end": 10.23,
+  "text": "At school, we talk with our hands.",
+  "sents": [
+   [
+    8.83,
+    "At school, we talk with our hands."
+   ]
+  ]
+ },
+ {
+  "n": 6,
+  "start": 10.71,
+  "end": 13.12,
+  "text": "The bakery sells \"yes\" and \"no\" cards. Two bucks each.",
+  "sents": [
+   [
+    10.71,
+    "The bakery sells \"yes\""
+   ],
+   [
+    11.4,
+    "and \"no\""
+   ],
+   [
+    11.65,
+    "cards."
+   ],
+   [
+    12.49,
+    "Two bucks each."
+   ]
+  ]
+ },
+ {
+  "n": 7,
+  "start": 13.53,
+  "end": 14.95,
+  "text": "Except Tyler, who never shuts up.",
+  "sents": [
+   [
+    13.53,
+    "Except Tyler, who never shuts up."
+   ]
+  ]
+ },
+ {
+  "n": 8,
+  "start": 15.42,
+  "end": 16.66,
+  "text": "His number never goes under ninety.",
+  "sents": [
+   [
+    15.42,
+    "His number never goes under ninety."
+   ]
+  ]
+ },
+ {
+  "n": 9,
+  "start": 17.03,
+  "end": 18.79,
+  "text": "The principal says he's just lucky, I guess.",
+  "sents": [
+   [
+    17.03,
+    "The principal says he's just lucky, I guess."
+   ]
+  ]
+ },
+ {
+  "n": 10,
+  "start": 19.2,
+  "end": 20.59,
+  "text": "Grandpa's number has said zero all week.",
+  "sents": [
+   [
+    19.2,
+    "Grandpa's number has said zero all week."
+   ]
+  ]
+ },
+ {
+  "n": 11,
+  "start": 21.01,
+  "end": 22.64,
+  "text": "The mayor says old people stop getting new words.",
+  "sents": [
+   [
+    21.01,
+    "The mayor says old people stop getting new words."
+   ]
+  ]
+ },
+ {
+  "n": 12,
+  "start": 23.07,
+  "end": 25.49,
+  "text": "People kinda stopped visiting. He can't answer anyway.",
+  "sents": [
+   [
+    23.07,
+    "People kinda stopped visiting."
+   ],
+   [
+    24.56,
+    "He can't answer anyway."
+   ]
+  ]
+ },
+ {
+  "n": 13,
+  "start": 25.85,
+  "end": 27.43,
+  "text": "Last summer, he told me one thing.",
+  "sents": [
+   [
+    25.85,
+    "Last summer, he told me one thing."
+   ]
+  ]
+ },
+ {
+  "n": 14,
+  "start": 27.79,
+  "end": 29.76,
+  "text": "\"Words don't run out, Jay. They move.\"",
+  "sents": [
+   [
+    27.79,
+    "\"Words don't run out, Jay."
+   ],
+   [
+    29.36,
+    "They move.\""
+   ]
+  ]
+ },
+ {
+  "n": 15,
+  "start": 30.19,
+  "end": 31.29,
+  "text": "Then a letter came from town hall.",
+  "sents": [
+   [
+    30.19,
+    "Then a letter came from town hall."
+   ]
+  ]
+ },
+ {
+  "n": 16,
+  "start": 31.71,
+  "end": 33.77,
+  "text": "Seven days at zero, and your voice never comes back.",
+  "sents": [
+   [
+    31.71,
+    "Seven days at zero, and your voice never comes back."
+   ]
+  ]
+ },
+ {
+  "n": 17,
+  "start": 34.2,
+  "end": 35.05,
+  "text": "Grandpa was on day six.",
+  "sents": [
+   [
+    34.2,
+    "Grandpa was on day six."
+   ]
+  ]
+ },
+ {
+  "n": 18,
+  "start": 35.61,
+  "end": 38.01,
+  "text": "Then my teacher yelled at me. Like, twelve words.",
+  "sents": [
+   [
+    35.61,
+    "Then my teacher yelled at me."
+   ],
+   [
+    36.98,
+    "Like, twelve words."
+   ]
+  ]
+ },
+ {
+  "n": 19,
+  "start": 38.45,
+  "end": 40.16,
+  "text": "And my number went up. Twelve more.",
+  "sents": [
+   [
+    38.45,
+    "And my number went up."
+   ],
+   [
+    39.65,
+    "Twelve more."
+   ]
+  ]
+ },
+ {
+  "n": 20,
+  "start": 40.58,
+  "end": 42.11,
+  "text": "The number only counts words people say to you.",
+  "sents": [
+   [
+    40.58,
+    "The number only counts words people say to you."
+   ]
+  ]
+ },
+ {
+  "n": 21,
+  "start": 43.02,
+  "end": 45.18,
+  "text": "Tyler wasn't lucky. Everybody talks to Tyler.",
+  "sents": [
+   [
+    43.02,
+    "Tyler wasn't lucky."
+   ],
+   [
+    44.22,
+    "Everybody talks to Tyler."
+   ]
+  ]
+ },
+ {
+  "n": 22,
+  "start": 45.62,
+  "end": 47.19,
+  "text": "So yeah, nobody talks to Grandpa.",
+  "sents": [
+   [
+    45.62,
+    "So yeah, nobody talks to Grandpa."
+   ]
+  ]
+ },
+ {
+  "n": 23,
+  "start": 47.52,
+  "end": 48.55,
+  "text": "I rang the school bell and ran.",
+  "sents": [
+   [
+    47.52,
+    "I rang the school bell and ran."
+   ]
+  ]
+ },
+ {
+  "n": 24,
+  "start": 49.06,
+  "end": 50.39,
+  "text": "My whole class followed me to his porch.",
+  "sents": [
+   [
+    49.06,
+    "My whole class followed me to his porch."
+   ]
+  ]
+ },
+ {
+  "n": 25,
+  "start": 50.84,
+  "end": 52.29,
+  "text": "Forty kids, all talking at once.",
+  "sents": [
+   [
+    50.84,
+    "Forty kids, all talking at once."
+   ]
+  ]
+ },
+ {
+  "n": 26,
+  "start": 52.75,
+  "end": 54.68,
+  "text": "His number went ten, fifty, a hundred.",
+  "sents": [
+   [
+    52.75,
+    "His number went ten, fifty, a hundred."
+   ]
+  ]
+ },
+ {
+  "n": 27,
+  "start": 55.0,
+  "end": 56.52,
+  "text": "Grandpa looked at me and said, \"They move.\"",
+  "sents": [
+   [
+    55.0,
+    "Grandpa looked at me and said, \"They move.\""
+   ]
+  ]
+ },
+ {
+  "n": 28,
+  "start": 56.95,
+  "end": 59.56,
+  "text": "Mom laughed on the steps. \"Save your words,\" she said.",
+  "sents": [
+   [
+    56.95,
+    "Mom laughed on the steps."
+   ],
+   [
+    58.28,
+    "\"Save your words,\""
+   ],
+   [
+    59.1,
+    "she said."
+   ]
+  ]
+ },
+ {
+  "n": 29,
+  "start": 59.99,
+  "end": 60.89,
+  "text": "Then I looked at her number.",
+  "sents": [
+   [
+    59.99,
+    "Then I looked at her number."
+   ]
+  ]
+ },
+ {
+  "n": 30,
+  "start": 61.76,
+  "end": 62.25,
+  "text": "It said two.",
+  "sents": [
+   [
+    61.76,
+    "It said two."
+   ]
+  ]
+ }
+]

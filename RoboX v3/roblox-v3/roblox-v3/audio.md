@@ -25,6 +25,9 @@ All HYPOTHESIS (derived from ElevenLabs docs, not from the refs; nobody has gene
 
 Source: https://elevenlabs.io/docs/eleven-creative/playground/text-to-speech , https://elevenlabs.io/docs/overview/capabilities/text-to-speech/eleven-v4
 
+### 1.1b Free voice (no credits): Windows SAPI
+`tools/tts_sapi.ps1` reads an SSML file (one sentence per sheet row, `<break>` for pause rows) with the built-in voice, pitches it up for a kid narrator and writes `audio/vo.wav` plus `words.json` with word timestamps from SAPI itself (no Whisper needed). E01 (2026-11-19): Microsoft Zira, SSML rate +18 %, `-Pitch 1.26 -Tempo 1.05` → 62.6 s, 215 wpm, designed pauses 0.9 s. It sounds clearly synthetic next to a clone; use it for tests and when the user says no credits. Two traps it handles: SAPI reports word positions at 16 kHz whatever the file rate (÷3 at 48 kHz), and `asetrate` speeds the read up by the pitch factor. Only adult voices ship with Windows (David, Zira). IG "AI info" label on.
+
 ### 1.2 Delivery speed
 - **Target 200-240 wpm for 100-180 s stories** (REF-RANGE: memories 222, town 245, dog 247 sound workable; monster 270 has 0 pauses >=0.2 s and a 3.3-4.4 dB voice-over-bed margin, so it is too dense). Never above 250 wpm, never a median line rate above 5.5 syl/s.
 - ≤80 s stories or action stories may sit at 160-200 wpm (bell 161, train 176).

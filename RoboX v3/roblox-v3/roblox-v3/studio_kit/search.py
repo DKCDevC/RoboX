@@ -1,4 +1,5 @@
-import json, sys, rb
+import json, os, sys, rb
+sys.stdout.reconfigure(encoding='utf-8', errors='replace')   # names with emoji crashed the Windows console
 rb.sid = rb.studio_id()
 qs = sys.argv[1:]
 out = {}
@@ -12,4 +13,4 @@ for q in qs:
     for a in res:
         d = (a.get("description") or "").replace("\n", " ")
         print(f'  {a["assetId"]} | {a["name"][:60]} | {a.get("creatorName","")[:22]} | {d[:150]}')
-json.dump(out, open("search_" + str(abs(hash(" ".join(qs))) % 10000) + ".json", "w"), indent=1)
+json.dump(out, open(os.path.join(rb.HERE, "caps", "search_" + str(abs(hash(" ".join(qs))) % 10000) + ".json"), "w"), indent=1)

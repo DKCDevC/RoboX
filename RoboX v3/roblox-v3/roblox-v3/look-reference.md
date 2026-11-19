@@ -77,7 +77,7 @@ Whole videos: brightness 0.34–0.43, saturation 0.42–0.66 (much more saturate
 | lighting-color.md C1, C2 | median sat 0.35–0.50, ≤10 % of shots over 0.60 | **video sat 0.42–0.66**, brightness 0.34–0.43 (§2) |
 | lighting-color.md C4 | p1 10–25, little crush | near-pure blacks (p1 ≈ 0.003–0.007 of full scale) except the bright families (§2) |
 | lighting-color.md vignette row | none | slight vignette, median ≈0.89; bloom on gold, wings, powers (§2, §8) |
-| captions.md §1 (all of it), studio.md §9.3 | one word, Montserrat 104 px, black outline, yellow accent, centre 70 % | **1–2 words, lowercase white, soft shadow, cap height ≈50 px, centre 65 %, one red ALL-CAPS key word** (§7; flags in `captions.md` §0) |
+| captions.md §1 (all of it), studio.md §9.3 | one word, Montserrat 104 px, black outline, yellow accent, centre 70 % | **1–2 words, lowercase white, soft shadow, cap height ≈50 px, centre 65 %, one red ALL-CAPS key word** (§7); as rendered since E01: 3 px outline, centre 73 % (`captions.md` §0) |
 
 Still the same in every file: cuts on sentence starts, rule object in shot 1 and ≥50 % of shots, readable signs, the twist-cut colour shift, no-clipping and physics rules, safe zones.
 

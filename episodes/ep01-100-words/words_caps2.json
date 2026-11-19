@@ -1,0 +1,724 @@
+{
+"words": [
+{
+"word": "in this",
+"start": 0.06,
+"end": 0.245
+},
+{
+"word": "town",
+"start": 0.245,
+"end": 0.736
+},
+{
+"word": "you only",
+"start": 0.736,
+"end": 1.009
+},
+{
+"word": "get a",
+"start": 1.009,
+"end": 1.195
+},
+{
+"word": "HUNDRED",
+"start": 1.156,
+"end": 1.394
+},
+{
+"word": "words a",
+"start": 1.394,
+"end": 1.644
+},
+{
+"word": "day",
+"start": 1.598,
+"end": 2.275
+},
+{
+"word": "my",
+"start": 2.275,
+"end": 2.373
+},
+{
+"word": "NUMBER",
+"start": 2.373,
+"end": 2.566
+},
+{
+"word": "floats right",
+"start": 2.566,
+"end": 2.91
+},
+{
+"word": "over my",
+"start": 2.91,
+"end": 3.148
+},
+{
+"word": "head",
+"start": 3.148,
+"end": 3.874
+},
+{
+"word": "at",
+"start": 3.874,
+"end": 3.954
+},
+{
+"word": "ZERO",
+"start": 3.953,
+"end": 4.474
+},
+{
+"word": "your voice",
+"start": 4.474,
+"end": 4.784
+},
+{
+"word": "just stops",
+"start": 4.784,
+"end": 5.329
+},
+{
+"word": "so every",
+"start": 5.831,
+"end": 6.152
+},
+{
+"word": "morning",
+"start": 6.152,
+"end": 6.663
+},
+{
+"word": "mom says",
+"start": 6.663,
+"end": 7.328
+},
+{
+"word": "save your",
+"start": 7.328,
+"end": 7.626
+},
+{
+"word": "words",
+"start": 7.626,
+"end": 8.129
+},
+{
+"word": "JAY",
+"start": 8.129,
+"end": 8.828
+},
+{
+"word": "at school",
+"start": 8.828,
+"end": 9.406
+},
+{
+"word": "we talk",
+"start": 9.406,
+"end": 9.679
+},
+{
+"word": "with our",
+"start": 9.679,
+"end": 9.852
+},
+{
+"word": "HANDS",
+"start": 9.852,
+"end": 10.227
+},
+{
+"word": "the bakery",
+"start": 10.706,
+"end": 11.009
+},
+{
+"word": "sells yes",
+"start": 11.009,
+"end": 11.398
+},
+{
+"word": "and no",
+"start": 11.398,
+"end": 11.647
+},
+{
+"word": "CARDS",
+"start": 11.647,
+"end": 12.022
+},
+{
+"word": "two bucks",
+"start": 12.486,
+"end": 12.796
+},
+{
+"word": "each",
+"start": 12.796,
+"end": 13.529
+},
+{
+"word": "except",
+"start": 13.529,
+"end": 13.767
+},
+{
+"word": "TYLER",
+"start": 13.767,
+"end": 14.297
+},
+{
+"word": "who never",
+"start": 14.297,
+"end": 14.546
+},
+{
+"word": "shuts up",
+"start": 14.546,
+"end": 14.949
+},
+{
+"word": "his number",
+"start": 15.419,
+"end": 15.714
+},
+{
+"word": "never goes",
+"start": 15.714,
+"end": 16.069
+},
+{
+"word": "under",
+"start": 16.069,
+"end": 16.228
+},
+{
+"word": "NINETY",
+"start": 16.228,
+"end": 17.029
+},
+{
+"word": "the principal",
+"start": 17.029,
+"end": 17.38
+},
+{
+"word": "says he's",
+"start": 17.38,
+"end": 17.713
+},
+{
+"word": "just",
+"start": 17.713,
+"end": 17.887
+},
+{
+"word": "LUCKY",
+"start": 17.887,
+"end": 18.352
+},
+{
+"word": "i guess",
+"start": 18.352,
+"end": 19.202
+},
+{
+"word": "grandpa's",
+"start": 19.202,
+"end": 19.516
+},
+{
+"word": "number has",
+"start": 19.516,
+"end": 19.818
+},
+{
+"word": "said",
+"start": 19.818,
+"end": 19.947
+},
+{
+"word": "ZERO",
+"start": 19.947,
+"end": 20.158
+},
+{
+"word": "all week",
+"start": 20.158,
+"end": 21.009
+},
+{
+"word": "the",
+"start": 21.009,
+"end": 21.089
+},
+{
+"word": "MAYOR",
+"start": 21.054,
+"end": 21.25
+},
+{
+"word": "says old",
+"start": 21.25,
+"end": 21.572
+},
+{
+"word": "people stop",
+"start": 21.572,
+"end": 21.987
+},
+{
+"word": "getting new",
+"start": 21.987,
+"end": 22.264
+},
+{
+"word": "words",
+"start": 22.264,
+"end": 23.072
+},
+{
+"word": "people kinda",
+"start": 23.072,
+"end": 23.496
+},
+{
+"word": "stopped",
+"start": 23.496,
+"end": 23.737
+},
+{
+"word": "visiting",
+"start": 23.737,
+"end": 24.561
+},
+{
+"word": "he can't",
+"start": 24.561,
+"end": 24.837
+},
+{
+"word": "answer anyway",
+"start": 24.837,
+"end": 25.85
+},
+{
+"word": "last",
+"start": 25.85,
+"end": 26.043
+},
+{
+"word": "SUMMER",
+"start": 26.043,
+"end": 26.538
+},
+{
+"word": "he told",
+"start": 26.538,
+"end": 26.84
+},
+{
+"word": "me one",
+"start": 26.84,
+"end": 27.052
+},
+{
+"word": "thing",
+"start": 27.052,
+"end": 27.789
+},
+{
+"word": "words don't",
+"start": 27.789,
+"end": 28.125
+},
+{
+"word": "run out",
+"start": 28.125,
+"end": 28.666
+},
+{
+"word": "jay",
+"start": 28.666,
+"end": 29.361
+},
+{
+"word": "they",
+"start": 29.361,
+"end": 29.441
+},
+{
+"word": "MOVE",
+"start": 29.437,
+"end": 30.188
+},
+{
+"word": "then a",
+"start": 30.188,
+"end": 30.363
+},
+{
+"word": "LETTER",
+"start": 30.329,
+"end": 30.495
+},
+{
+"word": "came from",
+"start": 30.495,
+"end": 30.793
+},
+{
+"word": "town hall",
+"start": 30.793,
+"end": 31.715
+},
+{
+"word": "SEVEN",
+"start": 31.715,
+"end": 31.946
+},
+{
+"word": "days at",
+"start": 31.946,
+"end": 32.215
+},
+{
+"word": "zero",
+"start": 32.207,
+"end": 32.728
+},
+{
+"word": "and your",
+"start": 32.728,
+"end": 32.887
+},
+{
+"word": "voice never",
+"start": 32.887,
+"end": 33.257
+},
+{
+"word": "comes back",
+"start": 33.257,
+"end": 34.199
+},
+{
+"word": "grandpa was",
+"start": 34.199,
+"end": 34.572
+},
+{
+"word": "on day",
+"start": 34.572,
+"end": 34.784
+},
+{
+"word": "SIX",
+"start": 34.784,
+"end": 35.049
+},
+{
+"word": "then my",
+"start": 35.612,
+"end": 35.82
+},
+{
+"word": "teacher",
+"start": 35.82,
+"end": 36.081
+},
+{
+"word": "yelled at",
+"start": 36.081,
+"end": 36.327
+},
+{
+"word": "me",
+"start": 36.315,
+"end": 36.525
+},
+{
+"word": "like",
+"start": 36.98,
+"end": 37.437
+},
+{
+"word": "TWELVE",
+"start": 37.437,
+"end": 37.638
+},
+{
+"word": "words",
+"start": 37.638,
+"end": 38.45
+},
+{
+"word": "and my",
+"start": 38.45,
+"end": 38.624
+},
+{
+"word": "number went",
+"start": 38.624,
+"end": 38.972
+},
+{
+"word": "UP",
+"start": 38.972,
+"end": 39.182
+},
+{
+"word": "twelve more",
+"start": 39.652,
+"end": 40.582
+},
+{
+"word": "the number",
+"start": 40.582,
+"end": 40.835
+},
+{
+"word": "only counts",
+"start": 40.835,
+"end": 41.209
+},
+{
+"word": "words people",
+"start": 41.209,
+"end": 41.606
+},
+{
+"word": "say to",
+"start": 41.606,
+"end": 41.848
+},
+{
+"word": "YOU",
+"start": 41.844,
+"end": 42.109
+},
+{
+"word": "tyler wasn't",
+"start": 43.019,
+"end": 43.48
+},
+{
+"word": "lucky",
+"start": 43.48,
+"end": 44.221
+},
+{
+"word": "EVERYBODY",
+"start": 44.221,
+"end": 44.527
+},
+{
+"word": "talks to",
+"start": 44.527,
+"end": 44.823
+},
+{
+"word": "tyler",
+"start": 44.807,
+"end": 45.62
+},
+{
+"word": "so yeah",
+"start": 45.62,
+"end": 46.19
+},
+{
+"word": "NOBODY",
+"start": 46.19,
+"end": 46.424
+},
+{
+"word": "talks to",
+"start": 46.424,
+"end": 46.72
+},
+{
+"word": "grandpa",
+"start": 46.7,
+"end": 47.524
+},
+{
+"word": "i rang",
+"start": 47.524,
+"end": 47.762
+},
+{
+"word": "the school",
+"start": 47.762,
+"end": 48.019
+},
+{
+"word": "BELL",
+"start": 48.019,
+"end": 48.189
+},
+{
+"word": "and ran",
+"start": 48.189,
+"end": 48.552
+},
+{
+"word": "my whole",
+"start": 49.062,
+"end": 49.312
+},
+{
+"word": "CLASS",
+"start": 49.312,
+"end": 49.535
+},
+{
+"word": "followed me",
+"start": 49.535,
+"end": 49.86
+},
+{
+"word": "to his",
+"start": 49.856,
+"end": 50.015
+},
+{
+"word": "porch",
+"start": 50.015,
+"end": 50.838
+},
+{
+"word": "FORTY",
+"start": 50.838,
+"end": 51.039
+},
+{
+"word": "kids",
+"start": 51.039,
+"end": 51.549
+},
+{
+"word": "all talking",
+"start": 51.549,
+"end": 51.908
+},
+{
+"word": "at once",
+"start": 51.908,
+"end": 52.292
+},
+{
+"word": "his number",
+"start": 52.747,
+"end": 53.053
+},
+{
+"word": "went ten",
+"start": 53.053,
+"end": 53.643
+},
+{
+"word": "fifty",
+"start": 53.643,
+"end": 54.153
+},
+{
+"word": "a",
+"start": 54.153,
+"end": 54.233
+},
+{
+"word": "HUNDRED",
+"start": 54.199,
+"end": 55.0
+},
+{
+"word": "grandpa",
+"start": 55.0,
+"end": 55.272
+},
+{
+"word": "looked at",
+"start": 55.272,
+"end": 55.503
+},
+{
+"word": "me and",
+"start": 55.491,
+"end": 55.672
+},
+{
+"word": "said",
+"start": 55.672,
+"end": 56.13
+},
+{
+"word": "they",
+"start": 56.13,
+"end": 56.21
+},
+{
+"word": "MOVE",
+"start": 56.201,
+"end": 56.953
+},
+{
+"word": "mom laughed",
+"start": 56.953,
+"end": 57.313
+},
+{
+"word": "on the",
+"start": 57.313,
+"end": 57.468
+},
+{
+"word": "steps",
+"start": 57.43,
+"end": 57.805
+},
+{
+"word": "save your",
+"start": 58.284,
+"end": 58.598
+},
+{
+"word": "words",
+"start": 58.598,
+"end": 59.104
+},
+{
+"word": "she said",
+"start": 59.104,
+"end": 59.988
+},
+{
+"word": "then i",
+"start": 59.988,
+"end": 60.178
+},
+{
+"word": "looked at",
+"start": 60.162,
+"end": 60.393
+},
+{
+"word": "her number",
+"start": 60.374,
+"end": 60.887
+},
+{
+"word": "it said",
+"start": 61.761,
+"end": 61.984
+},
+{
+"word": "TWO",
+"start": 61.984,
+"end": 62.249
+}
+]
+}

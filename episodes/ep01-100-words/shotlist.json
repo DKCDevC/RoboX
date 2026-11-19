@@ -1,0 +1,275 @@
+[
+ {
+  "id": "s01",
+  "t": 0.0,
+  "end": 1.0,
+  "scene": "street",
+  "note": "WS Main St, rule billboard, counters on everyone"
+ },
+ {
+  "id": "s02",
+  "t": 1.0,
+  "end": 2.24,
+  "scene": "street",
+  "note": "CU townsman, '100' over head"
+ },
+ {
+  "id": "s03",
+  "t": 2.24,
+  "end": 3.84,
+  "scene": "street",
+  "note": "CU Jay, his '100'"
+ },
+ {
+  "id": "s04",
+  "t": 3.84,
+  "end": 5.8,
+  "scene": "street",
+  "note": "MS man at 0, mouth moves, no sound"
+ },
+ {
+  "id": "s05",
+  "t": 5.8,
+  "end": 7.07,
+  "scene": "kitchen",
+  "note": "MS Mom points at Jay"
+ },
+ {
+  "id": "s06",
+  "t": 7.07,
+  "end": 8.8,
+  "scene": "kitchen",
+  "note": "CU Mom: Save your words"
+ },
+ {
+  "id": "s07",
+  "t": 8.8,
+  "end": 10.68,
+  "scene": "class",
+  "note": "WS classroom, kids waving hands"
+ },
+ {
+  "id": "s08",
+  "t": 10.68,
+  "end": 12.46,
+  "scene": "street",
+  "note": "bakery front, YES/NO card sign"
+ },
+ {
+  "id": "s09",
+  "t": 12.46,
+  "end": 13.5,
+  "scene": "street",
+  "note": "INSERT price cards close"
+ },
+ {
+  "id": "s10",
+  "t": 13.5,
+  "end": 15.39,
+  "scene": "street",
+  "note": "MS Tyler talking, kids around"
+ },
+ {
+  "id": "s11",
+  "t": 15.39,
+  "end": 17.0,
+  "scene": "street",
+  "note": "CU Tyler '97'"
+ },
+ {
+  "id": "s12",
+  "t": 17.0,
+  "end": 19.17,
+  "scene": "street",
+  "note": "MS principal shrugs"
+ },
+ {
+  "id": "s13",
+  "t": 19.17,
+  "end": 20.98,
+  "scene": "porch",
+  "note": "WS Grandpa alone on porch, '0'"
+ },
+ {
+  "id": "s14",
+  "t": 20.98,
+  "end": 23.04,
+  "scene": "townhall",
+  "note": "mayor on steps, sign"
+ },
+ {
+  "id": "s15",
+  "t": 23.04,
+  "end": 24.53,
+  "scene": "porch",
+  "note": "people walk past the porch"
+ },
+ {
+  "id": "s16",
+  "t": 24.53,
+  "end": 25.82,
+  "scene": "porch",
+  "note": "CU Grandpa sad, '0'"
+ },
+ {
+  "id": "s17",
+  "t": 25.82,
+  "end": 27.76,
+  "scene": "porch_summer",
+  "note": "flashback: Grandpa + Jay, golden"
+ },
+ {
+  "id": "s18",
+  "t": 27.76,
+  "end": 29.33,
+  "scene": "porch_summer",
+  "note": "CU Grandpa: words don't run out"
+ },
+ {
+  "id": "s19",
+  "t": 29.33,
+  "end": 30.16,
+  "scene": "porch_summer",
+  "note": "ECU Grandpa wink: they move"
+ },
+ {
+  "id": "s20",
+  "t": 30.16,
+  "end": 31.68,
+  "scene": "porch_night",
+  "note": "INSERT letter on doormat"
+ },
+ {
+  "id": "s21",
+  "t": 31.68,
+  "end": 34.17,
+  "scene": "porch_night",
+  "note": "INSERT notice text"
+ },
+ {
+  "id": "s22",
+  "t": 34.17,
+  "end": 35.58,
+  "scene": "porch_night",
+  "note": "calendar day 6, Grandpa behind"
+ },
+ {
+  "id": "s23",
+  "t": 35.58,
+  "end": 36.95,
+  "scene": "class",
+  "note": "MS teacher yells at Jay, shake"
+ },
+ {
+  "id": "s24",
+  "t": 36.95,
+  "end": 38.42,
+  "scene": "class",
+  "note": "CU teacher angry"
+ },
+ {
+  "id": "s25",
+  "t": 38.42,
+  "end": 39.62,
+  "scene": "class",
+  "note": "CU Jay, counter 88 -> 100"
+ },
+ {
+  "id": "s26",
+  "t": 39.62,
+  "end": 40.55,
+  "scene": "class",
+  "note": "ECU Jay shocked"
+ },
+ {
+  "id": "s27",
+  "t": 40.55,
+  "end": 42.99,
+  "scene": "class_twist",
+  "note": "TWIST: Jay, number glowing, flash; holds through pause"
+ },
+ {
+  "id": "s29",
+  "t": 42.99,
+  "end": 44.19,
+  "scene": "street",
+  "note": "WS Tyler surrounded by kids talking"
+ },
+ {
+  "id": "s30",
+  "t": 44.19,
+  "end": 45.59,
+  "scene": "street",
+  "note": "CU Tyler '100', kids talking at him"
+ },
+ {
+  "id": "s31",
+  "t": 45.59,
+  "end": 47.49,
+  "scene": "porch",
+  "note": "WS Grandpa alone, pull back"
+ },
+ {
+  "id": "s32",
+  "t": 47.49,
+  "end": 49.03,
+  "scene": "class",
+  "note": "Jay rings the bell, runs"
+ },
+ {
+  "id": "s33",
+  "t": 49.03,
+  "end": 50.81,
+  "scene": "street_run",
+  "note": "kids run at the camera"
+ },
+ {
+  "id": "s34",
+  "t": 50.81,
+  "end": 52.72,
+  "scene": "porch",
+  "note": "kids crowd the porch, all talking"
+ },
+ {
+  "id": "s35",
+  "t": 52.72,
+  "end": 54.97,
+  "scene": "porch",
+  "note": "CU Grandpa number 0 -> 100"
+ },
+ {
+  "id": "s36",
+  "t": 54.97,
+  "end": 56.92,
+  "scene": "porch",
+  "note": "CU Grandpa: They move"
+ },
+ {
+  "id": "s37",
+  "t": 56.92,
+  "end": 58.25,
+  "scene": "porch",
+  "note": "MS Mom laughing on the steps"
+ },
+ {
+  "id": "s38",
+  "t": 58.25,
+  "end": 59.96,
+  "scene": "porch",
+  "note": "CU Mom: Save your words"
+ },
+ {
+  "id": "s39",
+  "t": 59.96,
+  "end": 61.73,
+  "scene": "porch_dusk",
+  "note": "MCU Jay looks up"
+ },
+ {
+  "id": "s40",
+  "t": 61.73,
+  "end": 63.6,
+  "scene": "porch_dusk",
+  "note": "CU Mom, '2'"
+ }
+]

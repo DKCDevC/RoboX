@@ -340,7 +340,8 @@ function MT.frame(id, f)
 				addA(pose, "arm_L", { 0, 0, w }); addA(pose, "arm_R", { 0, 0, w })
 			end
 			if def.speak == name then
-				face = (math.floor((f + s) / 4) % 2 == 0) and "talk" or b.face
+				local alt = MT.FACES[b.face .. "_t"] and (b.face .. "_t") or "talk"   -- mouth-only flap when a _t face exists
+				face = (math.floor((f + s) / 5) % 2 == 0) and alt or b.face
 				addA(pose, "head", { 4 * math.sin(t * 9 + s), 2 * math.sin(t * 5), 3 * math.sin(t * 7 + s) })
 			elseif BLINKY[b.face] and n >= 20 then
 				local fb = 6 + math.floor((s * 7919) % math.max(1, n - 14))

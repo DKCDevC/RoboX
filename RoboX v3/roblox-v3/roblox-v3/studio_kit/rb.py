@@ -46,8 +46,8 @@ def studios():
 def studio_id():
     sid = open(SID_F, encoding="utf-8-sig").read().strip() if os.path.exists(SID_F) else ""
     open_ids = [s["id"] for s in studios()]
-    if sid in open_ids:
-        return sid
+    if sid in open_ids or (sid and not open_ids):
+        return sid      # an empty list also comes back while the bridge is busy rendering: keep the saved id
     if len(open_ids) == 1:
         open(SID_F, "w").write(open_ids[0])
         return open_ids[0]

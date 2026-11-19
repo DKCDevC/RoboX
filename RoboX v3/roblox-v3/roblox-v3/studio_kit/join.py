@@ -8,7 +8,7 @@
 Each shot gets exactly its frame count from shots.json; missing frames repeat the last good one (listed as short shots).
 Writes out/picture.mp4 (30 fps, no sound). With audio/vo.wav present it also writes out/final.mp4: captions burned in
 (--caps, an ASS file from tools/make_caps.py; fonts from <episode>/fonts/), voice + music under it, -14 LUFS, -1 dBTP."""
-import os, subprocess, sys
+import os, shutil, subprocess, sys
 import episode
 
 argv = sys.argv[1:]
@@ -40,18 +40,25 @@ for sid, n in episode.shots(ep):
 if not lst:
     sys.exit(f"no frames in {episode.path(ep, 'frames', folder)} (render.py, then stitch.py)")
 print("frames", len(lst), f"({len(lst) / episode.FPS:.1f} s)", "short shots:", " ".join(short) or "none")
-cat = episode.path(ep, "out", "frames.txt")
-with open(cat, "w", encoding="utf-8") as fh:
-    for p in lst:
-        fh.write(f"file '{p.replace(os.sep, '/')}'\nduration {1 / episode.FPS:.6f}\n")
+# Number the frames 00001.jpg ... in one folder (hard links, no copies) and read them at exactly 30 fps. A concat list
+# with "duration 0.033333" per image rounded its timestamps: frame 3 came out twice and every later frame one frame late
+# (E01, 2026-11-19: each cut and each mouth landed a frame after the voice).
+seq = episode.path(ep, "out", "seq")
+shutil.rmtree(seq, ignore_errors=True); os.makedirs(seq)
+for k, p in enumerate(lst, 1):
+    dst = os.path.join(seq, f"{k:05d}{os.path.splitext(p)[1]}")
+    try: os.link(p, dst)
+    except OSError: shutil.copy(p, dst)
+ext = os.path.splitext(lst[0])[1]
 
 # 2. picture track
 pic = os.path.join(outdir, "picture.mp4")
 vf = {"hd": "scale=1080:1920:flags=lanczos,setsar=1", "4k": "setsar=1",
       "raw1": "crop=trunc(ih*9/16/2)*2:ih,scale=1080:1920:flags=lanczos,setsar=1"}[src]
-run(["-f", "concat", "-safe", "0", "-i", cat, "-frames:v", str(len(lst)), "-r", str(episode.FPS), "-vf", vf,
+run(["-framerate", str(episode.FPS), "-i", os.path.join(seq, "%05d" + ext), "-frames:v", str(len(lst)), "-vf", vf,
      "-c:v", "libx264", "-crf", "16", "-preset", "veryfast", "-pix_fmt", "yuv420p", "-g", "15", "-movflags", "+faststart", pic + ".part.mp4"])
 os.replace(pic + ".part.mp4", pic)
+shutil.rmtree(seq, ignore_errors=True)
 print("picture ->", pic)
 if src == "4k":
     hd = os.path.join(outdir, "picture_hd.mp4")
@@ -75,9 +82,9 @@ if caps:
 ins = ["-i", pic_for_final, "-i", vo]
 if music:
     ins += ["-stream_loop", "-1", "-i", music]
-    af = f"[2:a]volume={music_db}dB[m];[1:a][m]amix=inputs=2:duration=first:normalize=0,loudnorm=I=-14:TP=-1.5:LRA=11[a]"
+    af = f"[2:a]volume={music_db}dB[m];[1:a]apad[v];[v][m]amix=inputs=2:duration=first:normalize=0,loudnorm=I=-14:TP=-1.5:LRA=11[a]"   # apad: the voice ends before the picture; keep the tail
 else:
-    af = "[1:a]loudnorm=I=-14:TP=-1.5:LRA=11[a]"
+    af = "[1:a]apad,loudnorm=I=-14:TP=-1.5:LRA=11[a]"
 final = os.path.join(outdir, "final.mp4")
 run(ins + vfx + ["-filter_complex", af, "-map", "0:v", "-map", "[a]",
                  "-c:v", "libx264", "-profile:v", "high", "-pix_fmt", "yuv420p", "-r", str(episode.FPS), "-b:v", "12M", "-maxrate", "16M",

@@ -25,3 +25,12 @@ desktop.ini
 *.blend1
 **/studio_kit/episode.txt
 **/studio_kit/search_*.json
+
+# Episode renders (about 1.5 GB per minute of video)
+episodes/*/frames/
+episodes/*/out/
+episodes/*/audio/vo_raw.wav
+episodes/*/audio/music_auto.wav
+episodes/*/qa_*.jpg
+episodes/*/check_sheet_*.jpg
+episodes/*/peek_*.jpg

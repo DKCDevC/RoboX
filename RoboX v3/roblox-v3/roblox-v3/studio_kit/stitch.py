@@ -74,9 +74,15 @@ def task(a):
     out = os.path.join(dst, f"{i + 1:05d}.jpg")
     if os.path.exists(out) and not redo:
         return 0
-    ims = [cv2.imread(os.path.join(src, f"{i * R + k + 1:05d}.png")) for k in range(R)]
+    paths = [os.path.join(src, f"{i * R + k + 1:05d}.png") for k in range(R)]
+    ims = [cv2.imread(p) for p in paths]
     if any(im is None for im in ims):
         return 0
+    # A blank capture (Studio stops drawing the 3D view while its window is hidden behind other windows or minimised:
+    # E01 re-render, 2026-11-19, every capture came back white). Delete it so render.py captures it again.
+    if any(float(im.std()) < 6 for im in ims):
+        for p in paths: os.remove(p)
+        return -1
     h, w = ims[0].shape[:2]
     img = compose(ims, plan(V, Ft, P, W, H, w, h, feather), W, H)
     os.makedirs(dst, exist_ok=True)
@@ -104,7 +110,11 @@ if __name__ == "__main__":
         report.append(f"{sid}:{min(have, n)}/{n}")
     if jobs_n > 1:
         with Pool(jobs_n) as p:
-            done = sum(p.imap(task, jobs, chunksize=4))
+            res = list(p.imap(task, jobs, chunksize=4))
     else:
-        done = sum(task(j) for j in jobs)
-    print("stitched", done, "new frames; captured per shot:", " ".join(report))
+        res = [task(j) for j in jobs]
+    blank = [f"{j[2]}#{j[3] + 1}" for j, r in zip(jobs, res) if r == -1]
+    print("stitched", sum(r for r in res if r > 0), "new frames; captured per shot:", " ".join(report))
+    if blank:
+        print(f"BLANK CAPTURES: {len(blank)} frames deleted ({', '.join(blank[:12])}{' ...' if len(blank) > 12 else ''}). "
+              "Bring the Studio window to the front, keep it uncovered, and run render.py again for those shots (no --force).")
