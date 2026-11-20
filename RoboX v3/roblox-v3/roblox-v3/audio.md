@@ -30,6 +30,7 @@ Source: https://elevenlabs.io/docs/eleven-creative/playground/text-to-speech , h
 
 ### 1.1c Neural voice, free, online: `tools/tts_edge.py` (added with E02/E03, 2026-11-20)
 `python tools/tts_edge.py --text script.txt --out <ep>/audio/vo.wav --words <ep>/words.json [--voice en-US-AndrewNeural] [--rate +15%] [--pitch +0Hz]` uses Microsoft's Edge read-aloud service (`edge-tts`, in requirements.txt) and writes word-level timestamps from the service itself. Pauses go in the text as `[pause 0.6]`. Recommended: en-US-AndrewNeural, en-US-AnaNeural, en-US-BrianNeural, en-US-GuyNeural, vi-VN-NamMinhNeural, vi-VN-HoaiMyNeural. It needs internet and sends the script text to the service: fine for scripts that are not private, say so to the user first. E03 used AndrewNeural at +15 %: 224 words, 72.2 s.
+- **New episode at a faster voice (e.g. 1.2x, pitched up):** set it at generation, not afterwards. `--rate +20%` is about 1.2x, and `--pitch` takes Hz (e.g. `+40Hz` is a starting point, not a tested value; try two or three and listen). The service then writes `words.json` for the voice it actually made, so the timing tools stay correct. Post-processing (1.2b) is only for a voice that already exists. Order stays: the user reads the sheet first, then the voice, then re-derive the times. UNVERIFIED on a full episode.
 
 ### 1.1d Cue sheet for the mix: `<ep>/audio/cues.json` (read by join.py)
 ```json
@@ -44,6 +45,14 @@ Source: https://elevenlabs.io/docs/eleven-creative/playground/text-to-speech , h
 - ≤80 s stories or action stories may sit at 160-200 wpm (bell 161, train 176).
 - If the clone reads at about 150-170 wpm at speed 1.0, set speed 1.10-1.20 first. If still short, time-stretch in the editor by at most 1.10 with pitch preserved (HYPOTHESIS: speed near 1.2 may degrade quality, the docs warn "extreme values").
 - **wpm = word count / speech duration**, measured from first word start to last word end, minus the designed pauses (`pacing_check.py` does this). Measure it on the first take before generating more takes (saves credits).
+
+### 1.2b Speed up or pitch up an existing voice (free, local, E03 2026-11-20)
+- **Speed and pitch change the length, so they change the whole episode.** Tempo 1.2 turns a 72.5 s voice into 60.4 s. Every shot, cut, mouth, caption and cue moves with it, so after a tempo change re-derive the times from the new `words.json` (divide by the factor), re-count frames per shot (`shots.json`, `MT.N`), re-check the sheet and re-render. Do this only when the user asks for it, and say the render cost first.
+- **Pitch only (length kept):** no re-timing needed. Shift by F = 2^(semitones/12). Use `rubberband=pitch=F` (keeps the length); the `asetrate` route needs a tempo fix below.
+- **Speed + pitch together:** `rubberband=tempo=T:pitch=F` (T = 1.2, F = 1.122 for +2 st). Measured on E03: 72.55 s → 60.46 s. Check the file's duration with `ffprobe`, then listen once before using it.
+- **asetrate trap:** `asetrate=48000*F,aresample=48000,atempo=T/F` gives the same result as rubberband, but only if you do the atempo step; without it the voice speeds up by F and drops the tempo you wanted.
+- Keep the original as `vo_orig.wav` next to the new `vo.wav`; the SAPI and edge-tts `words.json` files are timed to the original.
+- Limits (HYPOTHESIS): above about 1.2 tempo or +4 st pitch the voice gets metallic; if it does, lower the factor or regenerate with the service's own rate and pitch (`tts_edge.py --rate`, `--pitch`) instead.
 
 ### 1.3 Pauses (set in the editor, not in the model)
 **The pause rule is script.md §6** (one rule for the whole skill): default sentence gap 0.15-0.30 s; 2-3 designed pauses of 0.6-1.3 s, **A** 0.8-1.3 s right after the twist line (REF-RANGE n=2: bell 1.29 s, memories 0.88 s), **B** 0.6-1.0 s right before the last line (HYPOTHESIS: no ref gives the last line more than 0.38 s), **C** optional at the climax line; nothing else ≥0.5 s. A pause's length is the whole silence between the two words: set the gap in the editor to that length.

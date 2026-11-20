@@ -20,6 +20,7 @@ The refs are the floor. Every episode must also pass `upgrades.md` (≥10 of 14)
 |---|---|
 | `look-reference.md` | **the target look**: 6 look families with measured numbers, camera grammar, edit rhythm, faces, movement, captions, effects, never-do list, **§10 overrides** |
 | `assets/lighting/reference/` | one Studio command-bar lighting file per look family |
+| `gneef-study.md` | a second reference, measured 2026-11-20 on the five newest @Gneef Shorts: cuts (7–9 per 10 s), camera (77 % push-ins, 29 % Dutch roll), light and colour, one-word captions, 250–270 wpm voice, script beat positions, and E03's gap to it (§8, not applied yet). Tools `tools/ref_cuts.py`, `tools/ref_motion.py` |
 | `script.md` | world-rule formula and scoring, beat map by % for any 60–180 s runtime, twist families, sentence rules, **the pause rule** (§6), banned phrases, self-check |
 | `studio.md` | **the build**: Studio MCP + bridge, tiled 1080x1920 / 4K capture, R6 characters with clothes, hair fit, the cast route (§3.1: real R6 + R6 animations), no-clipping, physics, order of work (§7) |
 | `pipeline.md` | the whole episode in order on Windows: folder, script, voice, shot list, build, edit, captions, mix, export, disclosure, QA, build budget, first test |
