@@ -11,6 +11,7 @@
                      "duck":  [{"start": 41.2, "end": 42.4, "db": -14}, ...]
                      "sfx":   [{"file": "...", "t": 1.0, "db": -6}, ...]
 --no-duck          disable automatic voice-triggered sidechain ducking on the music bus.
+--blur W           light motion blur: each frame = (1-2W) itself + W each neighbour in the same shot (default 0.2; 0 = off)
 Each shot gets exactly its frame count from shots.json; missing frames repeat the last good one (listed as short shots).
 Writes out/picture.mp4 (30 fps, no sound). With audio/vo.wav present it also writes out/final.mp4: captions burned in
 (--caps, an ASS file from tools/make_caps.py; fonts from <episode>/fonts/), voice + ducked music + SFX, -14 LUFS, -1.5 dBTP."""
@@ -29,6 +30,9 @@ auto_duck = not bool(episode.pop_flag(argv, "--no-duck", False, has_value=False)
 # Reference grade (look-reference.md: slight vignette, corner/centre about 0.89; punchier contrast). vignette angle 0.24
 # measured on flat grey = 0.891. Applied to the picture before captions, so the captions stay white. --no-grade turns it off.
 GRADE = "" if episode.pop_flag(argv, "--no-grade", False, has_value=False) else ",eq=contrast=1.06:saturation=1.06,vignette=angle=0.24"
+BLUR = float(episode.pop_flag(argv, "--blur", "0.2"))
+if not 0 <= BLUR <= 0.33:
+    sys.exit("--blur is 0 (off) to 0.33 (an even 3-frame blend); default 0.2")
 folder = {"hd": "hd", "4k": "4k", "raw1": "raw1"}.get(src) or sys.exit("--src is hd, 4k or raw1")
 outdir = episode.path(ep, "out", make=True)
 
@@ -47,8 +51,19 @@ def resolve_audio(ep_path, rel):
     return None
 
 
+def blend_one(a):
+    """Write frame k as a light 3-frame blend (prev, cur, next of the same shot), the cheap stand-in for motion blur."""
+    prev, cur, nxt, dst, w = a
+    import cv2
+    c = cv2.imread(cur).astype("float32")
+    acc, tot = c * (1 - 2 * w), 1 - 2 * w
+    for p in (prev, nxt):
+        im = cv2.imread(p).astype("float32") if p and p != cur else c
+        acc += im * w; tot += w
+    cv2.imwrite(dst, (acc / tot).clip(0, 255).astype("uint8"), [cv2.IMWRITE_JPEG_QUALITY, 95])
+
 # 1. frame list, one entry per output frame
-lst, short = [], []
+lst, short, shot_of = [], [], []
 for sid, n in episode.shots(ep):
     d = episode.path(ep, "frames", folder, sid)
     fr = sorted(f for f in os.listdir(d) if f[:5].isdigit() and not f.endswith(".tmp.jpg"))[:n] if os.path.isdir(d) else []
@@ -59,6 +74,9 @@ for sid, n in episode.shots(ep):
             lst.append(os.path.join(d, fr[min(j, len(fr) - 1)]))
         elif lst:
             lst.append(lst[-1])
+        else:
+            continue
+        shot_of.append(sid)
 if not lst:
     sys.exit(f"no frames in {episode.path(ep, 'frames', folder)} (render.py, then stitch.py)")
 total_dur = len(lst) / episode.FPS
@@ -68,11 +86,25 @@ print("frames", len(lst), f"({total_dur:.1f} s)", "short shots:", " ".join(short
 # (E01, 2026-11-19: each cut and each mouth landed a frame after the voice).
 seq = episode.path(ep, "out", "seq")
 shutil.rmtree(seq, ignore_errors=True); os.makedirs(seq)
-for k, p in enumerate(lst, 1):
-    dst = os.path.join(seq, f"{k:05d}{os.path.splitext(p)[1]}")
-    try: os.link(p, dst)
-    except OSError: shutil.copy(p, dst)
 ext = os.path.splitext(lst[0])[1]
+if BLUR > 0:
+    # Light motion blur: each frame is blended with its neighbours inside the same shot (never across a cut). Studio frames
+    # are sharp stills, and at 30 fps busy textures and walks looked jerky without it (E03, 0:10-0:11).
+    from multiprocessing.pool import ThreadPool
+    ext = ".jpg"
+    jobs = []
+    for k, p in enumerate(lst):
+        prev = lst[k - 1] if k > 0 and shot_of[k - 1] == shot_of[k] else None
+        nxt = lst[k + 1] if k + 1 < len(lst) and shot_of[k + 1] == shot_of[k] else None
+        jobs.append((prev, p, nxt, os.path.join(seq, f"{k + 1:05d}.jpg"), BLUR))
+    with ThreadPool(os.cpu_count() or 4) as tp:
+        tp.map(blend_one, jobs, chunksize=8)
+    print(f"motion blur: {BLUR:.2f} of each neighbour frame blended in (--blur 0 turns it off)")
+else:
+    for k, p in enumerate(lst, 1):
+        dst = os.path.join(seq, f"{k:05d}{os.path.splitext(p)[1]}")
+        try: os.link(p, dst)
+        except OSError: shutil.copy(p, dst)
 
 # 2. picture track
 pic = os.path.join(outdir, "picture.mp4")

@@ -39,7 +39,7 @@ Everything in `studio.md`, in its §7 order, from a copy of `studio_kit/episode_
 1. Checks on the caption-free picture: `python tools/move_check.py edit/picture.mp4 cuts.txt` (cuts.txt = the shot list's start times), `python tools/measure.py --video edit/picture.mp4 --times …` (colour), `python tools/pacing_check.py` (pacing.md §7).
 2. Finish (captions, music, SFX) with the scripted route below; CapCut desktop (free) is the fallback when a scene needs hand trimming.
 
-`join.py` applies the reference grade by default (contrast and saturation +6 %, vignette angle 0.24 = corner/centre 0.89 measured), before the captions; `--no-grade` turns it off.
+`join.py` applies the reference grade by default (contrast and saturation +6 %, vignette angle 0.24 = corner/centre 0.89 measured), before the captions; `--no-grade` turns it off. It also blends each frame lightly with its neighbours inside the shot (`--blur 0.2`, a cheap motion blur; `--blur 0` off).
 
 **One click:** `python build_episode.py --ep <episode>` runs the machine parts of Steps 4–9 in order (see studio.md §3.2); add `--resume` to continue an interrupted render. Before it starts, the user must have read the script sheet and the voice must be final; a voice change means re-timing and re-checking the shot list.
 

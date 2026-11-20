@@ -221,7 +221,13 @@ function MT.anim(name, clip, f0, speed)
 	a.want = { clip = clip, f0 = f0 or 1, speed = speed or 1 }
 end
 
--- walk (or run) from -> to between frames f0 and f1; feet keep pace with the ground speed
+-- Slowest ground speed (studs per second at actor scale 1) that still reads as a normal walk / run. E03 s07 walked kids
+-- 4.6 studs in 50 frames (2.8 studs/s): the walk clip played at 0.19x and looked like slow motion. Roblox walks at 16.
+MT.WALK_MIN, MT.RUN_MIN = 8, 14
+MT.slowWalks = MT.slowWalks or {}      -- [shot id][actor] = studs/s, filled by walkTo; checks.ps1 prints it per shot
+
+-- walk (or run) from -> to between frames f0 and f1; feet keep pace with the ground speed.
+-- run = true for the run clip, "sneak" for a deliberately slow walk (no slow-walk warning).
 function MT.walkTo(name, f, f0, f1, from, to, run)
 	local a = MT.actors[name]
 	local p = math.clamp((f - f0) / math.max(1, f1 - f0), 0, 1)
@@ -230,10 +236,31 @@ function MT.walkTo(name, f, f0, f1, from, to, run)
 	local z = (from[3] or 0) + ((to[3] or 0) - (from[3] or 0)) * p
 	a.pos = MT.V(x, y, z)
 	a.facing = MT.faceTo(from, to)
-	if f < f0 or f > f1 then a.want = { clip = "idle", f0 = 1, speed = 1 }; return end
 	local dist = (MT.V(to[1], to[2], to[3] or 0) - MT.V(from[1], from[2], from[3] or 0)).Magnitude
 	local studsPerSec = dist / math.max(1 / 30, (f1 - f0) / 30)
-	a.want = { clip = run and "run" or "walk", f0 = f0, speed = studsPerSec / MT.R6_STRIDE * a.scale ^ -1 }
+	local running = run == true
+	local min = (running and MT.RUN_MIN or MT.WALK_MIN) * a.scale
+	if run ~= "sneak" and dist > 0.5 and studsPerSec < min then   -- checked on any frame, so a frame-1 check sheet finds it
+		local id = tostring(MT.cur)
+		MT.slowWalks[id] = MT.slowWalks[id] or {}
+		if not MT.slowWalks[id][name] then
+			warn(string.format("lib10: %s %s at %.1f studs/s in %s (looks like slow motion; want >= %d: go further, or walk for fewer frames)",
+				name, running and "runs" or "walks", studsPerSec, id, min))
+		end
+		MT.slowWalks[id][name] = studsPerSec
+	end
+	if f < f0 or f > f1 then a.want = { clip = "idle", f0 = 1, speed = 1 }; return end
+	a.want = { clip = running and "run" or "walk", f0 = f0, speed = studsPerSec / MT.R6_STRIDE * a.scale ^ -1 }
+end
+-- "s07 kid1 2.8, s07 kid2 2.8" for one shot or all of them ("" = none)
+function MT.slowWalkList(id)
+	local out = {}
+	for sid, t in pairs(MT.slowWalks) do
+		if not id or sid == id then
+			for name, v in pairs(t) do table.insert(out, string.format("%s %s %.1f", sid, name, v)) end
+		end
+	end
+	table.sort(out); return table.concat(out, ", ")
 end
 
 -- pose every actor for frame f: the wanted clip at its local time, every other clip stopped

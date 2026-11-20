@@ -6,6 +6,7 @@
 --   MT.countUp(f, f0, f1, a, b)        ease a value from a to b between frames f0 and f1
 --   MT.camOn(name, d, camz, lookz, side, lens, push)   camera d studs in front of an actor (heights above its feet)
 --   def.shake = n | fn(f), def.flash = fn(f)           per-shot camera shake (degrees) and exposure flash
+--   MT.drop(f, f0, z0, z1, len, bounce)                height of a dropped prop: gravity fall, then one small bounce
 --   MT.CASTV[name] = spec; MT.cast(name, at, facing, face)  named cast; any other name ending in a number is a crowd kid
 --   MT.around(cx, cy, r, k, i0, faceAt), MT.chatter(list, f, face)   a ring of kids, and everyone in a list talking
 --   MT.resetShots(); MT.shot(id, def)  register shots in order (idx and n are filled in)
@@ -157,6 +158,19 @@ end
 function MT.flashAt(f, f0, len, amount)
 	if f < f0 or f > f0 + len then return 0 end
 	return (amount or 3) * (1 - (f - f0) / len)
+end
+-- height of a dropped prop at frame f: falls from z0 to z1 starting at f0, speeding up like gravity (len frames, default 9),
+-- then one small bounce (bounce = fraction of the drop height, default 0.15; 0 = none). E03 s06 dropped the lunchbox at a
+-- constant speed over 22 frames and it floated down. lb.Position = Vector3.new(x, MT.drop(f, 1, 2.4, 0.35), y)
+function MT.drop(f, f0, z0, z1, len, bounce)
+	len = len or 9; bounce = bounce or 0.15
+	if f <= f0 then return z0 end
+	local t = (f - f0) / len
+	if t <= 1 then return z0 - (z0 - z1) * t * t end
+	local bl = 2 * math.sqrt(bounce)            -- bounce length in units of len, same gravity as the fall
+	local u = (t - 1) / math.max(bl, 1e-3)
+	if bounce <= 0 or u >= 1 then return z1 end
+	return z1 + (z0 - z1) * bounce * 4 * u * (1 - u)
 end
 -- fall flat on the back from frame f0 over len frames (the R6 "fall" clip plays on the way down). Call every frame from f0 on.
 function MT.fallBack(name, f, f0, len)

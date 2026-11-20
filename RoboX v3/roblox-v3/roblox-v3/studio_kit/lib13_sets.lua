@@ -2,6 +2,7 @@
 -- Solves inconsistent free Creator Store models and empty backgrounds with 1-line cinematic set builders:
 --   MT.unifyModel(model, opts)          -- strips scripts/fx, kills shiny plastic reflectance, unifies material style
 --   MT.streetKit(len, width, opts)      -- asphalt road, dashed stripes, raised sidewalks, glowing streetlamps
+--   MT.calmGround(maxY, root)          -- busy ground materials -> SmoothPlastic for low close shots (no "boiling" asphalt)
 --   MT.horizon(radius, color, count)    -- distant layered mountains so low-angle shots never show an empty map edge
 --   MT.roomKit(w, d, h, opts)           -- complete interior room (wood floor, baseboards, window light, rug, warm lamp)
 --   MT.heroLight(name, col, range, bri) -- soft warm key/rim light attached to an actor so faces pop in dark scenes
@@ -102,7 +103,30 @@ function MT.streetKit(len, width, opts)
 			end
 		end
 	end
+	if opts.smooth then MT.calmGround(1.0, folder) end
 	return folder
+end
+
+-- 2b. Busy ground materials (Asphalt, Concrete, Grass, Pebble...) are a fine high-contrast pattern. When the camera is low and
+-- close, that pattern fills half the frame and every pebble moves a little each frame: with no motion blur it "boils"
+-- (E03 s06, 0:10). Call MT.calmGround() in build (after the set) for low close shots, or MT.streetKit(len, w, { smooth = true }).
+-- Turns large ground parts (top below maxY, default 1 stud, wider than 6 studs) under root (default MT.root()) to SmoothPlastic.
+local BUSY = {
+	[Enum.Material.Asphalt] = true, [Enum.Material.Concrete] = true, [Enum.Material.Grass] = true, [Enum.Material.Pebble] = true,
+	[Enum.Material.Ground] = true, [Enum.Material.Sand] = true, [Enum.Material.Slate] = true, [Enum.Material.Cobblestone] = true,
+	[Enum.Material.Rock] = true, [Enum.Material.LeafyGrass] = true, [Enum.Material.Mud] = true, [Enum.Material.Pavement] = true,
+}
+function MT.calmGround(maxY, root)
+	maxY = maxY or 1.0
+	local n = 0
+	for _, d in ipairs((root or MT.root()):GetDescendants()) do
+		if d:IsA("BasePart") and BUSY[d.Material] and d.Position.Y + d.Size.Y / 2 <= maxY
+			and math.max(d.Size.X, d.Size.Z) > 6 then
+			d.Material = Enum.Material.SmoothPlastic
+			n += 1
+		end
+	end
+	return n
 end
 
 -- 3. Distant mountain ring around the horizon so low-angle shots always have cinematic depth
