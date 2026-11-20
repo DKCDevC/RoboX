@@ -14,7 +14,12 @@ import numpy as np
 
 S = 4                          # draw at 4x, then shrink (same as make_faces_v2)
 INK = (22, 18, 24, 255); MOUTH = (92, 22, 34, 255); TONGUE = (238, 110, 128, 255); WHITE = (255, 255, 255, 255)
-BOX = (50, 680, 974, 1016)    # mouth area on the 1024 px face (eyes and blush end above y 670)
+BOX = (20, 665, 1004, 1020)    # mouth area on the 1024 px face (eyes and blush end above y 660)
+FROWN_FACES = {
+    "angry", "cry", "sad", "scared", "shocked", "nervous", "creepy", "squeeze", "dizzy",
+    "furious", "terrified", "suspicious", "evil", "heartbroken", "determined", "deadpan",
+    "disgusted", "confused", "exhausted",
+}
 
 
 def is_open(a):
@@ -38,8 +43,11 @@ def draw_open(d, cx, cy):
     d.ellipse([(cx - 56) * S, (cy + 16) * S, (cx + 56) * S, (cy + ry - 10) * S], fill=TONGUE)                # tongue
 
 
-def draw_closed(d, cx, cy):
-    pts = [((cx - 95 + i * 9.5) * S, (cy - 8 + 34 * (1 - ((i - 10) / 10) ** 2)) * S) for i in range(21)]
+def draw_closed(d, cx, cy, frown=False):
+    if frown:
+        pts = [((cx - 80 + i * 8.0) * S, (cy + 14 - 22 * (1 - ((i - 10) / 10) ** 2)) * S) for i in range(21)]
+    else:
+        pts = [((cx - 95 + i * 9.5) * S, (cy - 8 + 34 * (1 - ((i - 10) / 10) ** 2)) * S) for i in range(21)]
     d.line(pts, fill=INK, width=18 * S, joint="curve")
 
 
@@ -48,11 +56,15 @@ def make(src, dst):
     a = np.array(im)
     cx, cy = mouth_center(a)
     opened = is_open(a)
+    base = os.path.splitext(os.path.basename(src))[0].lower()
     x0, y0, x1, y1 = BOX
     a[y0:y1, x0:x1, 3] = 0                                          # clear the old mouth
     big = Image.new("RGBA", (1024 * S, 1024 * S), (0, 0, 0, 0))
     d = ImageDraw.Draw(big)
-    (draw_closed if opened else draw_open)(d, cx, cy)
+    if opened:
+        draw_closed(d, cx, cy, frown=(base in FROWN_FACES))
+    else:
+        draw_open(d, cx, cy)
     m = big.resize((1024, 1024), Image.LANCZOS)
     out = Image.alpha_composite(Image.fromarray(a), m)
     out.save(dst)

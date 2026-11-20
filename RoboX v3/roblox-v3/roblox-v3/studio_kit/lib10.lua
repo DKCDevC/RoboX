@@ -41,7 +41,11 @@ local function loadTrack(actor, clip)
 	local a = Instance.new("Animation")
 	a.AnimationId = "rbxassetid://" .. id
 	tr = actor.animator:LoadAnimation(a)
-	tr.Looped = (clip == "idle" or clip == "idle2" or clip == "walk" or clip == "run" or clip == "dance" or clip == "climb")
+	if MT.CUSTOM_LOOP and MT.CUSTOM_LOOP[clip] ~= nil then
+		tr.Looped = MT.CUSTOM_LOOP[clip]
+	else
+		tr.Looped = (clip == "idle" or clip == "idle2" or clip == "walk" or clip == "run" or clip == "dance" or clip == "climb")
+	end
 	tr.Priority = Enum.AnimationPriority.Action
 	local t0 = os.clock()
 	while tr.Length == 0 and os.clock() - t0 < 5 do task.wait() end   -- clips load asynchronously
@@ -49,35 +53,96 @@ local function loadTrack(actor, clip)
 	return tr
 end
 
-local function addHair(actor, libName)
+local function addAccessoryFromLib(actor, libName, tintHex)
 	local src = MT.LIB and MT.LIB:FindFirstChild(libName)
-	if not src then warn("lib10: no hair " .. tostring(libName) .. " in MTLib"); return end
+	if not src then warn("lib10: no accessory " .. tostring(libName) .. " in MTLib"); return end
 	local acc = src:IsA("Accessory") and src:Clone() or src:FindFirstChildWhichIsA("Accessory", true)
 	if not acc then warn("lib10: " .. libName .. " has no Accessory"); return end
 	if acc.Parent ~= nil and acc ~= src then acc = acc:Clone() end
 	for _, d in ipairs(acc:GetDescendants()) do
 		if d:IsA("BasePart") then d.Anchored = false; d.CanCollide = false; d.CanQuery = true end
 	end
-	actor.hum:AddAccessory(acc)       -- welds by HairAttachment on the real R6 head: no sinking, no floating
-	local col = MT.HAIR_COLOR and MT.HAIR_COLOR[actor.name:match("^[^#]+")] or actor.spec.hairColor
+	actor.hum:AddAccessory(acc)       -- welds by its Attachment on the R6 rig: no sinking, no floating
 	local h = acc:FindFirstChild("Handle")
-	if col and h then
+	if tintHex and h then
 		local m = h:FindFirstChildWhichIsA("SpecialMesh")
 		if m then m.TextureId = ""; m.VertexColor = Vector3.new(1, 1, 1) end
 		if h:IsA("MeshPart") then pcall(function() h.TextureID = "" end) end
-		h.Color = MT.C(col)
+		h.Color = MT.C(tintHex)
 	end
 end
 
+-- Standard R6 Head mesh extends to -0.625 studs on Z (1.0 * 1.25 / 2).
+-- -0.63 sits 0.005 studs flush in front of the center: zero clipping and virtually zero gap at 3/4 angles.
+MT.HD_FACE_Z = MT.HD_FACE_Z or -0.63
+MT.HD_FACE_SIZE = MT.HD_FACE_SIZE or 1.02
+
+local function attachHdFace(actor)
+	local s = actor.scale
+	local sz = (actor.spec.hdFaceSize or MT.HD_FACE_SIZE) * s
+	local zOff = (actor.spec.hdFaceZ or MT.HD_FACE_Z) * s
+	local plate = Instance.new("Part")
+	plate.Name = "HDFacePlate"
+	plate.Size = Vector3.new(sz, sz, 0.01 * s)
+	plate.Transparency = 1
+	plate.Anchored = false
+	plate.CanCollide = false
+	plate.CanQuery = false
+	plate.Massless = true
+	plate.CFrame = actor.head.CFrame * CFrame.new(0, 0, zOff)
+	plate.Parent = actor.model
+	local weld = Instance.new("WeldConstraint")
+	weld.Part0 = actor.head
+	weld.Part1 = plate
+	weld.Parent = plate
+	local gui = Instance.new("SurfaceGui")
+	gui.Name = "HDFaceGui"
+	gui.Face = Enum.NormalId.Front
+	gui.SizingMode = Enum.SurfaceGuiSizingMode.FixedSize
+	gui.CanvasSize = Vector2.new(1024, 1024)
+	gui.LightInfluence = 0.85
+	gui.Brightness = 1
+	gui.AlwaysOnTop = false
+	gui.Adornee = plate
+	gui.Parent = plate
+	local img = Instance.new("ImageLabel")
+	img.Name = "FaceImg"
+	img.Size = UDim2.fromScale(1, 1)
+	img.BackgroundTransparency = 1
+	img.ResampleMode = Enum.ResamplerMode.Default
+	img.Parent = gui
+	actor.faceDecal.Transparency = 1   -- hide the 256px-capped Decal; SurfaceGui renders crisp 1024px
+	actor.faceImage = img
+end
+
 -- actor(name, spec, {x, y, z}, facingDeg)
--- spec: shirt / pants = keys in shared.MT_CLOTH ("shirt_me") or rbxassetid strings; skin "#hex"; hair = MTLib name;
---       hairColor "#hex"; face = MT.FACES key; scale (uniform, default 1)
+-- spec:
+--   shirt / pants       = keys in shared.MT_CLOTH ("shirt_me") or rbxassetid strings
+--   shirtId / pantsId   = numeric Roblox Catalog asset IDs (real Creator Store streetwear/armor/suits)
+--   catalogAcc          = { Hat = "id1,id2", Back = "id", Face = "id", Neck = "id", Shoulders = "id", Waist = "id", Hair = "id" }
+--   accessories         = { "acc_name_in_MTLib", ... } (3D hats, backpacks, glasses, capes, wings, headphones)
+--   accColors           = { acc_name = "#hex" } optional dye per accessory
+--   skin "#hex"; hair = MTLib name; hairColor "#hex"; face = MT.FACES key; scale (uniform, default 1)
+--   hdFace              = true (or set MT.HD_FACE = true globally) for crisp 1024px SurfaceGui face (zero 4K decal aliasing)
 function MT.actor(name, spec, at, facing)
 	spec = spec or {}
 	local desc = Instance.new("HumanoidDescription")
 	local skin = MT.C(spec.skin or SKIN)
 	desc.HeadColor, desc.TorsoColor = skin, skin
 	desc.LeftArmColor, desc.RightArmColor, desc.LeftLegColor, desc.RightLegColor = skin, skin, skin, skin
+	if spec.shirtId then desc.Shirt = tonumber(spec.shirtId) or 0 end
+	if spec.pantsId then desc.Pants = tonumber(spec.pantsId) or 0 end
+	if spec.catalogAcc then
+		local ca = spec.catalogAcc
+		if ca.Hat then desc.HatAccessory = tostring(ca.Hat) end
+		if ca.Hair then desc.HairAccessory = tostring(ca.Hair) end
+		if ca.Face then desc.FaceAccessory = tostring(ca.Face) end
+		if ca.Neck then desc.NeckAccessory = tostring(ca.Neck) end
+		if ca.Shoulders then desc.ShouldersAccessory = tostring(ca.Shoulders) end
+		if ca.Front then desc.FrontAccessory = tostring(ca.Front) end
+		if ca.Back then desc.BackAccessory = tostring(ca.Back) end
+		if ca.Waist then desc.WaistAccessory = tostring(ca.Waist) end
+	end
 	local m = Players:CreateHumanoidModelFromDescription(desc, Enum.HumanoidRigType.R6)
 	m.Name = name
 	for _, d in ipairs(m:GetDescendants()) do
@@ -93,8 +158,12 @@ function MT.actor(name, spec, at, facing)
 	end
 	local CL = shared.MT_CLOTH or {}
 	local function tmpl(v) if not v then return "" end; return CL[v] or v end
-	local sh = m:FindFirstChildOfClass("Shirt") or Instance.new("Shirt", m); sh.ShirtTemplate = tmpl(spec.shirt)
-	local pa = m:FindFirstChildOfClass("Pants") or Instance.new("Pants", m); pa.PantsTemplate = tmpl(spec.pants)
+	if not spec.shirtId then
+		local sh = m:FindFirstChildOfClass("Shirt") or Instance.new("Shirt", m); sh.ShirtTemplate = tmpl(spec.shirt)
+	end
+	if not spec.pantsId then
+		local pa = m:FindFirstChildOfClass("Pants") or Instance.new("Pants", m); pa.PantsTemplate = tmpl(spec.pants)
+	end
 	m.Parent = MT.root()
 	if spec.scale and spec.scale ~= 1 then m:ScaleTo(spec.scale) end
 	local head = m:FindFirstChild("Head")
@@ -106,7 +175,16 @@ function MT.actor(name, spec, at, facing)
 	}
 	actor.base = { pos = MT.V(at[1], at[2], at[3] or 0), facing = facing or 0, face = spec.face or "neutral" }
 	MT.actors[name] = actor
-	if spec.hair then addHair(actor, spec.hair) end
+	if spec.hdFace or (spec.hdFace ~= false and MT.HD_FACE) then attachHdFace(actor) end
+	if spec.hair then
+		local hcol = MT.HAIR_COLOR and MT.HAIR_COLOR[actor.name:match("^[^#]+")] or spec.hairColor
+		addAccessoryFromLib(actor, spec.hair, hcol)
+	end
+	if spec.accessories then
+		for _, accName in ipairs(spec.accessories) do
+			addAccessoryFromLib(actor, accName, spec.accColors and spec.accColors[accName])
+		end
+	end
 	MT.actorFace(name, actor.base.face)
 	actor.pos, actor.facing = actor.base.pos, actor.base.facing
 	MT.placeActor(name)
@@ -118,7 +196,12 @@ function MT.actorFace(name, face)
 	a.wantFace = face
 	if a.faceName ~= face then
 		a.faceName = face
-		a.faceDecal.Texture = MT.FACES[face] or MT.FACES.neutral or ""
+		local tex = MT.FACES[face] or MT.FACES.neutral or ""
+		if a.faceImage then
+			a.faceImage.Image = tex
+		else
+			a.faceDecal.Texture = tex
+		end
 	end
 end
 
@@ -197,9 +280,14 @@ function MT.frame(id, f)
 		a.pos, a.facing, a.lift, a.want, a.tilt = a.base.pos, a.base.facing, 0, nil, 0
 		local face = a.base.face
 		if def.speak == name then
-			-- mouth only: <face>_t has the same eyes and brows (make_talk_faces.py); a whole-face swap to "talk" flickered
+			-- mouth only: <face>_t has the same eyes and brows (make_talk_faces.py); synced to words.json via MT.LIPSYNC
 			local alt = MT.FACES[a.base.face .. "_t"] and (a.base.face .. "_t") or "talk"
-			face = (math.floor(f / 5) % 2 == 0) and alt or a.base.face
+			local lip = MT.LIPSYNC and MT.LIPSYNC[id]
+			if lip and f <= #lip then
+				face = (lip:sub(f, f) == "1") and alt or a.base.face
+			else
+				face = (math.floor(f / 5) % 2 == 0) and alt or a.base.face
+			end
 		elseif BLINKY[face] and (def.n or 30) >= 20 and f % 97 >= 90 and f % 97 < 93 then face = "blink" end
 		a.wantFace = face
 	end

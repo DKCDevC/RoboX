@@ -1,0 +1,660 @@
+{
+ "source": "edge-tts en-US-AndrewNeural rate=+10% pitch=+0Hz",
+ "words": [
+  {
+   "word": "In",
+   "start": 0.091,
+   "end": 0.182
+  },
+  {
+   "word": "this",
+   "start": 0.193,
+   "end": 0.352
+  },
+  {
+   "word": "town",
+   "start": 0.364,
+   "end": 0.693
+  },
+  {
+   "word": "every",
+   "start": 1.057,
+   "end": 1.261
+  },
+  {
+   "word": "person",
+   "start": 1.273,
+   "end": 1.636
+  },
+  {
+   "word": "has",
+   "start": 1.648,
+   "end": 1.795
+  },
+  {
+   "word": "a",
+   "start": 1.807,
+   "end": 1.852
+  },
+  {
+   "word": "price",
+   "start": 1.864,
+   "end": 2.205
+  },
+  {
+   "word": "tag",
+   "start": 2.216,
+   "end": 2.489
+  },
+  {
+   "word": "floating",
+   "start": 2.5,
+   "end": 2.841
+  },
+  {
+   "word": "over",
+   "start": 2.852,
+   "end": 2.989
+  },
+  {
+   "word": "their",
+   "start": 3.0,
+   "end": 3.148
+  },
+  {
+   "word": "head",
+   "start": 3.159,
+   "end": 3.466
+  },
+  {
+   "word": "Mine",
+   "start": 3.841,
+   "end": 3.977
+  },
+  {
+   "word": "said",
+   "start": 3.989,
+   "end": 4.159
+  },
+  {
+   "word": "fifty",
+   "start": 4.17,
+   "end": 4.42
+  },
+  {
+   "word": "bucks",
+   "start": 4.432,
+   "end": 4.875
+  },
+  {
+   "word": "At",
+   "start": 5.599,
+   "end": 5.678
+  },
+  {
+   "word": "school",
+   "start": 5.69,
+   "end": 6.065
+  },
+  {
+   "word": "kids",
+   "start": 6.326,
+   "end": 6.553
+  },
+  {
+   "word": "with",
+   "start": 6.565,
+   "end": 6.678
+  },
+  {
+   "word": "high",
+   "start": 6.69,
+   "end": 6.906
+  },
+  {
+   "word": "tags",
+   "start": 6.917,
+   "end": 7.349
+  },
+  {
+   "word": "sat",
+   "start": 7.36,
+   "end": 7.508
+  },
+  {
+   "word": "at",
+   "start": 7.519,
+   "end": 7.576
+  },
+  {
+   "word": "the",
+   "start": 7.588,
+   "end": 7.644
+  },
+  {
+   "word": "front",
+   "start": 7.656,
+   "end": 8.019
+  },
+  {
+   "word": "Kid",
+   "start": 8.394,
+   "end": 8.519
+  },
+  {
+   "word": "with",
+   "start": 8.531,
+   "end": 8.69
+  },
+  {
+   "word": "ten",
+   "start": 8.701,
+   "end": 8.963
+  },
+  {
+   "word": "thousand",
+   "start": 8.974,
+   "end": 9.349
+  },
+  {
+   "word": "dollars",
+   "start": 9.36,
+   "end": 9.667
+  },
+  {
+   "word": "laughed",
+   "start": 9.678,
+   "end": 10.11
+  },
+  {
+   "word": "right",
+   "start": 10.213,
+   "end": 10.372
+  },
+  {
+   "word": "in",
+   "start": 10.383,
+   "end": 10.428
+  },
+  {
+   "word": "my",
+   "start": 10.44,
+   "end": 10.576
+  },
+  {
+   "word": "face",
+   "start": 10.588,
+   "end": 11.088
+  },
+  {
+   "word": "My",
+   "start": 11.463,
+   "end": 11.576
+  },
+  {
+   "word": "dad's",
+   "start": 11.588,
+   "end": 11.838
+  },
+  {
+   "word": "tag",
+   "start": 11.849,
+   "end": 12.076
+  },
+  {
+   "word": "was",
+   "start": 12.088,
+   "end": 12.201
+  },
+  {
+   "word": "weird",
+   "start": 12.213,
+   "end": 12.553
+  },
+  {
+   "word": "It",
+   "start": 13.241,
+   "end": 13.309
+  },
+  {
+   "word": "stayed",
+   "start": 13.32,
+   "end": 13.605
+  },
+  {
+   "word": "at",
+   "start": 13.616,
+   "end": 13.695
+  },
+  {
+   "word": "zero",
+   "start": 13.707,
+   "end": 13.98
+  },
+  {
+   "word": "dollars",
+   "start": 13.991,
+   "end": 14.502
+  },
+  {
+   "word": "every",
+   "start": 14.684,
+   "end": 14.889
+  },
+  {
+   "word": "single",
+   "start": 14.9,
+   "end": 15.173
+  },
+  {
+   "word": "day",
+   "start": 15.184,
+   "end": 15.434
+  },
+  {
+   "word": "People",
+   "start": 15.82,
+   "end": 16.048
+  },
+  {
+   "word": "treated",
+   "start": 16.059,
+   "end": 16.411
+  },
+  {
+   "word": "him",
+   "start": 16.423,
+   "end": 16.57
+  },
+  {
+   "word": "like",
+   "start": 16.684,
+   "end": 16.809
+  },
+  {
+   "word": "a",
+   "start": 16.82,
+   "end": 16.855
+  },
+  {
+   "word": "ghost",
+   "start": 16.866,
+   "end": 17.32
+  },
+  {
+   "word": "Grandpa",
+   "start": 17.695,
+   "end": 18.002
+  },
+  {
+   "word": "once",
+   "start": 18.014,
+   "end": 18.241
+  },
+  {
+   "word": "told",
+   "start": 18.252,
+   "end": 18.48
+  },
+  {
+   "word": "me",
+   "start": 18.491,
+   "end": 18.627
+  },
+  {
+   "word": "never",
+   "start": 18.98,
+   "end": 19.207
+  },
+  {
+   "word": "ask",
+   "start": 19.218,
+   "end": 19.48
+  },
+  {
+   "word": "why",
+   "start": 19.491,
+   "end": 19.616
+  },
+  {
+   "word": "a",
+   "start": 19.627,
+   "end": 19.684
+  },
+  {
+   "word": "tag",
+   "start": 19.695,
+   "end": 20.048
+  },
+  {
+   "word": "hits",
+   "start": 20.059,
+   "end": 20.286
+  },
+  {
+   "word": "zero",
+   "start": 20.298,
+   "end": 20.684
+  },
+  {
+   "word": "Tonight",
+   "start": 21.513,
+   "end": 21.82
+  },
+  {
+   "word": "I",
+   "start": 22.092,
+   "end": 22.127
+  },
+  {
+   "word": "saw",
+   "start": 22.138,
+   "end": 22.365
+  },
+  {
+   "word": "Dad",
+   "start": 22.377,
+   "end": 22.695
+  },
+  {
+   "word": "open",
+   "start": 22.774,
+   "end": 22.99
+  },
+  {
+   "word": "a",
+   "start": 23.002,
+   "end": 23.047
+  },
+  {
+   "word": "locked",
+   "start": 23.058,
+   "end": 23.388
+  },
+  {
+   "word": "metal",
+   "start": 23.399,
+   "end": 23.592
+  },
+  {
+   "word": "box",
+   "start": 23.604,
+   "end": 24.047
+  },
+  {
+   "word": "Inside",
+   "start": 24.422,
+   "end": 24.752
+  },
+  {
+   "word": "was",
+   "start": 24.763,
+   "end": 24.888
+  },
+  {
+   "word": "Mom's",
+   "start": 24.899,
+   "end": 25.274
+  },
+  {
+   "word": "old",
+   "start": 25.286,
+   "end": 25.456
+  },
+  {
+   "word": "price",
+   "start": 25.467,
+   "end": 25.752
+  },
+  {
+   "word": "tag",
+   "start": 25.763,
+   "end": 26.081
+  },
+  {
+   "word": "It",
+   "start": 26.805,
+   "end": 26.862
+  },
+  {
+   "word": "was",
+   "start": 26.873,
+   "end": 26.998
+  },
+  {
+   "word": "glowing",
+   "start": 27.009,
+   "end": 27.305
+  },
+  {
+   "word": "gold",
+   "start": 27.316,
+   "end": 27.691
+  },
+  {
+   "word": "ten",
+   "start": 27.953,
+   "end": 28.18
+  },
+  {
+   "word": "million",
+   "start": 28.191,
+   "end": 28.464
+  },
+  {
+   "word": "dollars",
+   "start": 28.475,
+   "end": 28.987
+  },
+  {
+   "word": "That",
+   "start": 29.373,
+   "end": 29.487
+  },
+  {
+   "word": "wasn't",
+   "start": 29.498,
+   "end": 29.737
+  },
+  {
+   "word": "a",
+   "start": 29.748,
+   "end": 29.771
+  },
+  {
+   "word": "net",
+   "start": 29.782,
+   "end": 29.953
+  },
+  {
+   "word": "worth",
+   "start": 29.964,
+   "end": 30.328
+  },
+  {
+   "word": "It",
+   "start": 31.265,
+   "end": 31.322
+  },
+  {
+   "word": "was",
+   "start": 31.333,
+   "end": 31.435
+  },
+  {
+   "word": "a",
+   "start": 31.447,
+   "end": 31.492
+  },
+  {
+   "word": "protection",
+   "start": 31.504,
+   "end": 31.958
+  },
+  {
+   "word": "fee",
+   "start": 31.969,
+   "end": 32.197
+  },
+  {
+   "word": "Dad",
+   "start": 32.572,
+   "end": 32.765
+  },
+  {
+   "word": "sold",
+   "start": 32.776,
+   "end": 32.992
+  },
+  {
+   "word": "his",
+   "start": 33.004,
+   "end": 33.14
+  },
+  {
+   "word": "own",
+   "start": 33.151,
+   "end": 33.276
+  },
+  {
+   "word": "tag",
+   "start": 33.288,
+   "end": 33.674
+  },
+  {
+   "word": "so",
+   "start": 33.833,
+   "end": 33.992
+  },
+  {
+   "word": "nobody",
+   "start": 34.004,
+   "end": 34.435
+  },
+  {
+   "word": "could",
+   "start": 34.526,
+   "end": 34.663
+  },
+  {
+   "word": "ever",
+   "start": 34.674,
+   "end": 34.833
+  },
+  {
+   "word": "buy",
+   "start": 34.844,
+   "end": 34.969
+  },
+  {
+   "word": "Mom",
+   "start": 34.981,
+   "end": 35.276
+  },
+  {
+   "word": "I",
+   "start": 35.663,
+   "end": 35.731
+  },
+  {
+   "word": "ran",
+   "start": 35.742,
+   "end": 35.947
+  },
+  {
+   "word": "outside",
+   "start": 35.958,
+   "end": 36.356
+  },
+  {
+   "word": "to",
+   "start": 36.367,
+   "end": 36.435
+  },
+  {
+   "word": "warn",
+   "start": 36.447,
+   "end": 36.697
+  },
+  {
+   "word": "him",
+   "start": 36.708,
+   "end": 36.856
+  },
+  {
+   "word": "Then",
+   "start": 37.7,
+   "end": 37.78
+  },
+  {
+   "word": "a",
+   "start": 37.791,
+   "end": 37.837
+  },
+  {
+   "word": "black",
+   "start": 37.848,
+   "end": 38.121
+  },
+  {
+   "word": "van",
+   "start": 38.132,
+   "end": 38.28
+  },
+  {
+   "word": "stopped",
+   "start": 38.291,
+   "end": 38.621
+  },
+  {
+   "word": "at",
+   "start": 38.632,
+   "end": 38.689
+  },
+  {
+   "word": "our",
+   "start": 38.7,
+   "end": 38.803
+  },
+  {
+   "word": "door",
+   "start": 38.814,
+   "end": 39.155
+  },
+  {
+   "word": "and",
+   "start": 39.416,
+   "end": 39.462
+  },
+  {
+   "word": "my",
+   "start": 39.473,
+   "end": 39.598
+  },
+  {
+   "word": "tag",
+   "start": 39.609,
+   "end": 39.962
+  },
+  {
+   "word": "dropped",
+   "start": 39.973,
+   "end": 40.268
+  },
+  {
+   "word": "to",
+   "start": 40.28,
+   "end": 40.348
+  },
+  {
+   "word": "one",
+   "start": 40.359,
+   "end": 40.553
+  },
+  {
+   "word": "cent",
+   "start": 40.564,
+   "end": 40.928
+  }
+ ]
+}

@@ -1,0 +1,154 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 2
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name,Fontname,Fontsize,PrimaryColour,SecondaryColour,OutlineColour,BackColour,Bold,Italic,Underline,StrikeOut,ScaleX,ScaleY,Spacing,Angle,BorderStyle,Outline,Shadow,Alignment,MarginL,MarginR,MarginV,Encoding
+Style: Cap,Poppins ExtraBold,78,&H00FFFFFF&,&H00FFFFFF&,&H00000000&,&H00000000&,0,0,0,0,100,100,0,0,1,3,4,5,60,60,0,1
+
+[Events]
+Format: Layer,Start,End,Style,Name,MarginL,MarginR,MarginV,Effect,Text
+Dialogue: 0,0:00:00.05,0:00:00.33,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}in this
+Dialogue: 0,0:00:00.33,0:00:00.90,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}town
+Dialogue: 0,0:00:00.90,0:00:01.00,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}the
+Dialogue: 0,0:00:00.99,0:00:01.47,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}crosswalk
+Dialogue: 0,0:00:01.47,0:00:02.10,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}light turns
+Dialogue: 0,0:00:02.10,0:00:02.43,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H002C45E8&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}RED
+Dialogue: 0,0:00:02.43,0:00:02.66,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}when a
+Dialogue: 0,0:00:02.66,0:00:03.23,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}bully steps
+Dialogue: 0,0:00:03.23,0:00:03.95,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}onto it
+Dialogue: 0,0:00:04.03,0:00:04.38,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}i guarded
+Dialogue: 0,0:00:04.38,0:00:04.78,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}oak street
+Dialogue: 0,0:00:04.78,0:00:05.06,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}for that
+Dialogue: 0,0:00:05.06,0:00:05.27,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H002C45E8&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}GOLD
+Dialogue: 0,0:00:05.27,0:00:05.95,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}vest
+Dialogue: 0,0:00:06.02,0:00:06.68,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}last month
+Dialogue: 0,0:00:06.68,0:00:07.22,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}brad stepped
+Dialogue: 0,0:00:07.22,0:00:07.43,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}off the
+Dialogue: 0,0:00:07.43,0:00:08.02,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}curb
+Dialogue: 0,0:00:08.11,0:00:08.47,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}the sign
+Dialogue: 0,0:00:08.47,0:00:09.37,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}flashed red
+Dialogue: 0,0:00:09.46,0:00:09.90,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}brad dropped
+Dialogue: 0,0:00:09.90,0:00:10.86,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}his lunchbox
+Dialogue: 0,0:00:10.93,0:00:11.50,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}honestly
+Dialogue: 0,0:00:11.50,0:00:11.80,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}i loved
+Dialogue: 0,0:00:11.80,0:00:12.52,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}that job
+Dialogue: 0,0:00:12.61,0:00:13.00,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}i polished
+Dialogue: 0,0:00:13.00,0:00:13.12,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}my
+Dialogue: 0,0:00:13.12,0:00:13.60,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H002C45E8&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}WHISTLE
+Dialogue: 0,0:00:13.60,0:00:14.37,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}every night
+Dialogue: 0,0:00:14.46,0:00:14.61,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}then
+Dialogue: 0,0:00:14.61,0:00:14.79,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H002C45E8&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}OWEN
+Dialogue: 0,0:00:14.79,0:00:15.14,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}joined my
+Dialogue: 0,0:00:15.14,0:00:15.50,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}bus in
+Dialogue: 0,0:00:15.50,0:00:16.21,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}march
+Dialogue: 0,0:00:16.28,0:00:16.47,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}every
+Dialogue: 0,0:00:16.47,0:00:17.04,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}morning
+Dialogue: 0,0:00:17.04,0:00:17.56,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}that light
+Dialogue: 0,0:00:17.56,0:00:18.39,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}buzzed red
+Dialogue: 0,0:00:18.53,0:00:18.81,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}keep red
+Dialogue: 0,0:00:18.81,0:00:19.36,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}light owen
+Dialogue: 0,0:00:19.36,0:00:19.66,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}off our
+Dialogue: 0,0:00:19.66,0:00:20.35,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}street
+Dialogue: 0,0:00:20.43,0:00:20.68,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}i kinda
+Dialogue: 0,0:00:20.68,0:00:20.97,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}laughed
+Dialogue: 0,0:00:20.97,0:00:21.78,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}along too
+Dialogue: 0,0:00:21.87,0:00:22.22,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}i shoved
+Dialogue: 0,0:00:22.22,0:00:22.66,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}owen behind
+Dialogue: 0,0:00:22.66,0:00:23.28,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}the line
+Dialogue: 0,0:00:23.42,0:00:23.80,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}stay behind
+Dialogue: 0,0:00:23.80,0:00:24.26,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}the stripe
+Dialogue: 0,0:00:24.26,0:00:24.80,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}dude
+Dialogue: 0,0:00:24.87,0:00:25.59,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}i joked
+Dialogue: 0,0:00:25.67,0:00:26.12,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}same loud
+Dialogue: 0,0:00:26.12,0:00:26.46,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}buzz at
+Dialogue: 0,0:00:26.46,0:00:27.55,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}745
+Dialogue: 0,0:00:27.63,0:00:28.11,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}coach miller
+Dialogue: 0,0:00:28.11,0:00:28.47,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}checked his
+Dialogue: 0,0:00:28.47,0:00:28.91,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}clipboard
+Dialogue: 0,0:00:28.91,0:00:29.68,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}thursday
+Dialogue: 0,0:00:29.83,0:00:30.23,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}oak street
+Dialogue: 0,0:00:30.23,0:00:30.53,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}stayed
+Dialogue: 0,0:00:30.53,0:00:30.85,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H002C45E8&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}GREEN
+Dialogue: 0,0:00:30.85,0:00:31.87,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}before march
+Dialogue: 0,0:00:32.00,0:00:32.21,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}friday
+Dialogue: 0,0:00:32.21,0:00:32.81,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}morning
+Dialogue: 0,0:00:32.85,0:00:33.11,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}i came
+Dialogue: 0,0:00:33.11,0:00:34.09,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}at 730
+Dialogue: 0,0:00:34.15,0:00:35.10,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}zero kids
+Dialogue: 0,0:00:35.18,0:00:35.50,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}i saw
+Dialogue: 0,0:00:35.50,0:00:35.79,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}owen on
+Dialogue: 0,0:00:35.79,0:00:36.59,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H002C45E8&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}ELM STREET
+Dialogue: 0,0:00:36.66,0:00:36.88,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H002C45E8&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}GREEN
+Dialogue: 0,0:00:36.88,0:00:37.41,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}light
+Dialogue: 0,0:00:37.49,0:00:37.83,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}i stepped
+Dialogue: 0,0:00:37.83,0:00:38.06,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}onto
+Dialogue: 0,0:00:38.06,0:00:38.44,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}oak street
+Dialogue: 0,0:00:38.44,0:00:39.05,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}alone
+Dialogue: 0,0:00:39.13,0:00:39.42,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}the light
+Dialogue: 0,0:00:39.42,0:00:39.87,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}blasted
+Dialogue: 0,0:00:39.87,0:00:40.17,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H002C45E8&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}RED
+Dialogue: 0,0:00:40.17,0:00:40.40,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}right in
+Dialogue: 0,0:00:40.40,0:00:41.34,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}my face
+Dialogue: 0,0:00:42.46,0:00:42.99,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}wait
+Dialogue: 0,0:00:43.06,0:00:43.41,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}i stepped
+Dialogue: 0,0:00:43.41,0:00:43.89,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}one foot
+Dialogue: 0,0:00:43.89,0:00:44.31,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}back onto
+Dialogue: 0,0:00:44.31,0:00:45.02,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}the curb
+Dialogue: 0,0:00:45.11,0:00:45.30,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}bright
+Dialogue: 0,0:00:45.30,0:00:45.90,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H002C45E8&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}GREEN
+Dialogue: 0,0:00:45.98,0:00:46.33,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}i stepped
+Dialogue: 0,0:00:46.33,0:00:46.57,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}onto the
+Dialogue: 0,0:00:46.57,0:00:47.38,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}paint again
+Dialogue: 0,0:00:47.45,0:00:47.56,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H002C45E8&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}RED
+Dialogue: 0,0:00:47.56,0:00:48.15,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}again
+Dialogue: 0,0:00:48.23,0:00:48.94,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}twenty kids
+Dialogue: 0,0:00:48.94,0:00:49.42,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}stared from
+Dialogue: 0,0:00:49.42,0:00:49.71,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}the bus
+Dialogue: 0,0:00:49.71,0:00:50.38,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}stop
+Dialogue: 0,0:00:50.45,0:00:51.36,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}nobody moved
+Dialogue: 0,0:00:51.49,0:00:51.83,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}look
+Dialogue: 0,0:00:51.83,0:00:52.20,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H002C45E8&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}NOBODY'S
+Dialogue: 0,0:00:52.20,0:00:52.93,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}behind him
+Dialogue: 0,0:00:53.02,0:00:53.45,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}i literally
+Dialogue: 0,0:00:53.45,0:00:54.12,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}stood frozen
+Dialogue: 0,0:00:54.12,0:00:54.44,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}there for
+Dialogue: 0,0:00:54.44,0:00:54.91,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}five whole
+Dialogue: 0,0:00:54.91,0:00:55.70,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}seconds
+Dialogue: 0,0:00:55.78,0:00:56.23,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}coach miller
+Dialogue: 0,0:00:56.23,0:00:56.95,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}walked out
+Dialogue: 0,0:00:56.95,0:00:57.27,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}and picked
+Dialogue: 0,0:00:57.27,0:00:57.48,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}up his
+Dialogue: 0,0:00:57.48,0:00:58.20,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}red pen
+Dialogue: 0,0:00:58.28,0:00:58.69,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}my silver
+Dialogue: 0,0:00:58.69,0:00:59.18,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}whistle felt
+Dialogue: 0,0:00:59.18,0:00:59.64,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}kinda heavy
+Dialogue: 0,0:00:59.64,0:00:59.96,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}around my
+Dialogue: 0,0:00:59.96,0:01:00.73,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}neck now
+Dialogue: 0,0:01:00.81,0:01:01.14,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}i handed
+Dialogue: 0,0:01:01.14,0:01:01.51,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}coach my
+Dialogue: 0,0:01:01.51,0:01:01.92,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}patrol
+Dialogue: 0,0:01:01.92,0:01:02.43,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}clipboard by
+Dialogue: 0,0:01:02.43,0:01:02.74,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}the school
+Dialogue: 0,0:01:02.74,0:01:03.27,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}gate
+Dialogue: 0,0:01:03.34,0:01:03.79,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}across the
+Dialogue: 0,0:01:03.79,0:01:04.39,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}street
+Dialogue: 0,0:01:04.43,0:01:04.95,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}owen walked
+Dialogue: 0,0:01:04.95,0:01:05.68,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}calmly under
+Dialogue: 0,0:01:05.68,0:01:05.96,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}green
+Dialogue: 0,0:01:05.96,0:01:06.48,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}crosswalk
+Dialogue: 0,0:01:06.48,0:01:07.18,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}lights
+Dialogue: 0,0:01:07.26,0:01:07.58,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}i walked
+Dialogue: 0,0:01:07.58,0:01:07.80,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}down
+Dialogue: 0,0:01:07.80,0:01:08.13,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}oak street
+Dialogue: 0,0:01:08.13,0:01:08.73,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}alone
+Dialogue: 0,0:01:09.65,0:01:09.98,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}i gripped
+Dialogue: 0,0:01:09.98,0:01:10.72,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}my whistle
+Dialogue: 0,0:01:10.72,0:01:10.84,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}and
+Dialogue: 0,0:01:10.84,0:01:11.41,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}elm street
+Dialogue: 0,0:01:11.41,0:01:11.69,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}buzzed
+Dialogue: 0,0:01:11.69,0:01:11.93,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}bright
+Dialogue: 0,0:01:11.93,0:01:12.46,Cap,,0,0,0,,{\an5\pos(540,1400)\1c&H002C45E8&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}RED

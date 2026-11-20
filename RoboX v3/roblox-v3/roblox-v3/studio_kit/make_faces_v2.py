@@ -57,8 +57,8 @@ def brow(d, cx, cy, ln=120, ang=0, w=22, bend=0):
 def closed_eye(d, cx, cy, w=130, up=True, h=40):
     line(d, bez((cx - w / 2, cy), (cx, cy + (-h if up else h) * 2), (cx + w / 2, cy)), LW * 1.3)
 def mouth_open(d, cx, cy, w, h, teeth=True, tongue=True, shape="d"):
-    if shape == "d":   # flat top, round bottom (laugh)
-        pts = [(cx - w / 2 + (w / 2) * (1 - math.cos(t)) * 0 + w / 2 * -math.cos(t), cy + h * math.sin(t)) for t in [i * math.pi / 40 for i in range(41)]]
+    if shape == "d":   # flat top, round bottom (laugh), centered at cx
+        pts = [(cx - (w / 2) * math.cos(t), cy + h * math.sin(t)) for t in [i * math.pi / 40 for i in range(41)]]
     else:              # ellipse
         pts = [(cx + w / 2 * math.cos(t), cy + h / 2 * math.sin(t)) for t in [i * 2 * math.pi / 60 for i in range(60)]]
     m = Image.new("L", (N, N), 0); ImageDraw.Draw(m).polygon([P(*p) for p in pts], fill=255)
@@ -149,11 +149,14 @@ def face(name):
         eye(d, EL, EY, rx=72, ry=72, pr=0.18, glint=False); eye(d, ER, EY, rx=72, ry=72, pr=0.18, glint=False)
         brow(d, EL, EY - 110, ang=-20, w=26); brow(d, ER, EY - 110, ang=20, w=26)
         pts = bez((300, MY - 60), (512, MY + 120), (724, MY - 60))
-        mouth = pts + bez((724, MY - 60), (512, MY + 20), (300, MY - 60))
+        top_pts = bez((300, MY - 60), (512, MY + 20), (724, MY - 60))
+        mouth = pts + list(reversed(top_pts))
         poly(d, mouth, MOUTH)
-        for i in range(1, 9):
-            p = pts[i * 5]; line(d, [(p[0], p[1] - 40), (p[0], p[1])], 10, WHITE)
+        for i in range(1, 8):
+            idx = i * 5
+            line(d, [(top_pts[idx][0], top_pts[idx][1] + 6), (pts[idx][0], pts[idx][1] - 6)], 10, WHITE)
         line(d, pts, LW * 1.2)
+        line(d, top_pts, LW * 1.2)
     elif name == "dizzy":
         spiral(d, EL, EY); spiral(d, ER, EY); pts = [(420 + i * 184 / 8, MY + (16 if i % 2 else -16)) for i in range(9)]; line(d, pts, LW)
         star(d, 180, 200, 48, (255, 214, 64, 255)); star(d, 860, 240, 36, (255, 214, 64, 255))
@@ -178,21 +181,112 @@ def face(name):
         else: mouth_open(d, 512, MY + 10, 100, 110, teeth=False, shape="o")
     elif name == "nerd":
         for cx in (EL, ER): ell(d, cx, EY, 110, 110, (230, 245, 255, 90), INK, 20); eye(d, cx, EY, rx=60, ry=66, look=(0, -0.3))
-        line(d, [(EL + 110, EY - 10), (ER - 110, EY - 10)], 20); mouth_open(d, 512, MY - 10, 160, 100)
-        d.rectangle([P(470, MY - 40), P(554, MY + 10)], fill=WHITE); line(d, [(512, MY - 40), (512, MY + 8)], 6)
+        line(d, [(EL + 110, EY - 10), (ER - 110, EY - 10)], 20); mouth_open(d, 512, MY - 10, 160, 100, teeth=False)
+        d.rectangle([P(472, MY - 10), P(552, MY + 36)], fill=WHITE, outline=INK, width=int(8 * S))
+        line(d, [(512, MY - 10), (512, MY + 36)], 7)
     elif name == "stare":
         eye(d, EL, EY, rx=84, ry=84, pr=0.14, glint=False); eye(d, ER, EY, rx=84, ry=84, pr=0.14, glint=False)
         line(d, [(EL - 80, EY - 120), (EL + 80, EY - 120)], 24); line(d, [(ER - 80, EY - 120), (ER + 80, EY - 120)], 24); line(d, [(470, MY + 10), (554, MY + 10)], LW)
+    elif name == "furious":
+        eye(d, EL, EY + 6, rx=88, ry=96, look=(0.25, 0.05), pr=0.28, lid=0.28, lid_tilt=-38, glint=False, pupil_col=(180, 20, 28, 255))
+        eye(d, ER, EY + 6, rx=88, ry=96, look=(-0.25, 0.05), pr=0.28, lid=0.28, lid_tilt=38, glint=False, pupil_col=(180, 20, 28, 255))
+        brow(d, EL + 14, EY - 92, ln=165, ang=28, w=34); brow(d, ER - 14, EY - 92, ln=165, ang=-28, w=34)
+        mouth_open(d, 512, MY + 18, 250, 155, teeth=True, tongue=True, shape="o")
+        for vx, vy in ((830, 210), (195, 230)):
+            for a in (0, 90, 180, 270):
+                r = math.radians(a + 45)
+                line(d, bez((vx + 18 * math.cos(r), vy + 18 * math.sin(r)), (vx + 46 * math.cos(r + 0.6), vy + 46 * math.sin(r + 0.6)), (vx + 64 * math.cos(r), vy + 64 * math.sin(r))), 13, RED)
+    elif name == "terrified":
+        # Dark dread lines at top of forehead
+        for x in range(180, 860, 56): line(d, [(x, 120), (x, 260)], 11, (55, 60, 95, 160))
+        eye(d, EL, EY, rx=98, ry=116, pr=0.15, glint=False); eye(d, ER, EY, rx=98, ry=116, pr=0.15, glint=False)
+        brow(d, EL, EY - 180, ang=-26, bend=-10); brow(d, ER, EY - 180, ang=26, bend=-10)
+        mouth_open(d, 512, MY + 35, 190, 200, teeth=True, tongue=True, shape="o")
+        drop(d, 875, 290, 1.05); drop(d, 155, 340, 0.85)
+    elif name == "suspicious":
+        eye(d, EL, EY + 14, rx=84, ry=84, look=(0.55, 0), lid=0.45, lid_tilt=6)
+        eye(d, ER, EY + 14, rx=84, ry=84, look=(0.55, 0), lid=0.45, lid_tilt=-6)
+        brow(d, EL, EY - 108, ln=130, ang=14, w=24); brow(d, ER, EY - 148, ln=130, ang=-14, w=24, bend=14)
+        line(d, bez((430, MY + 16), (520, MY - 6), (600, MY + 18)), LW * 1.25)
+    elif name == "evil":
+        eye(d, EL, EY + 10, rx=84, ry=88, look=(0.15, 0), pr=0.36, lid=0.38, lid_tilt=-36, pupil_col=(190, 24, 34, 255))
+        eye(d, ER, EY + 10, rx=84, ry=88, look=(-0.15, 0), pr=0.36, lid=0.38, lid_tilt=36, pupil_col=(190, 24, 34, 255))
+        brow(d, EL + 10, EY - 96, ln=155, ang=26, w=28); brow(d, ER - 10, EY - 96, ln=155, ang=-26, w=28)
+        pts = bez((360, MY - 20), (512, MY + 105), (664, MY - 35))
+        top_pts = bez((360, MY - 20), (512, MY + 25), (664, MY - 35))
+        poly(d, pts + list(reversed(top_pts)), WHITE, INK, LW)
+        for i in range(1, 6):
+            idx = i * 6 + 2
+            line(d, [top_pts[idx], pts[idx]], 9, INK)
+    elif name == "heartbroken":
+        eye(d, EL, EY + 12, rx=86, ry=96, look=(0, 0.25), pr=0.56, lid=0.22, lid_tilt=30)
+        eye(d, ER, EY + 12, rx=86, ry=96, look=(0, 0.25), pr=0.56, lid=0.22, lid_tilt=-30)
+        # Shimmering tears pooled at lower eyelids
+        ell(d, EL, EY + 74, 58, 22, TEAR, TEAR_D, 7); ell(d, ER, EY + 74, 58, 22, TEAR, TEAR_D, 7)
+        brow(d, EL, EY - 135, ang=-24, bend=-10); brow(d, ER, EY - 135, ang=24, bend=-10)
+        pts = [(430 + i * 164 / 6, MY + 26 + (10 if i % 2 else -10)) for i in range(7)]
+        line(d, pts, LW * 1.15)
+    elif name == "determined":
+        eye(d, EL, EY + 6, rx=82, ry=90, pr=0.48, lid=0.22, lid_tilt=-26)
+        eye(d, ER, EY + 6, rx=82, ry=90, pr=0.48, lid=0.22, lid_tilt=26)
+        brow(d, EL + 8, EY - 105, ln=145, ang=18, w=28); brow(d, ER - 8, EY - 105, ln=145, ang=-18, w=28)
+        line(d, bez((430, MY + 8), (520, MY + 22), (600, MY - 14)), LW * 1.3)
+    elif name == "deadpan":
+        for x in range(740, 900, 32): line(d, [(x, 140), (x, 300)], 10, (70, 76, 100, 170))
+        eye(d, EL, EY + 10, rx=80, ry=84, pr=0.30, lid=0.50, glint=False)
+        eye(d, ER, EY + 10, rx=80, ry=84, pr=0.30, lid=0.50, glint=False)
+        brow(d, EL, EY - 105, ln=130, ang=0, w=20); brow(d, ER, EY - 105, ln=130, ang=0, w=20)
+        line(d, [(430, MY + 10), (594, MY + 10)], LW * 1.2)
+    elif name == "disgusted":
+        eye(d, EL, EY + 14, rx=78, ry=78, look=(0, 0.15), lid=0.42, lid_tilt=-22)
+        closed_eye(d, ER, EY + 14, w=125, up=False, h=22)
+        brow(d, EL, EY - 100, ln=130, ang=22, w=24); brow(d, ER, EY - 125, ln=130, ang=-16, w=24)
+        pts = bez((410, MY + 30), (470, MY - 24), (535, MY + 16)) + bez((535, MY + 16), (585, MY + 44), (620, MY + 4))
+        line(d, pts, LW * 1.25)
+    elif name == "confused":
+        eye(d, EL, EY, rx=92, ry=104, pr=0.36); eye(d, ER, EY + 10, rx=68, ry=74, pr=0.45)
+        brow(d, EL, EY - 165, ln=125, ang=-14, bend=18); brow(d, ER, EY - 110, ln=125, ang=18, bend=-6)
+        line(d, bez((445, MY + 10), (505, MY - 20), (575, MY + 22)), LW * 1.25)
+        # Question mark near right temple
+        line(d, bez((825, 215), (860, 155), (900, 210)) + bez((900, 210), (910, 255), (862, 285)), 16, INK)
+        ell(d, 862, 325, 11, 11, INK, None)
+    elif name == "embarrassed":
+        eye(d, EL, EY + 6, rx=80, ry=88, look=(-0.55, 0.25)); eye(d, ER, EY + 6, rx=80, ry=88, look=(-0.55, 0.25))
+        brow(d, EL, EY - 135, ang=-18, bend=-6); brow(d, ER, EY - 135, ang=18, bend=-6)
+        blush(d, y=600, x=190, rx=105, ry=46)
+        for bx in (260, 300, 340, 684, 724, 764): line(d, [(bx - 12, 622), (bx + 12, 578)], 8, (226, 70, 96, 200))
+        line(d, bez((470, MY + 14), (512, MY - 8), (554, MY + 14)), LW * 1.2); drop(d, 875, 310, 0.85)
+    elif name == "exhausted":
+        # Heavy dark eye bags
+        line(d, bez((EL - 68, EY + 95), (EL, EY + 128), (EL + 68, EY + 95)), 13, (95, 72, 115, 200))
+        line(d, bez((ER - 68, EY + 95), (ER, EY + 128), (ER + 68, EY + 95)), 13, (95, 72, 115, 200))
+        eye(d, EL, EY + 14, rx=82, ry=88, pr=0.28, lid=0.54, lid_tilt=14, glint=False)
+        eye(d, ER, EY + 14, rx=82, ry=88, pr=0.28, lid=0.54, lid_tilt=-14, glint=False)
+        brow(d, EL, EY - 102, ang=-14); brow(d, ER, EY - 102, ang=14)
+        mouth_open(d, 512, MY + 22, 130, 88, teeth=False, tongue=True, shape="o")
+    elif name == "power":
+        # Glowing golden/white aura eyes
+        for cx in (EL, ER):
+            ell(d, cx, EY, 108, 118, (255, 224, 96, 150), None)
+            ell(d, cx, EY, 84, 94, WHITE, (255, 188, 40, 255), 14)
+            star(d, cx, EY, 44, (255, 240, 140, 255))
+        brow(d, EL + 10, EY - 118, ln=155, ang=22, w=28); brow(d, ER - 10, EY - 118, ln=155, ang=-22, w=28)
+        mouth_open(d, 512, MY - 25, 220, 135, teeth=True, tongue=True, shape="d")
     k = ZOOM; cx, cy = 512 * S, 590 * S
     big = im.resize((int(N * k), int(N * k)), Image.LANCZOS)
     ox, oy = int(cx * k - cx), int(cy * k - cy)
     im = big.crop((ox, oy, ox + N, oy + N))
     return im.resize((1024, 1024), Image.LANCZOS)
-NAMES = "neutral happy sad cry angry shocked scared sleepy talk smirk blink creepy smile laugh nervous dizzy squeeze wink oh content sparkle sparkle_oh nerd stare".split()
+NAMES = (
+    "neutral happy sad cry angry shocked scared sleepy talk smirk blink creepy "
+    "smile laugh nervous dizzy squeeze wink oh content sparkle sparkle_oh nerd stare "
+    "furious terrified suspicious evil heartbroken determined deadpan disgusted confused embarrassed exhausted power"
+).split()
 os.makedirs("out", exist_ok=True)
-atlas = Image.new("RGBA", (6 * 340, 4 * 340), (232, 185, 143, 255))
+rows = (len(NAMES) + 5) // 6
+atlas = Image.new("RGBA", (6 * 340, rows * 340), (232, 185, 143, 255))
 for i, n in enumerate(NAMES):
     im = face(n); im.save(f"out/{n}.png")
     atlas.alpha_composite(im.resize((340, 340), Image.LANCZOS), ((i % 6) * 340, (i // 6) * 340))
 atlas.convert("RGB").save("atlas2.jpg", quality=90)
-print("ok")
+print(f"ok ({len(NAMES)} faces)")

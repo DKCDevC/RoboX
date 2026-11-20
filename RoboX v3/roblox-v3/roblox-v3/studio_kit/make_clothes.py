@@ -29,7 +29,7 @@ def shirt(col, style, accent="#FFFFFF"):
     im = Image.new("RGBA", (W, H), (0, 0, 0, 0)); d = ImageDraw.Draw(im)
     for k, b in TORSO.items(): fillgrad(d, b, c, side=k in "FBLR")
     hem(d, TORSO["F"], c, 118, 9); hem(d, TORSO["B"], c, 118, 9); hem(d, TORSO["L"], c, 118, 9); hem(d, TORSO["R"], c, 118, 9)
-    long = style in ("hoodie", "collar", "cardigan", "suit", "blouse")
+    long = style in ("hoodie", "collar", "cardigan", "suit", "blouse", "street", "varsity", "armor")
     for limb in (RLIMB, LLIMB):
         for k, (x, y, w, h) in limb.items():
             if k == "D":
@@ -77,6 +77,52 @@ def shirt(col, style, accent="#FFFFFF"):
         d.polygon([(fx + 40, fy), (fx + 30, fy + 20), (fx + 60, fy + 76)], fill=shade(c, 0.75)); d.polygon([(fx + 88, fy), (fx + 98, fy + 20), (fx + 68, fy + 76)], fill=shade(c, 0.75))
         for yy in (84, 104): d.ellipse([fx + 60, fy + yy, fx + 68, fy + yy + 8], fill=(30, 30, 34, 255))
         d.rectangle([fx + 92, fy + 30, fx + 112, fy + 36], fill=(240, 240, 235, 255))
+    if style == "street":
+        # Layered streetwear zip-up jacket over contrasting inner tee + sleeve stripes + zip pockets
+        d.rectangle([fx + 46, fy, fx + 82, fy + 118], fill=a + (255,))
+        d.chord([fx + 48, fy - 18, fx + 80, fy + 18], 0, 180, fill=shade(a, 0.78))
+        d.line([(fx + 46, fy), (fx + 46, fy + 118)], fill=(210, 215, 222, 255), width=3)
+        d.line([(fx + 82, fy), (fx + 82, fy + 118)], fill=(210, 215, 222, 255), width=3)
+        # Zip pockets + chest badge
+        d.line([(fx + 14, fy + 82), (fx + 38, fy + 98)], fill=(200, 205, 212, 255), width=3)
+        d.line([(fx + 114, fy + 82), (fx + 90, fy + 98)], fill=(200, 205, 212, 255), width=3)
+        d.rectangle([fx + 92, fy + 28, fx + 114, fy + 40], fill=a + (255,), outline=shade(c, 0.65), width=2)
+        # Double sporty stripes down both sleeves
+        for limb in (RLIMB, LLIMB):
+            for k in ("F", "B", "L", "R"):
+                x, y, w, h = limb[k]
+                d.rectangle([x + w // 2 - 7, y, x + w // 2 - 2, y + h - 14], fill=a + (255,))
+                d.rectangle([x + w // 2 + 2, y, x + w // 2 + 7, y + h - 14], fill=a + (255,))
+    if style == "varsity":
+        # School varsity jacket: contrasting sleeves, striped collar/hem/cuffs, snap buttons & chest emblem
+        for limb in (RLIMB, LLIMB):
+            for k, (x, y, w, h) in limb.items():
+                if k == "D": fillgrad(d, (x, y, w, h), a, 0.88, 0.88, False)
+                elif k == "U": fillgrad(d, (x, y, w, h), a, 1.06, 1.0, False)
+                else:
+                    fillgrad(d, (x, y, w, h), a, 1.04, 0.92)
+                    d.rectangle([x, y + h - 16, x + w - 1, y + h - 1], fill=shade(c, 0.85))
+                    d.rectangle([x, y + h - 10, x + w - 1, y + h - 6], fill=(248, 248, 245, 255))
+        d.line([(fx + 64, fy + 16), (fx + 64, fy + 118)], fill=shade(c, 0.68), width=4)
+        for yy in range(28, 112, 20): d.ellipse([fx + 60, fy + yy, fx + 68, fy + yy + 8], fill=(245, 245, 240, 255))
+        d.ellipse([fx + 84, fy + 26, fx + 114, fy + 56], fill=a + (255,), outline=shade(c, 0.65), width=3)
+        for b in ("F", "B", "L", "R"):
+            x, y, w, h = TORSO[b]; d.rectangle([x, y + 121, x + w - 1, y + 125], fill=(248, 248, 245, 255))
+    if style == "armor":
+        # Fantasy chestplate with metallic bevels, gold trim & cross-belt
+        trim = a + (255,)
+        for b in ("F", "B"):
+            x, y, w, h = TORSO[b]
+            d.rectangle([x + 6, y + 6, x + w - 7, y + h - 10], outline=trim, width=5)
+            d.line([(x + 12, y + 54), (x + w - 13, y + 54)], fill=trim, width=4)
+        d.polygon([(fx + 64, fy + 20), (fx + 82, fy + 44), (fx + 64, fy + 68), (fx + 46, fy + 44)], fill=trim, outline=shade(c, 0.5), width=3)
+        d.line([(fx + 6, fy + 94), (fx + 122, fy + 94)], fill=(70, 44, 24, 255), width=12)
+        d.rectangle([fx + 54, fy + 86, fx + 74, fy + 102], fill=trim, outline=(70, 44, 24, 255), width=3)
+        for limb in (RLIMB, LLIMB):
+            for k in ("F", "B", "L", "R"):
+                x, y, w, h = limb[k]
+                d.rectangle([x, y, x + w - 1, y + 32], fill=shade(c, 1.15), outline=trim, width=3)
+                d.rectangle([x, y + h - 34, x + w - 1, y + h - 2], fill=shade(c, 0.82), outline=trim, width=3)
     return im.filter(ImageFilter.SMOOTH)
 def pants(col, shoe, style="jeans"):
     c = hx(col); s = hx(shoe)

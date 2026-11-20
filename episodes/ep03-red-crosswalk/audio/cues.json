@@ -1,0 +1,10 @@
+{
+  "music": [
+    { "file": "../../RoboX v3/roblox-story-bg.mp3", "start": 0.0, "end": 73.40, "db": -16, "fade": 0.8 }
+  ],
+  "duck": [
+    { "start": 38.80, "end": 42.46, "db": -14 },
+    { "start": 68.40, "end": 73.40, "db": -12 }
+  ],
+  "sfx": []
+}

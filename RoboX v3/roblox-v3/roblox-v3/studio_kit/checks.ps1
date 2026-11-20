@@ -38,9 +38,9 @@ foreach ($pair in $args) {
     $fr = $Matches[2]
 
     $lua = @"
-shared.MT.roll = 90
+shared.MT.roll = 0
 local ok, e = pcall(function() shared.MT.cur = nil; shared.MT.frame("$id", $fr) end)
-task.wait(1.3)
+task.wait(0.8)
 return ok and "ok" or ("ERR " .. tostring(e))
 "@
     [System.IO.File]::WriteAllText((Join-Path $PSScriptRoot "_ck.lua"), $lua, $utf8NoBom)
@@ -62,8 +62,13 @@ if ($i -eq 0) {
     exit 1
 }
 
-$filter = "$fc${stackInputs}xstack=inputs=${i}:layout=$($lay -join '|'):fill=black"
-$ffmpegArgs += @("-filter_complex", $filter, "-q:v", "4", "caps/chk_sheet.jpg")
+if ($i -eq 1) {
+    $filter = $fc.TrimEnd(";")
+    $ffmpegArgs += @("-filter_complex", $filter, "-map", "[v0]", "-q:v", "4", "caps/chk_sheet.jpg")
+} else {
+    $filter = "$fc${stackInputs}xstack=inputs=${i}:layout=$($lay -join '|'):fill=black"
+    $ffmpegArgs += @("-filter_complex", $filter, "-q:v", "4", "caps/chk_sheet.jpg")
+}
 & ffmpeg @ffmpegArgs
 if ($LASTEXITCODE -eq 0) {
     Write-Host "sheet ok -> caps\chk_sheet.jpg"

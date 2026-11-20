@@ -1,10 +1,12 @@
 #!/usr/bin/env python
 """Join the pitched captures of each frame into sharp portrait frames.
 
-  python stitch.py --ep <episode> [--tiles 2|4] [--redo] [--jobs 2] [all | s001 s002 ...]
+  python stitch.py --ep <episode> [--tiles 2|4] [--step 1|2] [--redo] [--jobs 2] [all | s001 s002 ...]
 
 --tiles 2 (default): frames/raw2/<id>/ (upper, lower, upper, ...) -> frames/hd/<id>/NNNNN.jpg, 1080x1920, needs fov.json.
 --tiles 4:           frames/raw4/<id>/ (R rows per frame)         -> frames/4k/<id>/NNNNN.jpg, 2160x3840, needs tiles4k.json.
+--step N:            when rendered with render.py --step N (e.g. 2 = 15fps on twos), fills the skipped frame slots from
+                     their preceding stitched frame so join.py still outputs a full 30fps video.
 Every tile is the same camera centre turned by a pitch, so it maps by an exact homography (no parallax, no seam); the
 overlaps are feathered. Frames already stitched are skipped unless --redo, so it is safe to run while render.py is still
 capturing (it stitches what is complete). --jobs N uses N processes."""
@@ -91,9 +93,11 @@ def task(a):
 
 
 if __name__ == "__main__":
+    import shutil
     argv = sys.argv[1:]
     ep = episode.ep_dir(argv)
     tiles = int(episode.pop_flag(argv, "--tiles", "2"))
+    step = int(episode.pop_flag(argv, "--step", "1"))
     redo = bool(episode.pop_flag(argv, "--redo", False, has_value=False))
     jobs_n = int(episode.pop_flag(argv, "--jobs", "1"))
     if tiles not in (2, 4):
@@ -101,20 +105,38 @@ if __name__ == "__main__":
     need = "fov.json" if tiles == 2 else "tiles4k.json"
     if not os.path.exists(episode.path(ep, need)):
         sys.exit(f"no {need} in the episode (run fov.py{'' if tiles == 2 else ' and tiles4k.py'})")
+    picked = episode.pick(ep, argv)
     jobs, report = [], []
-    for sid, n in episode.pick(ep, argv):
+    for sid, n in picked:
         R = geometry(ep, tiles, sid)[0]
         src = episode.path(ep, "frames", f"raw{tiles}", sid)
-        have = len([f for f in os.listdir(src) if f[:5].isdigit()]) // R if os.path.isdir(src) else 0
-        jobs += [(ep, tiles, sid, i, redo) for i in range(min(have, n))]
-        report.append(f"{sid}:{min(have, n)}/{n}")
+        existing = set(os.listdir(src)) if os.path.isdir(src) else set()
+        ready = [i for i in range(n) if all(f"{i * R + k + 1:05d}.png" in existing for k in range(R))]
+        jobs += [(ep, tiles, sid, i, redo) for i in ready]
+        report.append(f"{sid}:{len(ready)}/{n}")
     if jobs_n > 1:
         with Pool(jobs_n) as p:
             res = list(p.imap(task, jobs, chunksize=4))
     else:
         res = [task(j) for j in jobs]
+    filled = 0
+    if step > 1:
+        sub = "hd" if tiles == 2 else "4k"
+        for sid, n in picked:
+            dst = episode.path(ep, "frames", sub, sid)
+            if not os.path.isdir(dst):
+                continue
+            last_src = None
+            for i in range(n):
+                p = os.path.join(dst, f"{i + 1:05d}.jpg")
+                if os.path.exists(p):
+                    last_src = p
+                elif last_src is not None:
+                    shutil.copy2(last_src, p)
+                    filled += 1
     blank = [f"{j[2]}#{j[3] + 1}" for j, r in zip(jobs, res) if r == -1]
-    print("stitched", sum(r for r in res if r > 0), "new frames; captured per shot:", " ".join(report))
+    fill_note = f"; filled {filled} stepped frames (step={step})" if filled else ""
+    print("stitched", sum(r for r in res if r > 0), f"new frames{fill_note}; captured per shot:", " ".join(report))
     if blank:
         print(f"BLANK CAPTURES: {len(blank)} frames deleted ({', '.join(blank[:12])}{' ...' if len(blank) > 12 else ''}). "
               "Bring the Studio window to the front, keep it uncovered, and run render.py again for those shots (no --force).")

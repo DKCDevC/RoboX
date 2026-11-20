@@ -1,0 +1,16 @@
+{
+  "music": [
+    { "file": "audio/music_calm.mp3", "start": 0.0, "end": 42.0, "db": -16, "fade": 0.8 },
+    { "file": "audio/music_tension.mp3", "start": 42.0, "end": 75.0, "db": -14, "fade": 0.5 },
+    { "file": "audio/music_climax.mp3", "start": 75.0, "end": 120.0, "db": -13, "fade": 0.4 }
+  ],
+  "duck": [
+    { "start": 41.2, "end": 42.4, "db": -14 },
+    { "start": 98.5, "end": 99.6, "db": -16 }
+  ],
+  "sfx": [
+    { "file": "audio/sfx/whoosh.wav", "t": 1.0, "db": -6 },
+    { "file": "audio/sfx/impact.wav", "t": 42.0, "db": -3 },
+    { "file": "audio/sfx/glow_rise.wav", "t": 75.0, "db": -5 }
+  ]
+}

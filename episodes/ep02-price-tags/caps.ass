@@ -1,0 +1,97 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 2
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name,Fontname,Fontsize,PrimaryColour,SecondaryColour,OutlineColour,BackColour,Bold,Italic,Underline,StrikeOut,ScaleX,ScaleY,Spacing,Angle,BorderStyle,Outline,Shadow,Alignment,MarginL,MarginR,MarginV,Encoding
+Style: Cap,Poppins ExtraBold,68,&H00FFFFFF&,&H00FFFFFF&,&H00000000&,&H00000000&,0,0,0,0,100,100,0,0,1,3,4,5,60,60,0,1
+
+[Events]
+Format: Layer,Start,End,Style,Name,MarginL,MarginR,MarginV,Effect,Text
+Dialogue: 0,0:00:00.06,0:00:00.16,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H002C45E8&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}IN
+Dialogue: 0,0:00:00.16,0:00:00.33,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H002C45E8&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}THIS
+Dialogue: 0,0:00:00.33,0:00:00.94,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H002C45E8&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}TOWN
+Dialogue: 0,0:00:01.02,0:00:01.24,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H002C45E8&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}EVERY
+Dialogue: 0,0:00:01.24,0:00:01.61,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H002C45E8&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}PERSON
+Dialogue: 0,0:00:01.61,0:00:01.77,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H002C45E8&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}HAS
+Dialogue: 0,0:00:01.77,0:00:01.87,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H002C45E8&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}A
+Dialogue: 0,0:00:01.83,0:00:02.18,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H002C45E8&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}PRICE
+Dialogue: 0,0:00:02.18,0:00:02.47,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H002C45E8&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}TAG
+Dialogue: 0,0:00:02.47,0:00:02.82,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H002C45E8&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}FLOATING
+Dialogue: 0,0:00:02.82,0:00:02.97,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H002C45E8&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}OVER
+Dialogue: 0,0:00:02.97,0:00:03.72,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}their head
+Dialogue: 0,0:00:03.81,0:00:04.14,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}mine said
+Dialogue: 0,0:00:04.14,0:00:05.12,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}fifty bucks
+Dialogue: 0,0:00:05.57,0:00:06.29,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}at school
+Dialogue: 0,0:00:06.29,0:00:06.66,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}kids with
+Dialogue: 0,0:00:06.66,0:00:07.33,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}high tags
+Dialogue: 0,0:00:07.33,0:00:07.55,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}sat at
+Dialogue: 0,0:00:07.55,0:00:08.27,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}the front
+Dialogue: 0,0:00:08.36,0:00:08.67,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}kid with
+Dialogue: 0,0:00:08.67,0:00:08.94,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H002C45E8&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}TEN
+Dialogue: 0,0:00:08.94,0:00:09.33,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}thousand
+Dialogue: 0,0:00:09.33,0:00:09.64,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}dollars
+Dialogue: 0,0:00:09.64,0:00:10.18,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}laughed
+Dialogue: 0,0:00:10.18,0:00:10.41,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}right in
+Dialogue: 0,0:00:10.41,0:00:11.34,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}my face
+Dialogue: 0,0:00:11.43,0:00:11.82,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}my dad's
+Dialogue: 0,0:00:11.82,0:00:12.18,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}tag was
+Dialogue: 0,0:00:12.18,0:00:12.80,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}weird
+Dialogue: 0,0:00:13.21,0:00:13.58,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}it stayed
+Dialogue: 0,0:00:13.58,0:00:13.68,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}at
+Dialogue: 0,0:00:13.67,0:00:13.96,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H002C45E8&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}ZERO
+Dialogue: 0,0:00:13.96,0:00:14.65,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}dollars
+Dialogue: 0,0:00:14.65,0:00:15.15,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}every single
+Dialogue: 0,0:00:15.15,0:00:15.68,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}day
+Dialogue: 0,0:00:15.79,0:00:16.03,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}people
+Dialogue: 0,0:00:16.03,0:00:16.65,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}treated him
+Dialogue: 0,0:00:16.65,0:00:16.83,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}like a
+Dialogue: 0,0:00:16.83,0:00:17.57,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}ghost
+Dialogue: 0,0:00:17.66,0:00:18.22,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}grandpa once
+Dialogue: 0,0:00:18.22,0:00:18.88,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}told me
+Dialogue: 0,0:00:18.95,0:00:19.46,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}never ask
+Dialogue: 0,0:00:19.46,0:00:19.66,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}why a
+Dialogue: 0,0:00:19.66,0:00:20.26,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}tag hits
+Dialogue: 0,0:00:20.26,0:00:20.93,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H002C45E8&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}ZERO
+Dialogue: 0,0:00:21.48,0:00:22.06,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}tonight
+Dialogue: 0,0:00:22.06,0:00:22.34,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}i saw
+Dialogue: 0,0:00:22.34,0:00:22.97,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}dad open
+Dialogue: 0,0:00:22.97,0:00:23.37,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}a locked
+Dialogue: 0,0:00:23.37,0:00:24.30,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}metal box
+Dialogue: 0,0:00:24.39,0:00:24.87,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}inside was
+Dialogue: 0,0:00:24.87,0:00:25.43,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}mom's old
+Dialogue: 0,0:00:25.43,0:00:25.73,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H002C45E8&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}PRICE
+Dialogue: 0,0:00:25.73,0:00:26.33,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}tag
+Dialogue: 0,0:00:26.77,0:00:26.98,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}it was
+Dialogue: 0,0:00:26.98,0:00:27.92,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}glowing gold
+Dialogue: 0,0:00:27.92,0:00:28.16,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H002C45E8&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}TEN
+Dialogue: 0,0:00:28.16,0:00:28.44,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H002C45E8&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}MILLION
+Dialogue: 0,0:00:28.44,0:00:29.24,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}dollars
+Dialogue: 0,0:00:29.34,0:00:29.71,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}that wasn't
+Dialogue: 0,0:00:29.71,0:00:29.93,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}a net
+Dialogue: 0,0:00:29.93,0:00:30.58,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}worth
+Dialogue: 0,0:00:31.23,0:00:31.41,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}it was
+Dialogue: 0,0:00:31.41,0:00:31.51,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}a
+Dialogue: 0,0:00:31.47,0:00:31.94,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H002C45E8&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}PROTECTION
+Dialogue: 0,0:00:31.94,0:00:32.45,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}fee
+Dialogue: 0,0:00:32.54,0:00:32.97,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}dad sold
+Dialogue: 0,0:00:32.97,0:00:33.25,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}his own
+Dialogue: 0,0:00:33.25,0:00:33.80,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}tag
+Dialogue: 0,0:00:33.80,0:00:34.49,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}so nobody
+Dialogue: 0,0:00:34.49,0:00:34.81,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}could ever
+Dialogue: 0,0:00:34.81,0:00:35.53,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}buy mom
+Dialogue: 0,0:00:35.63,0:00:35.92,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}i ran
+Dialogue: 0,0:00:35.92,0:00:36.41,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}outside to
+Dialogue: 0,0:00:36.41,0:00:37.11,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}warn him
+Dialogue: 0,0:00:37.67,0:00:37.81,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}then a
+Dialogue: 0,0:00:37.81,0:00:38.26,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}black van
+Dialogue: 0,0:00:38.26,0:00:38.67,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}stopped at
+Dialogue: 0,0:00:38.67,0:00:39.38,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}our door
+Dialogue: 0,0:00:39.38,0:00:39.58,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}and my
+Dialogue: 0,0:00:39.58,0:00:40.25,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}tag dropped
+Dialogue: 0,0:00:40.25,0:00:40.35,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H00FFFFFF&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}to
+Dialogue: 0,0:00:40.33,0:00:40.53,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H002C45E8&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}ONE
+Dialogue: 0,0:00:40.53,0:00:41.18,Cap,,0,0,0,,{\an5\pos(540,1402)\1c&H002C45E8&\bord3\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}CENT
