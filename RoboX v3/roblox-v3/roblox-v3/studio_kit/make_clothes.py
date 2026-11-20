@@ -29,7 +29,7 @@ def shirt(col, style, accent="#FFFFFF"):
     im = Image.new("RGBA", (W, H), (0, 0, 0, 0)); d = ImageDraw.Draw(im)
     for k, b in TORSO.items(): fillgrad(d, b, c, side=k in "FBLR")
     hem(d, TORSO["F"], c, 118, 9); hem(d, TORSO["B"], c, 118, 9); hem(d, TORSO["L"], c, 118, 9); hem(d, TORSO["R"], c, 118, 9)
-    long = style in ("hoodie", "collar", "cardigan", "suit", "blouse", "street", "varsity", "armor")
+    long = style in ("hoodie", "collar", "cardigan", "suit", "blouse", "street", "varsity", "armor", "sweater")
     for limb in (RLIMB, LLIMB):
         for k, (x, y, w, h) in limb.items():
             if k == "D":
@@ -58,6 +58,9 @@ def shirt(col, style, accent="#FFFFFF"):
         d.chord([fx + 30, fy - 30, fx + 98, fy + 30], 0, 180, fill=shade(c, 0.78))
         for sx in (52, 76): d.line([(fx + sx, fy + 26), (fx + sx, fy + 58)], fill=(245, 245, 240, 255), width=4); d.ellipse([fx + sx - 4, fy + 56, fx + sx + 4, fy + 64], fill=(245, 245, 240, 255))
         d.chord([bx + 18, by - 20, bx + 110, by + 70], 0, 180, fill=shade(c, 0.86)); d.arc([bx + 18, by - 20, bx + 110, by + 70], 0, 180, fill=shade(c, 0.68), width=4)
+    if style == "sweater":     # crew neck, ribbed hem and cuffs: the @Gneef hero's cream cable-knit
+        d.chord([fx + 40, fy - 22, fx + 88, fy + 22], 0, 180, fill=shade(c, 0.78)); d.chord([fx + 46, fy - 16, fx + 82, fy + 14], 0, 180, fill=shade(c, 1.04))
+        d.arc([fx + 40, fy - 22, fx + 88, fy + 22], 0, 180, fill=shade(c, 0.6), width=3)
     if style == "collar":
         d.polygon([(fx + 44, fy), (fx + 64, fy + 26), (fx + 84, fy)], fill=shade(c, 0.6))
         d.polygon([(fx + 34, fy), (fx + 58, fy + 30), (fx + 64, fy + 14)], fill=shade(c, 1.12)); d.polygon([(fx + 94, fy), (fx + 70, fy + 30), (fx + 64, fy + 14)], fill=shade(c, 1.12))

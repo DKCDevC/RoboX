@@ -1,5 +1,7 @@
 # script.md: writing an "In this world..." story script
 
+> **Default mode (2026-11-20): the Gneef long form** (120–180 s, 600–700 words at 250–270 wpm, `--mode fast`). Its story shape and language numbers are the ones in the `roblox-town-script` skill (§2, §4) and `gneef-scripts.md`; the beat windows for it are §3.0 below and `script_check.py --mode fast` tests them. Everything tagged REF-RANGE from the six older reels (§3.1, §3.2 windows, the `≤2.5` reading level, the 7-word sentence, 2–3 designed pauses) is **short reel mode** (≤ 80 s, `--mode slow`): use it only when the user asks for a short reel. Where this file and `roblox-town-script` disagree on story shape, `roblox-town-script` wins; this file wins on tool numbers.
+
 Read this before writing any episode script. (The `team/` evidence files cited below live outside the skill; every number you need is in this file.) It covers the rule, title and hook, beat map, twist, motif, sentences, dialogue, ending, banned list and the workflow. The production sheet format is in `templates/script-sheet.md`. **Don't open `examples/` until your rule, skeleton and first draft exist** (§10): the golds are for a quality comparison after drafting, never a starting point. In round 2 an agent that read them first rebuilt gold-1 beat for beat.
 
 **Evidence.** Every number comes from the 6 reference reels (bell 79 s, memories 179 s, town 158 s, dog 111 s, monster 170 s, train 131 s) as measured in `team/script-analyst.md`, `team/script-beats.json`, `team/audio-analyst.md` and `team/pacing-caption-analyst.md`, with `team/critic.md` rulings on top. No view or retention data exists for any ref. So a ref range shows what the refs did, not what works.
@@ -15,7 +17,7 @@ Tags used on every rule:
 
 | rule | number | tag |
 |---|---|---|
-| Very simple English, A1-A2 | Flesch-Kincaid grade ≤2.5; ≤5 % of words have 3+ syllables (refs 1.1-2.9 and 2.8-6.1 %) | REF-RANGE |
+| Very simple English | **Default (Gneef): Flesch-Kincaid grade ≤5.5 (his 2.0-4.9), one-syllable words ≥68 % (71-79 %), median sentence 5-9 words, never over 20.** Short reel mode: grade ≤2.5, ≤5 % of words with 3+ syllables (refs 1.1-2.9 and 2.8-6.1 %) | REF-RANGE |
 | First person, one narrator, told to a friend | 6/6 refs first person; narrator unnamed by default (5/6) | REF-RANGE |
 | Raw and casual | casual words where they fit (§0.1); no strong swearing (0/6 refs swear; young Roblox audience) | HYPOTHESIS |
 | Show feelings with actions | "I stopped laughing." "He put salt in his coffee." never "I felt so guilty" | REF-RANGE (bell, town) |
@@ -127,7 +129,25 @@ Calibration (opinion, scored by the method above): bell 12, monster 9 (creature 
 
 ## 3. Beat map
 
-### 3.1 Windows (REF-RANGE, from `script-beats.json`)
+### 3.0 Default windows: the Gneef long form (10 stories, `gneef-scripts.md` §2; `script_check.py --mode fast`)
+
+| beat | window (% of runtime) | note |
+|---|---|---|
+| rule line ends | ≤5 | sentence 1 is 8-20 words, "In this …", with a number or a size; sentence 2 starts "You see," |
+| rule fully clear | ≤12 % and ≤18 s | the rule plus 2-4 sentences of mechanics |
+| narrator and two anchors | 9-36 | age or job as a flat fact; a parent and a friend or sibling, each with a trait or object; one planted object or line |
+| inciting event | 15-30 (typical 17-27) | a time marker and the first escalation |
+| middle | 27-48 | sensory detail and a new place each step; a counter or ritual; the rule is used or turned on the narrator |
+| first reveal | 35-60 (typical 47-52) | the row tagged `REVEAL` or `TWIST`; no "misread plant" window in this mode |
+| second turn | 76-90 (typical 78-89) | the row tagged `TURN`: the narrator is the cost, the target, or must choose |
+| climax | 69-96 | one action that uses the rule |
+| last line starts | ≥92 (typical ≥93) | a callback to a planted line or object; short, concrete, no moral |
+
+Word budget: `runtime × 4.33` spoken words at 260 wpm (150 s ≈ 650). About 55-60 % of the words come before the first reveal and 10-15 % after the second turn. Act word share ≤55 % each. The twist is still fair (≥2 clues, §3.3) and the logic pass (§3.4) still applies. The rotation rule (reveal moves ≥10 points from the last episode) still applies inside 35-60 %.
+
+*§3.1 and §3.2 below are the short reel mode windows (six 79-179 s reels).*
+
+### 3.1 Windows, short reel mode (REF-RANGE, from `script-beats.json`)
 
 | beat | refs (% of runtime) | median | rule |
 |---|---|---|---|
@@ -144,7 +164,7 @@ Calibration (opinion, scored by the method above): bell 12, monster 9 (creature 
 
 Act word share in the refs: act 1 13-54 % (mean 27), act 2 24-65 % (mean 37), act 3 22-51 % (mean 36). Keep every act ≤55 % (HYPOTHESIS: memories' 65 % act 2 holds the subplot that never pays off).
 
-### 3.2 Beat targets for any runtime (60-180 s)
+### 3.2 Beat targets for any runtime, short reel mode (60-180 s)
 
 The §3.1 windows are % of runtime, so they hold at every length. **Seconds = % × runtime / 100** (117 s, reveal at 68 %: 79.6 s). Pick Variant A (early reveal) or B (late reveal), or any reveal inside 49-78 %, so the reveal moves **≥10 points from the last episode** (POLICY + HYPOTHESIS: YouTube does not monetize "templated storylines"; a fixed beat % every episode is a template).
 
@@ -164,7 +184,7 @@ The §3.1 windows are % of runtime, so they hold at every length. **Seconds = % 
 
 The aim % are HYPOTHESIS (points inside each window, split early / late); anywhere inside the window passes.
 
-**Word budget** at 220 wpm (3.67 words/s): `spoken words ≈ (runtime − 0.1 − pauses − tail − slow-read extra) × 3.67`. Pauses are 1.4-3.6 s (§6), the tail 0.5-1.5 s, and a slow-read line adds words / 3.67 × (1/rate − 1) (a 2-word line at 0.6x adds 0.4 s). With 2.2 s of pauses, a 1.2 s tail and no slow reads:
+**Word budget** (slow read shown: 220 wpm = 3.67 words/s; fast read 260 wpm = 4.33 words/s, so multiply the words by 1.18): `spoken words ≈ (runtime − 0.1 − pauses − tail − slow-read extra) × 3.67`. Pauses are 1.4-3.6 s (§6), the tail 0.5-1.5 s, and a slow-read line adds words / 3.67 × (1/rate − 1) (a 2-word line at 0.6x adds 0.4 s). With 2.2 s of pauses, a 1.2 s tail and no slow reads:
 
 | runtime (s) | 60 | 90 | 120 | 150 | 180 |
 |---|---|---|---|---|---|
@@ -204,6 +224,16 @@ Commenters find plot holes in the first hour. Answer these in the sheet header (
 9. Does every character know every name and fact he says? (A man who "never talked to anybody" can't greet Grandma by name unless the script shows how he knows it.)
 10. Does the world already know how the rule works? If the twist shows a hidden way it works, why doesn't everyone know? Name the belief the world uses instead (usually your misread) and say it once in act 1, attributed ("Grown-ups say some kids are just bad luck to stand next to.").
 For a story with windows, walls or a street, draw a top-down diagram (who is where, where the light is) before the shot list: left and right flip between inside and outside.
+
+### 3.5 Structure checklist from the @Gneef Shorts (2026-11-20, `gneef-study.md` §7, `gneef-scripts.md`; ten scripts of 522–718 words, 114–178 s): the default
+Check it with the logic pass. It is structure, not lines: never copy a line shape (§9.4).
+- **0–10 %:** the rule in sentence 1 ("In this town / world / galaxy, ..."), made vivid with a number or a size (3 of 5 use one); sentence 2 often opens "You see," and explains how the rule works. Then 2–3 sentences of mechanics.
+- **By about 10 %:** the narrator has an age or a job, and **two anchors**: a best friend or sibling and a parent, each with one concrete trait or object. **One planted object that pays off** (a grease pencil, a compass, a notebook, a ruler, a plate of food).
+- **Inciting event at 20–27 %** with a time marker ("one night", "in the spring", "last Tuesday", "in April") and the first escalation.
+- **30–60 %:** each step raises the stakes with a sensory detail and a new place; the rule is **used**, not only stated: the narrator finds the loophole in its wording, or the rule turns on them.
+- **Twist 36–60 %, second turn 80–90 %** (the narrator is the one erased, the target was them, the price of the win). Your own reveal window in §3.2 still applies; this only says the story has two turns.
+- **Ending (last 5–8 %):** a **callback to a line planted early** (a lullaby line, the rule repeated as advice, a figure waiting at the finish line), or a cliffhanger on the friend's face. The last line is short and concrete. Three of five end warm, funny or triumphant, two dark.
+- **Sentences:** average about 9–12 words (7.0–12.4 per video) with 2–4 word punches; present-tense world, past-tense story. Family or friend stakes in four of five. At 250+ wpm a 150 s story is about 600–700 words, so write to that length (`pacing.md`, `look-reference.md` §4).
 
 ---
 
@@ -262,18 +292,18 @@ A missing core field is back-filled from that episode's plan files or asked from
 
 | measure | target | refs | tag |
 |---|---|---|---|
-| Mean words per sentence (spoken words) | 6-8 (aim ~7) | pooled 7.5 (5.9-8.7) | REF-RANGE |
-| Sentences ≤6 words | 45-65 % (aim ~50) | pooled 48 % (31.8-64.7; 5/6 ≥45) | REF-RANGE |
-| Sentences ≤3 words | 15-25 % | pooled 18 % | REF-RANGE |
+| Mean words per sentence (spoken words) | **fast read: 8-12.5 (aim ~10)**; slow read: 6-8 (aim ~7) | Gneef 8.7-12.2; older reels pooled 7.5 (5.9-8.7) | REF-RANGE |
+| Sentences ≤6 words | **fast: 30-55 %**; slow: 45-65 % (aim ~50) | Gneef 30-45 %; older pooled 48 % (31.8-64.7) | REF-RANGE |
+| Sentences ≤3 words | **fast: 8-25 %**; slow: 15-25 % | Gneef 10-22 %; older pooled 18 % | REF-RANGE |
 | Longest sentence | ≤20 words | 14-23 | REF-RANGE |
 | Verbless fragments | 12-25 %, and every fragment adds a new fact (number, name, object, sound, place) | bell 23.5 %, town 25.8 %, dog 17.5 %, monster 13 % | REF-RANGE + critic ruling |
 | Emphasis-only fragments ("Forever." "Not once." "Never again.") | 0, unless it is a rule fact | slop vector (critic §5.4) | REF + POLICY |
 | Starts with And / But / So / Then | ≤20 % of sentences, never 3 in a row | train 31.8 % (flagged) | REF-RANGE |
 | Same subject opening ("He... He... He...") | never 3 in a row | humanizer rule | HYPOTHESIS |
 | Tense | past by default. The rule and "now" status lines may be present. A fully present story is allowed. Never switch mid-story. | 5/6 past; memories' one slip flagged | REF-RANGE |
-| Delivery speed | **200-240 wpm** (time scripts at 220); never >250. ≤80 s stories may read at 160-200 | 161-270; 270 masks under the bed | REF-RANGE (critic ruling) |
-| Sentence gap | 0.15-0.30 s by default (already inside the 220 wpm average) | town/dog p50 0.17 s | REF-RANGE |
-| **Designed pauses (the one pause rule; audio, pacing, checklist and upgrades point here)** | **2-3 per video, each 0.6-1.3 s; no other gap ≥0.5 s.** **A** (required): 0.8-1.3 s right after the twist line, or the line where the rule breaks. **B** (required): 0.6-1.0 s right before the last line. **C** (optional): 0.6-1.3 s next to the climax line. Each is its own sheet row | bell 1.29 s and memories 0.88 s after the rule breaks; no ref gives the last line more than 0.38 s | A: REF-RANGE (n=2); B, C: HYPOTHESIS |
+| Delivery speed | **fast read (default): 250-270 wpm, time scripts at 260**; slow read: 200-240 wpm (time at 220), ≤80 s stories may read at 160-200. One mode per episode; `script_check.py` and `pacing_check.py` take `--mode fast` (default) or `--mode slow` | Gneef 248-271; older reels 161-270 (270 masks under the bed) | REF-RANGE |
+| Sentence gap | 0.15-0.30 s by default (already inside the wpm average) | town/dog p50 0.17 s | REF-RANGE |
+| **Designed pauses (the one pause rule; audio, pacing, checklist and upgrades point here)** | **Fast read (default): at most 2 pauses, each 0.4-1.3 s; the usual one is 0.4-0.8 s right before the last line; no other gap ≥0.5 s.** The punch comes from 2-4 word sentences, not silence. **Slow read: 2-3 per video, each 0.6-1.3 s; no other gap ≥0.5 s.** **A** (required): 0.8-1.3 s right after the twist line, or the line where the rule breaks. **B** (required): 0.6-1.0 s right before the last line. **C** (optional): 0.6-1.3 s next to the climax line. Each is its own sheet row | Gneef 0-2 gaps per video (one of 2.1 s); slow: bell 1.29 s and memories 0.88 s after the rule breaks; no ref gives the last line more than 0.38 s | fast: REF-RANGE n=5; A: REF-RANGE (n=2); B, C: HYPOTHESIS |
 | Slow reads | 1-3 word punch lines at about 0.6x, read inside the main take with 0.2-0.4 s of silence around them; only the last line (about 0.85x) is its own take (`audio.md` §1.3). Mark them at the end of the line cell: `Pizza day. (0.6x)`; the tools stretch the row | refs' slowest lines are 1-3 word punches | HYPOTHESIS |
 | Numbers | write digits (captions show "6"), but count them as spoken words for timing ("2045" = twenty forty-five = 3 words) | memories, monster captions | REF-RANGE |
 
@@ -363,7 +393,7 @@ Run `python tools/script_check.py script-sheet.md --last-reveal <last episode's 
 9. Sentence stats: mean 6-8 words, 45-65 % ≤6 words, 15-25 % ≤3 words, no sentence >20 words, every fragment adds a fact, ≤20 % And/But/So/Then starts.
 10. Dialogue 5-20 % of words, every line ≤10 words, no run >3 sentences, every speaker tagged for casting.
 11. Zero hits from §9.1 and §9.2 (search the text for each phrase), no em dashes, past tense held.
-12. Read aloud at 220 wpm: runtime is the target ±5 %, the designed pauses follow §6 (A and B present), and the voice tests of §0.1 pass (if a line sounds like a narrator or a movie trailer, rewrite it).
+12. Read aloud at the episode's pace (260 wpm fast, 220 slow): runtime is the target ±5 %, the pauses follow §6 (fast: at most 2; slow: A and B present), and the voice tests of §0.1 pass (if a line sounds like a narrator or a movie trailer, rewrite it).
 13. No copying (§9.4): 0 copy-shape hits, 0 five-word overlaps with the refs or golds, and the skeleton shares ≤4 of 10 slots with every gold and ref.
 14. Logic pass (§3.4) answered in the header.
 15. Twist: 2-4 clues, ≤2 direct, no line before the reveal states the mechanism, and the blind guess test says "not guessed" (or UNCHECKED until the user reads it; §3.3).

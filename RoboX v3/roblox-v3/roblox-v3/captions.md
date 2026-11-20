@@ -1,73 +1,48 @@
 # captions.md: word-by-word captions at 1080x1920
 
-> **v3 (2026-11-19):** the caption look is `look-reference.md` §7, not the one-word spec in §1 below (that was the old moody refs; the bright-toon phrase style is retired to `legacy/`). Use §0. The timing, accent-category, safe-zone and generation rules in §1.1–§4 still apply.
-
-## 0. v3 spec and how to make it
-| item | value | tag |
-|---|---|---|
-| Chunking | 1–2 words at a time | REF-RANGE (look-reference §7) |
-| Case | lowercase; the one key word per sentence in ALL CAPS | REF-RANGE |
-| Fill / accent | white; key word red about `#e8452c` | REF-RANGE |
-| Font | **Poppins ExtraBold** (the user's choice, 2026-11-19; free, OFL; files in `assets/fonts/`) | user choice |
-| Size | cap height about 50 px (≈2.7 % of 1920) → font size about 70 px | REF-RANGE (size from cap height is an estimate) |
-| Position | centre at about 65 % of the height = y 1248 on the refs; **use y 1400 (73 %)**: at 65 % the words sat on the eyes and mouth in every close-up (E01, 2026-11-19) | REF-RANGE / E01 fix |
-| Edge | soft dark shadow **plus a thin 3 px dark outline**: shadow alone vanished on white signs and bright flash frames (E01) | REF-RANGE / E01 fix |
-
-Made this way on E01 (2026-11-19, verified on the export): (1) lowercase every word in `words.json` and write each row's key word in CAPS (the sheet's caption-highlight column, one per sentence); (2) merge neighbouring words into one caption entry ("word a word b", start of the first, end of the second) when both are short (≤12 letters together), inside one sentence, and neither is the key word, so the key word stands alone; hold each caption until the next starts; (3) `python tools/make_caps.py words_caps.json caps.ass --accent-at "<start times of the key words>" --y 1400 --fs 78 --outline 3 --color E8452C --font "Poppins ExtraBold"`; (4) copy `assets/fonts/Poppins-ExtraBold.ttf` into `<episode>/fonts/` and `join.py --caps caps.ass` burns it in (libass finds it by the name "Poppins ExtraBold"). `make_caps.py` prints the accent share per caption entry, so after pairing it reads above 13 % even when the word share is fine (E01: 12 % of words).
-
-Tags: **REF-RANGE** = measured in the 6 refs (4/6 use one word per caption: bell, memories, monster, train; town and dog use 1-3 word phrases); **HYPOTHESIS** = beat-the-refs bet or an unmeasured platform convention. Machine-readable twin: `templates/caption-preset.json`.
-Limits: no view data. Font names are GUESSES from glyph shapes. The caption-onset lead (-54 to -81 ms) was not independently reproduced (the check was inconclusive), so the timing rule below is a window to aim for, verified by hand on 1-2 words per video.
+**One spec.** This is the caption look for every new episode (v3.1, 2026-11-20, measured on the @Gneef Shorts, `gneef-study.md` §5). The earlier looks (E01–E03: 1–2 words, lowercase, red key word; the 6-reel Montserrat spec; the accent-colour rules) are in `legacy/captions-older-looks.md` and are used only when the user asks for one.
 
 ## 1. Spec (1080x1920, 30 fps)
-
 | item | value | tag |
 |---|---|---|
-| Chunking | **one word per caption** (refs 1.00-1.05 tokens per caption, 2.5-3.8 captions/s). Phrase mode (1-3 words, mean 1.65, town/dog) only for reads of 245+ wpm; choose one mode per video | REF-RANGE |
-| Font | **Montserrat ExtraBold** (free, Google Fonts). Fallback order: Poppins ExtraBold, Arial Black. Condensed phrase mode: Anton (closest free to Impact) | GUESS from glyphs (bell/memories look like Montserrat/Poppins heavy) |
-| Size | **104 px** font (ascender-to-descender extent about 101 px = 5.25 % of height). Lighter look (monster/train): 72 px | REF-RANGE (101 px bell/memories; 66-72 px monster, train, town, dog) |
-| Position | horizontal centre 50 %; **vertical centre at 70.0 % of height = y 1344 px** (text spans about 1294-1394). Never move it per caption | REF-RANGE (bell/memories 70.0 %, monster/train 70.6 %, IQR +-0.15 %; town/dog 61.7 %) |
-| Max width | 65 % of frame (675 px); long words shrink to fit, up to 80 % | REF-RANGE (max 62-82 %) |
-| Fill | white `#FFFFFF` | REF-RANGE |
-| Punctuation | captions drop commas, full stops and quote marks; keep `?`, `!` and apostrophes (`make_caps.py` does this) | HYPOTHESIS (one word per caption reads cleaner without them) |
-| Outline | black, **12 px** (about 9 px at 720p x1.5), round joins, outside stroke. Lighter variant 7-9 px | REF-RANGE |
-| Shadow | black 100 %, offset x0 / y+6, blur 0-4 px (outline merges with the shadow: 98 % dark out to 9 px) | REF-RANGE |
-| Pop | scale **125 % to 100 % over 4 frames (133 ms)**: 1.25, 1.18, 1.10, 1.04, 1.0. No fade-out; the next caption replaces it | REF-RANGE (bell 1.22..1.0, memories 1.25..1.0; monster/train none) |
-| Onset | **-2 to 0 frames vs the word start** (default -1 frame = -33 ms). Target: >=75 % of captions within +-100 ms of the word | REF-RANGE (4 refs measured -54 to -81 ms mean, bell +21 ms, train +103 ms and the worst); the exact lead is unverified, see limits |
-| Gap between captions | <=1 frame in >=85 % of cases (no blank between words) | REF-RANGE (85-94 % in 5/6; train 27 % blinks off for 100 ms, avoid) |
-| Duration | typical 0.2-0.3 s; minimum 0.1 s; a word held until the next one starts. In a pause the last caption stays on screen | REF-RANGE (median 0.20-0.37 s, p10 0.10) |
-| Watermark | **none by default** (4/6 refs had none; do not use the Roblox logo or a classic avatar as an icon). Optional channel handle: top-left, bold white, dark outline, about 33 px tall, 40 px from the left, 130 px from the top, static | REF-RANGE n=1 (bell, @StudGang) for the position |
+| Chunking | **one word per caption**, switching on every spoken word (about every 4–8 frames) | REF-RANGE (Gneef; 4 of 6 older refs also) |
+| Case | normal capitalisation: "I", names, times ("3:00am"), "Mr", "Sunday" keep their case; other words lowercase | REF-RANGE (Gneef) |
+| Fill | white `#FFFFFF`; **no coloured key word** | REF-RANGE (Gneef) |
+| Font | **Poppins ExtraBold** (the user's choice, 2026-11-19; free, OFL; `assets/fonts/`) | user choice |
+| Size | font about **84 px** (ascender about 60 px) | REF-RANGE (Gneef, estimated from a 4K frame) |
+| Position | horizontal centre 50 %; **vertical centre about 68 % of the height (y ≈ 1306)**, never moved per caption. If a word keeps covering the eyes in face close-ups, use y 1400 for the whole episode (E01 found 65 % sat on the eyes) | REF-RANGE (Gneef 68 %) / E01 fix |
+| Edge | black outline **about 4 px** plus a soft shadow. The outline carries it on white signs and bright frames | outline width HYPOTHESIS (Gneef's looks thick; E01 shipped 3 px) |
+| Punctuation | captions drop commas, full stops and quote marks; keep `?`, `!` and apostrophes (`make_caps.py` does this) | HYPOTHESIS |
+| Max width | 65 % of the frame; long words shrink to fit, up to 80 % | REF-RANGE |
+| Pop | optional; not measured on Gneef. If used: 125 % to 100 % over 4 frames, no fade-out | REF-RANGE (older refs) |
+| Onset | -2 to 0 frames vs the word start (default -1 frame = -33 ms). Target: ≥ 75 % of captions within ±100 ms of the word | REF-RANGE (older refs) |
+| Gap between captions | ≤ 1 frame in ≥ 85 % of cases (no blank between words) | REF-RANGE |
+| Duration | typical 0.2–0.3 s, minimum 0.1 s; a word is held until the next one starts; in a pause the last caption stays | REF-RANGE |
+| Watermark | none by default. Never the Roblox logo or a classic avatar. Optional channel handle top-left, static | REF-RANGE n=1 |
 
-### 1.1 Highlight rule (accent color)
-- **One accent color per video.** Default yellow `#FEDD30` (bell) or red `#FD3433` (memories). Pick by world mood: warm/wonder yellow, horror/violence red (HYPOTHESIS; the refs do not show a mood mapping). Rotating between episodes is allowed and logged (see section 4).
-- **Hook:** the whole first sentence in the accent color, however long it runs (bell 0.2-3.7 s, memories 0.0-4.07 s; 2/6 refs; others none). Optional; alternate it on/off across episodes.
-- **After the hook, the category rule comes first:** accent only character names, the rule's words (its object, its state words), and the 1-2 emotional peak words of the episode. **At most one accent per sentence** (one word, or one 2-word name like "Mr. Hale"). Most lines get none. **≤13 % of the words is a ceiling, not a target**: a lower share is fine; never pad the list with props or ordinary nouns (radio, duck, Friday) to reach a number. Never function words ("the", "a", "and"). HYPOTHESIS inside the ref range (bell about 19 % of later words, memories about 5 % in 35 short bursts; the others none). `script_check.py` prints the share and the accent list to check by category.
-- Train used one fixed lime `#E2FD00` for every word, so a single colour is a valid alternative; it is not the default because it loses the emphasis channel.
+**Keep faces clear of the caption:** the caption sits at about 68 % of the height, so frame close-ups with the face in the upper half (`MT.camOn` aims 0.55 studs below the face by default, `MT.CAM_FACE_UP`); a face that fills the frame still gets a word on its chin, never on its eyes. The font stays **Poppins ExtraBold**.
+Make it with: `python tools/make_caps.py <ep>/words.json <ep>/caps.ass` (the defaults are this spec: y 1306, 84 px, outline 4, normal case, no key word, one word each), copy `assets/fonts/Poppins-ExtraBold.ttf` into `<episode>/fonts/`, then `join.py --caps caps.ass` burns it in (libass finds it by the name "Poppins ExtraBold"). `build_episode.py` runs this for you.
 
-### 1.2 Safe zones (HYPOTHESIS: general platform conventions, not measured here)
-Reels, Shorts and TikTok overlay a caption/handle block and an action-button column. Keep all text inside **x 60-900 and y 250-1550 px**. The caption centre at y 1344 with a 675 px max width spans x 202-877 and y 1294-1394, so it clears the bottom block (about the last 20 %, y > 1536) and the right button column (x > 960). Check once per platform on a real upload. Watermarks never go in the bottom 20 % or the right 12 %.
+### 1.1 Safe zones (HYPOTHESIS: platform conventions, not measured here)
+Reels, Shorts and TikTok overlay a caption/handle block and an action-button column. Keep all text inside **x 60–900 and y 250–1550**. A caption centred at y 1306 with 65 % max width clears the bottom block (about y > 1536) and the right button column (x > 960). Check once per platform on a real upload.
 
 ## 2. Quality checks
 | check | pass |
 |---|---|
-| caption centre y | 69.5-70.5 % of height |
-| text height | 5.0-5.5 % (104 px font) |
-| gap <=1 frame | >=85 % of captions |
-| onset within +-100 ms of the word | >=75 % |
-| first caption | on the first word (0.00-0.20 s) |
-| accent words after the hook | names, rule words, 1-2 peaks only; ≤13 %; at most one per sentence; none on function words |
-| caption contrast | renders must be caption-free for the colour tests used elsewhere (white captions clip at 255) |
+| captions per spoken word | one each (no 2-word entries) |
+| caption centre y | 67–69 % of the height (or 72.9 % if the eyes rule applied) |
+| gap ≤ 1 frame | ≥ 85 % of captions |
+| onset within ±100 ms of the word | ≥ 75 % |
+| first caption | on the first word (0.00–0.20 s) |
+| capitalisation | "I", names, times keep their case |
+| no red or coloured word | none |
+| caption-free picture | colour tests run on `out/picture.mp4`, never on the captioned file (white captions clip at 255) |
 
 ## 3. Generating captions automatically (zero tokens, locally)
+Pipeline: final voice → word-timestamp JSON → caption events (ASS) → ffmpeg/libass burn-in.
+1. **Word timestamps.** `tts_edge.py` and `tts_sapi.ps1` write them with the voice. For a recorded voice: force-align the known script (WhisperX, `stable-ts`) or `faster-whisper` with `word_timestamps=True`; Parakeet timestamps sit on an 80 ms grid, so calibrate with `--lead` and check by eye. No paid transcription without asking.
+2. **Run** `python tools/make_caps.py words.json caps.ass` (defaults = this spec; `--lowercase --pair --accent/--sheet` and the old numbers give the older look).
+3. **Burn in** with `join.py --caps caps.ass` (or `ffmpeg -i video.mp4 -vf "ass=caps.ass:fontsdir=fonts" -c:a copy out.mp4`).
+4. Spot-check 1–2 words per video against the waveform; adjust `--lead` once.
 
-Pipeline: narration audio (final voice track) -> word-timestamp transcript JSON -> caption events (ASS file) -> ffmpeg/libass burn-in, or import the ASS into the NLE.
-
-1. **Word timestamps.** Preferred (HYPOTHESIS): force-align the known script to the voice take, which avoids mis-heard words: WhisperX `whisperx voice.wav --model small --align_model WAV2VEC2_ASR_BASE_960H --output_format json` or `stable-ts` alignment. Alternatives: `faster-whisper` with `word_timestamps=True`, or Parakeet. Known issue: Parakeet word timestamps sit on an 80 ms grid with zero-length gaps, so use captions' `--lead` to calibrate and verify by eye. ElevenLabs `creative_transcribe_audio` also works but costs credits, so do not use it unless the user says yes.
-2. **Accents.** Preferred: `--sheet script-sheet.md` lights exactly the word in each row's `caption highlight` cell, inside that row only, so a rule word or a name that repeats is not lit everywhere ("whole line" lights the hook row). Old way: `--accent "Chloe,bell"` lights every occurrence of those words. Matching is case-insensitive with punctuation stripped.
-3. **Run** `python tools/make_caps.py words.json caps.ass --sheet script-sheet.md` to produce `caps.ass`, then:
-   `ffmpeg -i video.mp4 -vf "ass=caps.ass:fontsdir=fonts" -c:a copy out.mp4` with `Montserrat-ExtraBold.ttf` in `./fonts/`. Use a caption-free export for colour and clipping tests. It prints the accent share after the hook separately (ceiling 13 %). To light one occurrence by time instead, use `--accent-at "31.0,97.4"`. On a plan, run it on `plan_timing.py`'s `words_planned.json` to check the highlight plan.
-4. Spot-check 1-2 words per video against the waveform (onset -2 to 0 frames); adjust `--lead` once.
-
-Notes: ASS colours are BGR (`FEDD30` yellow becomes `&H0030DDFE&`; the script converts). `\an5\pos(540,1344)` centres the word on x 540 and y 1344, so the pop scales around the centre. Phrase mode (Anton, 1-3 words) is a manual variant: group tokens and drop the pop.
-
-## 4. Rotation (anti-template)
-Allowed to vary between episodes, logged in the rotation log (optional row 25, `templates/rotation-log.md`) and the cue-sheet header: accent colour (yellow `#FEDD30` / red `#FD3433` / none), hook fully accented or not, one-word vs phrase mode (phrase mode only at 245+ wpm). Fixed across episodes (channel identity, not content): font, position, outline, pop.
+Notes: ASS colours are BGR. `\an5\pos(540,1306)` centres the word, so a pop scales around it. Font, position and outline are fixed across episodes (channel identity); the rotation log needs no caption row.

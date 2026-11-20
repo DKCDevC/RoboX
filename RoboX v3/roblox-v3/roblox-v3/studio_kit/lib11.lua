@@ -6,6 +6,8 @@
 --   MT.countUp(f, f0, f1, a, b)        ease a value from a to b between frames f0 and f1
 --   MT.camOn(name, d, camz, lookz, side, lens, push)   camera d studs in front of an actor (heights above its feet)
 --   def.shake = n | fn(f), def.flash = fn(f)           per-shot camera shake (degrees) and exposure flash
+--   MT.castPreview(names, faces), MT.setPreview(name, buildFn, opts), MT.preview(id, buildFn)   one-frame cast / set sheet shots (stage_capture.py)
+--   def.roll = deg | fn(f), MT.rollRamp(f, f0, f1, a, b)   Dutch tilt (about 3-8 degrees over a shot); UNTESTED in Studio, check it on the check sheet first
 --   MT.drop(f, f0, z0, z1, len, bounce)                height of a dropped prop: gravity fall, then one small bounce
 --   MT.CASTV[name] = spec; MT.cast(name, at, facing, face)  named cast; any other name ending in a number is a crowd kid
 --   MT.around(cx, cy, r, k, i0, faceAt), MT.chatter(list, f, face)   a ring of kids, and everyone in a list talking
@@ -69,6 +71,89 @@ function MT.counter(name, value, o)
 end
 function MT.countUp(f, f0, f1, a, b) local p = math.clamp((f - f0) / math.max(1, f1 - f0), 0, 1); return a + (b - a) * (1 - (1 - p) ^ 2) end
 
+---------------------------------------------------------------- art grade (v3.2, 2026-11-20: from the @Gneef frames, gneef-study.md section 10)
+-- The kit's looks blew the colours up (ColorCorrection saturation +0.34..0.57 on top of pure-primary part colours), filled the
+-- shadows with a blue ambient and lit everything with a flat high sun. The art grade runs after MT.family and pulls that back:
+-- deeper, warmer shadows, a lower and warmer sun, a modest saturation, a warm tint, shallow depth of field.
+-- Tune at run time: shared.MT.ART.ambK = 0.4 (then rebuild the shot). MT.ART.on = false gives the old look.
+MT.ART = MT.ART or {}
+local ART0 = {
+	on = true,
+	ambK = 0.7, ambWarm = 0.6,          -- ambient / outdoor ambient brightness scale, and how far to pull the blue toward a warm grey
+	nightAmbK = 0.85,                   -- night scenes keep more of their blue fill
+	briMul = 1.25, expAdd = -0.3,       -- key light brightness scale, exposure offset
+	shadowSoft = 0.3, spec = 0.2, diffuse = 0.45,   -- environment lighting is mostly the blue sky: keep it low so shadows stay warm
+	sat = 0.2, nightSat = 0.14, con = 0.24,
+	tint = Color3.fromRGB(255, 222, 188), nightTint = Color3.fromRGB(240, 226, 255),
+	-- day = golden hour: a low sun behind the scene (shot +y is where most cameras look), warm haze, orange Decay tints the sky
+	sunDir = { 0.25, 0.9, 0.2 }, sunZ = 0.55,
+	atmoDensity = 0.42, atmoWarm = 0.8, atmoColor = Color3.fromRGB(255, 190, 140), atmoDecay = Color3.fromRGB(225, 110, 60), decayMix = 1.0,
+	atmoHaze = 2.3, atmoOffset = 0.15, glare = 0.5,
+	nightAtmoColor = Color3.fromRGB(120, 90, 150), nightAtmoDecay = Color3.fromRGB(70, 55, 120), nightHaze = 1.6, nightDensity = 0.38,
+	keyB = 0.9, rimB = 0.9,             -- portrait light strengths
+	dofFar = 0.4,
+	bloomMul = 1.0,
+}
+for k, v in pairs(ART0) do if MT.ART[k] == nil then MT.ART[k] = v end end
+function MT.artReset() MT.ART = {}; for k, v in pairs(ART0) do MT.ART[k] = v end end
+local function warmGrey(l) return Color3.new(math.clamp(l * 1.1, 0, 1), math.clamp(l * 0.98, 0, 1), math.clamp(l * 0.84, 0, 1)) end
+local function scaleWarm(c, k, mix)
+	local l = (c.R * 0.3 + c.G * 0.59 + c.B * 0.11) * k
+	return Color3.new(c.R * k, c.G * k, c.B * k):Lerp(warmGrey(l), mix)
+end
+function MT.artGrade(name)
+	local A = MT.ART
+	MT.interior = false
+	local f = MT.FAM[name]; local night = f and f.base == "night"
+	if night then
+		Lighting.GeographicLatitude = 35; Lighting.ClockTime = A.nightClock or 18.7   -- just after sunset: a purple-blue sky instead of black
+		Lighting.Ambient = scaleWarm(Lighting.Ambient, A.nightAmbK, 0.15)
+		Lighting.OutdoorAmbient = scaleWarm(Lighting.OutdoorAmbient, A.nightAmbK, 0.15)
+	else
+		Lighting.Ambient = scaleWarm(Lighting.Ambient, A.ambK, A.ambWarm)
+		Lighting.OutdoorAmbient = scaleWarm(Lighting.OutdoorAmbient, A.ambK, A.ambWarm)
+		if A.clock then Lighting.GeographicLatitude = A.lat or 35; Lighting.ClockTime = A.clock   -- a real time of day (17.3 = golden hour, 18 = sunset)
+		elseif A.sunDir then MT.sun(A.sunDir[1], A.sunDir[2], A.sunDir[3])   -- shot coords: +y is the way most cameras look, so {0.2, 0.9, 0.2} = a low sun behind the scene
+		else
+			local sun = f.sun or { -0.5, -0.62, 0.62 }
+			MT.sun(sun[1], sun[2], sun[3] * A.sunZ)
+		end
+	end
+	Lighting.Brightness = Lighting.Brightness * A.briMul
+	Lighting.ExposureCompensation = Lighting.ExposureCompensation + A.expAdd
+	Lighting.ShadowSoftness = A.shadowSoft
+	Lighting.EnvironmentSpecularScale = A.spec; Lighting.EnvironmentDiffuseScale = A.diffuse
+	local cc = Lighting:FindFirstChild("MTColor")
+	if cc then
+		cc.Saturation = night and A.nightSat or A.sat
+		cc.Contrast = A.con
+		cc.TintColor = night and A.nightTint or A.tint
+	end
+	local at = Lighting:FindFirstChild("Atmosphere")
+	if at and night then   -- a purple dusk haze instead of a black sky
+		at.Color = A.nightAtmoColor; at.Decay = A.nightAtmoDecay; at.Haze = A.nightHaze; at.Density = A.nightDensity; at.Offset = 0.2
+	elseif at then
+		at.Density = A.atmoDensity
+		if not night then
+			at.Color = at.Color:Lerp(A.atmoColor or Color3.fromRGB(255, 226, 190), A.atmoWarm)
+			if A.atmoDecay then at.Decay = at.Decay:Lerp(A.atmoDecay, A.decayMix or 0.8) end   -- Decay is what tints the sky at dusk
+			if A.atmoHaze then at.Haze = A.atmoHaze end
+			if A.atmoOffset then at.Offset = A.atmoOffset end
+			if A.glare then at.Glare = A.glare end
+		end
+	end
+	local b = Lighting:FindFirstChild("Bloom"); if b then b.Intensity = b.Intensity * A.bloomMul end
+	MT.famExp = Lighting.ExposureCompensation
+	MT.dofFar = A.dofFar
+end
+do
+	local family0 = MT.family
+	function MT.family(name)
+		family0(name)
+		if MT.ART.on then MT.artGrade(name) end
+	end
+end
+
 ---------------------------------------------------------------- camera
 -- E01 close-ups that show a face and its counter: camOn(name, 4.6, 4.4, 5.0, side, 30, 0.6)
 function MT.camOn(name, d, camz, lookz, side, lens, push)
@@ -77,9 +162,10 @@ function MT.camOn(name, d, camz, lookz, side, lens, push)
 	local f = math.rad(a.base.facing)
 	local fwd = Vector3.new(math.sin(f), 0, math.cos(f)); local right = Vector3.new(fwd.Z, 0, -fwd.X)
 	local cam = p + fwd * d + right * (side or 0) + Vector3.new(0, camz, 0)
-	local look = p + Vector3.new(0, lookz, 0)
+	-- aim a little below the face so it sits above the caption band (captions sit at about 68 % of the height, eyes would be under them)
+	local look = p + Vector3.new(0, lookz - (MT.CAM_FACE_UP or 0.55), 0)
 	local function back(v) return { v.X, -v.Z, v.Y } end
-	return { back(cam), back(look), lens or 30, push = push }
+	return { back(cam), back(look), lens or 30, push = push, target = name }
 end
 
 local frame11 = MT.frame11Base or MT.frame
@@ -97,9 +183,43 @@ function MT.frame(id, f)
 			cam.CFrame = cam.CFrame * CFrame.Angles(math.rad(rx), math.rad(ry), math.rad(s * 0.6 * math.sin(t * 23.0)))
 		end
 	end
+	local lightOn = def.lightOn or (MT.camBase and MT.camBase.target)    -- def.lightOn = "hero" lights a character the camera is not built on with camOn
+	if MT.ART.portrait and lightOn and not MT.root():FindFirstChild("PortraitKey") then
+		MT.portraitLight(lightOn, def.portrait or {})
+	end
+	if def.roll then   -- Dutch tilt: degrees, or a function of the frame (the camera turns about its view axis; tiles roll with it)
+		local r = type(def.roll) == "function" and def.roll(f) or def.roll
+		if r ~= 0 then cam.CFrame = cam.CFrame * CFrame.Angles(0, 0, math.rad(r)) end
+	end
 	if def.flash then Lighting.ExposureCompensation = (MT.famExp or 0) + def.flash(f) end
 end
+-- roll ramp for def.roll: degrees from a at frame f0 to b at frame f1 (linear, held outside). def.roll = function(f) return MT.rollRamp(f, 1, 45, 0, 6) end
+function MT.rollRamp(f, f0, f1, a, b) return a + (b - a) * math.clamp((f - f0) / math.max(1, f1 - f0), 0, 1) end
 
+-- Portrait light (v3.2): a warm key from one side and above, a cool rim from behind the other side, so a face has a shape.
+-- Flat front light was the biggest reason a close-up looked cheap next to the @Gneef frames. Runs by itself for any shot whose
+-- camera comes from MT.camOn (MT.ART.portrait ~= false); MT.portraitLight(name, o) places it by hand (o.key, o.rim colours, o.side = 1 | -1).
+MT.ART.portrait = (MT.ART.portrait == nil) and true or MT.ART.portrait
+function MT.portraitLight(name, o)
+	o = o or {}
+	local a = MT.actors[name]; if not (a and a.base) then return end
+	local p = a.base.pos
+	local f = math.rad(a.base.facing)
+	local fwd = Vector3.new(math.sin(f), 0, math.cos(f)); local right = Vector3.new(fwd.Z, 0, -fwd.X)
+	local side = o.side or 1
+	local head = p + Vector3.new(0, 4.3 * (a.scale or 1), 0)
+	local function mk(name2, pos, light)
+		local part = Instance.new("Part"); part.Name = name2; part.Anchored = true; part.CanCollide = false; part.CanQuery = false
+		part.Transparency = 1; part.Size = Vector3.new(0.2, 0.2, 0.2); part.CFrame = CFrame.lookAt(pos, head); part.Parent = MT.root()
+		light.Parent = part
+	end
+	local key = Instance.new("SpotLight")
+	key.Color = o.key or Color3.fromRGB(255, 214, 170); key.Brightness = o.keyB or (MT.interior and MT.INT and MT.INT.keyB) or MT.ART.keyB or 6; key.Range = 22; key.Angle = 70; key.Face = Enum.NormalId.Front; key.Shadows = true
+	mk("PortraitKey", head + fwd * 5.5 + right * (4.2 * side) + Vector3.new(0, 4.5, 0), key)
+	local rim = Instance.new("SpotLight")
+	rim.Color = o.rim or Color3.fromRGB(150, 180, 255); rim.Brightness = o.rimB or (MT.interior and MT.INT and MT.INT.rimB) or MT.ART.rimB or 4; rim.Range = 22; rim.Angle = 80; rim.Face = Enum.NormalId.Front; rim.Shadows = false
+	mk("PortraitRim", head - fwd * 5 - right * (4.5 * side) + Vector3.new(0, 3.5, 0), rim)
+end
 ---------------------------------------------------------------- cast
 MT.SKINS = MT.SKINS or { "#F1C9A5", "#E8B98F", "#D9A57E", "#C98F65", "#A8714D", "#8A5A3C" }
 -- hair names = MTLib accessories (studio.md §3.0 lists the free ones that fit)
@@ -200,7 +320,60 @@ function MT.missingList()
 end
 
 ---------------------------------------------------------------- shots
-function MT.resetShots() MT.SHOTS = {}; MT.shotIdx = 0 end
+-- Previews are one-frame shots that are not part of the episode: the cast and set sheets (stage_capture.py) render MT.frame(id, 1)
+-- for each of them. They survive MT.resetShots, so an episode's cast.lua / sets.lua can register them before shots.lua runs.
+MT.PREVIEWS = {}; MT.PREVIEWDEFS = {}
+function MT.resetShots()
+	MT.SHOTS = {}; MT.shotIdx = 0
+	for id, d in pairs(MT.PREVIEWDEFS) do MT.SHOTS[id] = d end
+end
+function MT.preview(id, build)
+	if not MT.PREVIEWDEFS[id] then table.insert(MT.PREVIEWS, id) end
+	local d = { build = build, n = 1, idx = 0 }
+	MT.PREVIEWDEFS[id] = d; MT.SHOTS[id] = d
+end
+-- CAST sheet: MT.castPreview({ "me", "brad" }, { me = { "smile", "scared", "shocked" } }) registers, per character, cast_<name>_front,
+-- cast_<name>_three (3/4 view) and cast_<name>_face_<face> for each listed face (default: the character's own face). The character
+-- stands alone on a neutral grey stage so outfit, hair and silhouette can be judged.
+function MT.castPreview(names, faces)
+	local function stage(name, face, d, camz, lookz, side, lens)
+		return function()
+			MT.box("stage_floor", { 60, 60, 1 }, { 0, 0, -0.5 }, "#8F9299")
+			MT.box("stage_back", { 60, 1, 24 }, { 0, 14, 12 }, "#C8CAD0")
+			MT.family("mid-neutral-normal")
+			MT.cast(name, { 0, 0 }, 0, face)
+			return MT.camOn(name, d, camz, lookz, side, lens)
+		end
+	end
+	for _, name in ipairs(names) do
+		MT.preview("cast_" .. name .. "_front", stage(name, nil, 11, 3.4, 3.0, 0, 32))
+		MT.preview("cast_" .. name .. "_three", stage(name, nil, 11, 3.4, 3.0, 5.5, 32))
+		local own = (MT.CASTV[name] or {}).face
+		for _, f in ipairs((faces and faces[name]) or { own or "neutral" }) do
+			MT.preview("cast_" .. name .. "_face_" .. f, stage(name, f, 3.6, 4.4, 5.0, 0, 30))
+		end
+	end
+end
+-- SET sheet: MT.setPreview("oak", function() oakStreet("green", "mid-neutral-normal", false) end, { cast = { { "me", { 2, 0 }, -70 } } })
+-- registers set_<name>_wide, set_<name>_low and set_<name>_top: the set built and lit, the cast who appear standing in it.
+-- opts.cams = { wide = { loc, look, lens }, low = ..., top = ... } overrides a camera (shot coordinates: x right, y forward, z up).
+function MT.setPreview(name, buildSet, opts)
+	opts = opts or {}
+	local cams = {
+		wide = { { 0, -28, 8 }, { 0, 0, 3.5 }, 46 },
+		low = { { -4, -9, 1.5 }, { 2, 0, 3.2 }, 34 },
+		top = { { 0, -0.5, 48 }, { 0, 0, 0 }, 42 },
+	}
+	for k, v in pairs(opts.cams or {}) do cams[k] = v end
+	for view, cam in pairs(cams) do
+		MT.preview("set_" .. name .. "_" .. view, function()
+			buildSet()
+			for _, c in ipairs(opts.cast or {}) do MT.cast(c[1], c[2], c[3] or 0, c[4]) end
+			return { cam[1], cam[2], cam[3] }
+		end)
+	end
+end
+function MT.listPreviews() return table.concat(MT.PREVIEWS, ",") end
 function MT.shot(id, def)
 	MT.shotIdx = (MT.shotIdx or 0) + 1
 	def.idx = MT.shotIdx

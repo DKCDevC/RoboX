@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
-"""words.json -> caps.ass (1080x1920, v3 reference style: lowercase white, ALL-CAPS red key words, pop 125->100% in 133 ms).
+"""words.json -> caps.ass (1080x1920). Default = the v3.1 look (captions.md): one word per caption, white, normal capitalisation, y 1306, 84 px, 4 px outline, no key word.
+The older look (lowercase, red ALL-CAPS key words, 1-2 words) is --lowercase with --accent/--sheet and --pair (legacy/captions-older-looks.md).
 usage: python make_caps.py words.json caps.ass [--sheet script-sheet.md] [--accent "Chloe,bell"] [--hook-until 3.7]
-       [--color E8452C] [--lead 0.033] [--y 1402] [--fs 68] [--outline 3] [--max-hold 0.25] [--keep-case]
+       [--color E8452C] [--lead 0.033] [--y 1306] [--fs 84] [--outline 4] [--max-hold 0.25] [--lowercase]
 --sheet (preferred): lights exactly the word in each row's `caption highlight` cell, inside that row only ("whole line"
         lights the row; "-" none), so a word that repeats elsewhere is not lit. Rows are matched to words.json in order.
 --accent-at "31.0,97.7": lights the one word starting within 0.08 s of each time (one occurrence only).
@@ -13,10 +14,11 @@ p = argparse.ArgumentParser()
 p.add_argument("words"); p.add_argument("out")
 p.add_argument("--accent", default=""); p.add_argument("--hook-until", type=float, default=0.0)
 p.add_argument("--color", default="E8452C"); p.add_argument("--lead", type=float, default=1 / 30)
-p.add_argument("--y", type=int, default=1402); p.add_argument("--fs", type=int, default=68)
-p.add_argument("--outline", type=int, default=3); p.add_argument("--font", default="Poppins ExtraBold")
+p.add_argument("--y", type=int, default=1306); p.add_argument("--fs", type=int, default=84)
+p.add_argument("--outline", type=int, default=4); p.add_argument("--font", default="Poppins ExtraBold")
 p.add_argument("--max-hold", type=float, default=0.25, help="Max hold after word end so pauses stay clean")
-p.add_argument("--keep-case", action="store_true", help="Keep original word casing instead of v3 lowercase/ALL-CAPS")
+p.add_argument("--keep-case", action="store_true", help="(default now) keep the original word casing")
+p.add_argument("--lowercase", action="store_true", help="older look: lowercase words, accent words in ALL CAPS")
 p.add_argument("--pair", action="store_true", help="Smart 1-2 word v3 chunking (pairs short adjacent non-accent words <=12 chars)")
 p.add_argument("--sheet"); p.add_argument("--accent-at", default="")
 a = p.parse_args()
@@ -94,7 +96,7 @@ tokens = []
 for i, (s, e, w) in enumerate(W):
     txt = show(w)
     hot = (s < a.hook_until) or (norm(w) in acc) or (i in lit)
-    if not a.keep_case:
+    if a.lowercase:
         txt = txt.upper() if hot else txt.lower()
     raw_ends_sentence = w.rstrip().endswith((".", "!", "?"))
     tokens.append({"s": s, "e": e, "txt": txt, "hot": hot, "eos": raw_ends_sentence})

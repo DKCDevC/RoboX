@@ -2,7 +2,7 @@
 """1-click end-to-end episode builder (designed for unattended / overnight runs).
 
   python build_episode.py --ep <episode> [--tiles 2|4] [--step 1|2] [--jobs 2]
-                          [--resume] [--skip-sync] [--skip-load] [--skip-render] [--redo-caps] [--clean]
+                          [--resume] [--old-caps] [--skip-gates] [--skip-sync] [--skip-load] [--skip-render] [--redo-caps] [--clean]
 
 Runs the full RoboX v3 pipeline in order:
   1. sync_textures.py   (updates Studio local textures if Roblox auto-updated)
@@ -10,13 +10,13 @@ Runs the full RoboX v3 pipeline in order:
   3. fov.py (+ tiles4k.py if --tiles 4)
   4. render.py          (queues shots and waits until bridge.mjs completes all jobs)
   5. stitch.py          (joins tiles into 1080x1920 or 4K frames, filling stepped frames if --step 2)
-  6. tools/make_caps.py (generates v3 caps.ass from words.json if present)
+  6. tools/make_caps.py (generates caps.ass from words.json if present: the v3.1 one-word look; --old-caps = the E01-E03 look)
   7. join.py            (muxes picture + caps + voice + ducked music + SFX -> out/final.mp4)
   8. --clean (optional) (removes intermediate frames/ and picture*.mp4 once out/final.mp4 is verified)
 
 Requirement: start_bridge.bat and Roblox Studio (Edit mode) must already be running."""
 import os, shutil, subprocess, sys, time
-import episode, rb
+import episode, rb, stage
 
 KIT = episode.KIT
 TOOLS = os.path.abspath(os.path.join(KIT, "..", "tools"))
@@ -115,6 +115,8 @@ def main():
     step = int(episode.pop_flag(argv, "--step", "1"))
     jobs = int(episode.pop_flag(argv, "--jobs", "2"))
     resume = bool(episode.pop_flag(argv, "--resume", False, has_value=False))
+    old_caps = bool(episode.pop_flag(argv, "--old-caps", False, has_value=False))
+    skip_gates = bool(episode.pop_flag(argv, "--skip-gates", False, has_value=False))
     skip_sync = bool(episode.pop_flag(argv, "--skip-sync", False, has_value=False))
     skip_load = bool(episode.pop_flag(argv, "--skip-load", False, has_value=False))
     skip_render = bool(episode.pop_flag(argv, "--skip-render", False, has_value=False))
@@ -122,6 +124,11 @@ def main():
     clean = bool(episode.pop_flag(argv, "--clean", False, has_value=False))
 
     t0 = time.time()
+    if not skip_render and not resume:
+        ok, msg = stage.gate(ep)       # cast, set and storyboard approved by the user (stage.py)
+        print("stages:", msg)
+        if not ok and not skip_gates:
+            sys.exit("STOPPED before the render: the build is gated on the user's approvals. Run: python stage.py --ep <episode> status")
     print(f"build_episode: ep={ep} tiles={tiles} step={step} jobs={jobs} resume={resume}")
 
     if not skip_sync and not skip_render:
@@ -151,9 +158,13 @@ def main():
     words_path = episode.path(ep, "words.json")
     sheet_path = episode.path(ep, "script-sheet.md")
     if os.path.exists(words_path) and (redo_caps or not os.path.exists(caps_path)):
-        cap_args = [os.path.join(TOOLS, "make_caps.py"), words_path, caps_path, "--pair"]
-        if os.path.exists(sheet_path):
-            cap_args += ["--sheet", sheet_path]
+        # v3.1 look (captions.md): one word per caption, normal case, no key word = make_caps defaults.
+        # --old-caps: the E01-E03 look (1-2 words, lowercase, red key words from the sheet).
+        cap_args = [os.path.join(TOOLS, "make_caps.py"), words_path, caps_path]
+        if old_caps:
+            cap_args += ["--pair", "--lowercase", "--y", "1402", "--fs", "68", "--outline", "3"]
+            if os.path.exists(sheet_path):
+                cap_args += ["--sheet", sheet_path]
         run_step("6/7 make_caps", cap_args)
 
     src_mode = "4k" if tiles == 4 else ("hd" if tiles == 2 else "raw1")

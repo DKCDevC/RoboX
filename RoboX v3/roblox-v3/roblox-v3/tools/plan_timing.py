@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """plan_timing.py - a planned words.json + cuts.txt from a script sheet, so shotlist_check / pacing_check / make_caps
 run on a plan before any voice exists. Zero tokens. The real take's words.json replaces both (rebuild cuts from it).
-usage: python plan_timing.py script-sheet.md [--shots shot-list.md] [--tail 1.2] [--wpm 220] [--out .] [--rewrite-times]
+usage: python plan_timing.py script-sheet.md [--shots shot-list.md] [--tail 1.2] [--wpm 260]  (260 = fast read, the default; 220 = slow read) [--out .] [--rewrite-times]
   writes  words_planned.json  (token times: each row's time split by the spoken syllables of its words, with a 0.15 s
                                gap after every sentence; designed pauses are real gaps; slow reads stretch their row)
           cuts.txt            only with --shots: the shot list's starts, excluding 0
@@ -18,7 +18,7 @@ import sheetlib
 from sheetlib import load, spoken, syl, sentences, split_row
 
 ap = argparse.ArgumentParser()
-ap.add_argument("sheet"); ap.add_argument("--wpm", type=float, default=220); ap.add_argument("--shots"); ap.add_argument("--tail", type=float, default=1.2)
+ap.add_argument("sheet"); ap.add_argument("--wpm", type=float, default=260); ap.add_argument("--shots"); ap.add_argument("--tail", type=float, default=1.2)
 ap.add_argument("--out", default="."); ap.add_argument("--rewrite-times", action="store_true")
 a = ap.parse_args()
 sheetlib.WPS = a.wpm / 60
@@ -41,7 +41,7 @@ for k, r in enumerate(R):
         t += gap
 os.makedirs(a.out, exist_ok=True)
 with open(os.path.join(a.out, "words_planned.json"), "w", encoding="utf-8") as fh:
-    json.dump(dict(source="planned by plan_timing.py (220 wpm model)", runtime=round(RT, 2), words=words), fh, indent=0)
+    json.dump(dict(source="planned by plan_timing.py (wpm model, default 260)", runtime=round(RT, 2), words=words), fh, indent=0)
 
 if a.shots:
     cuts = []

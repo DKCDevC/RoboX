@@ -1,85 +1,89 @@
-# reference look: STYLE.md
+# reference look: STYLE.md (v3.1, one set of numbers)
 
-Measured from 5 Shorts (34,398 frames, 660 shots): The Last Guardian (4.3M), I got the Weakest Power (2.8M), Forbidden Prison Pt 2 (844K), The Boy Who Was Sold for 100 Gold (172K), He Knew My Name (151K).
-All numbers are REF-RANGE unless marked. Sample frames: `_summary/family_<name>.png`. Every shot: `<video>/sheet_XX.jpg`.
+Measured from two sets of references:
+- **Older reels (A):** 5 Shorts, 34,398 frames, 660 shots: The Last Guardian (4.3M), I got the Weakest Power (2.8M), Forbidden Prison Pt 2 (844K), The Boy Who Was Sold for 100 Gold (172K), He Knew My Name (151K).
+- **@Gneef (B), 2026-11-20:** ten Shorts (the newest ten), 1,218 shots, 30 fps, `gneef-study.md` §2–§11. B is the channel the user wants new episodes to match. **Where A and B differ, the numbers below are B's.** A is kept only where B has nothing to say.
+All numbers are REF-RANGE unless marked. This file is the single source of numbers for the look; `look.md`, `pacing.md`, `captions.md`, `lighting-color.md` follow it (§10 lists their old numbers it replaced).
 
 ## 1. The look in one paragraph
-Bright, saturated, sunny Roblox with real movie-camera habits. Real R6 avatars in real clothes with custom, very expressive faces. Hard sun shadows, blue skies, gold and fire-red fantasy sets, and blurred backgrounds on close-ups. The camera lives close and low, pushes in on almost half the shots and shakes on impacts. Characters keep moving: walking, running at the camera, entering and leaving frame. Cuts are fast (about 1 per second). Captions are small, white, lowercase, 1–2 words, with one red ALL-CAPS key word.
+Bright, saturated, **warm** Roblox with real movie-camera habits. Real R6 avatars in real clothes with custom, very expressive faces. One dominant colour per location, blurred backgrounds on close-ups, fog, light shafts, bloom on glow. The camera lives close, **pushes in on almost every shot**, tilts (Dutch) on tense beats and shakes on impacts. Characters act in about half of the shots: running, climbing, flinching, turning. Cuts are fast (7–10 per 10 s). Captions are one white word at a time with a black outline.
 
-## 2. Look families (use the matching lighting file)
-| family | used for | share of time | brightness | contrast | black pt | white pt | saturation | shadow | mid | highlight | shadow warmth | highlight warmth | vignette |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| mid-neutral-normal | daylight indoors (office, house, school), normal life | 28% | 0.495 | 0.326 | 0.007 | 0.969 | 0.333 | #0b0b17 | #919397 | #f8f3e4 | -12.6 | +20.2 | 1.08 |
-| mid-warm-vivid | golden hour, desert, fire-lit, "power" moments | 28% | 0.326 | 0.294 | 0.004 | 0.924 | 0.706 | #0a0303 | #855623 | #f4e58f | +7.5 | +101.7 | high (bright center glow) |
-| dark-neutral-vivid | blue dusk / night / dim halls, tension | 27% | 0.298 | 0.264 | 0.003 | 0.888 | 0.581 | #050517 | #515367 | #d9d9d0 | -18.2 | +9.6 | 1.32 |
-| bright-warm-vivid | gold palace, kings, rewards, glory | 10% | 0.621 | 0.245 | 0.086 | 0.940 | 0.634 | #672f14 | #d6a956 | #fbf0b9 | +83.0 | +65.8 | 0.91 |
-| dark-warm-vivid | lava, hell, villain throne, danger | 5% | 0.096 | 0.115 | 0.003 | 0.495 | 0.694 | #050101 | #3f1010 | #af5742 | +3.3 | +109.8 | 0.66 |
-| bright-neutral-normal | heaven light, white flashes, power reveals | 2% | 0.715 | 0.182 | 0.263 | 0.962 | 0.208 | #59667e | #b6bdc0 | #f3f1e1 | -37.2 | +17.6 | 0.89 |
+## 2. Look families, palette and exposure (use the matching lighting file)
+| family | used for | share of time | brightness | contrast | black pt | white pt | saturation | shadow | mid | highlight | shadow warmth | highlight warmth |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| mid-neutral-normal | daylight indoors (office, house, school), normal life | 28% | 0.495 | 0.326 | 0.007 | 0.969 | 0.333 | #0b0b17 | #919397 | #f8f3e4 | -12.6 | +20.2 |
+| mid-warm-vivid | golden hour, desert, fire-lit, "power" moments | 28% | 0.326 | 0.294 | 0.004 | 0.924 | 0.706 | #0a0303 | #855623 | #f4e58f | +7.5 | +101.7 |
+| dark-neutral-vivid | blue dusk / night / dim halls, tension | 27% | 0.298 | 0.264 | 0.003 | 0.888 | 0.581 | #050517 | #515367 | #d9d9d0 | -18.2 | +9.6 |
+| bright-warm-vivid | gold palace, kings, rewards, glory | 10% | 0.621 | 0.245 | 0.086 | 0.940 | 0.634 | #672f14 | #d6a956 | #fbf0b9 | +83.0 | +65.8 |
+| dark-warm-vivid | lava, hell, villain throne, danger | 5% | 0.096 | 0.115 | 0.003 | 0.495 | 0.694 | #050101 | #3f1010 | #af5742 | +3.3 | +109.8 |
+| bright-neutral-normal | heaven light, power reveals | 2% | 0.715 | 0.182 | 0.263 | 0.962 | 0.208 | #59667e | #b6bdc0 | #f3f1e1 | -37.2 | +17.6 |
 
 Palettes: mid-neutral #ebece1 #03040b #9eb4d1 #6b6580 #302952 #e1a64b · mid-warm #140705 #532212 #f7db3c #b93b0a #e4e4b1 #b48b57 · dark-neutral #130c18 #58596f #78aae1 #e9d5ad #09248a #c45b24 · bright-warm #f5e0ae #f8d14c #e09b31 #431707 #9b4a1d #c3a685 · dark-warm #0e0104 #380e10 #6b0f07 #66565e #ca240a #d9bb84 · bright-neutral #eef1f0 #8f837f #bdc5cf #4a4856 #4f9dea #eddd72
 
-Whole videos: brightness 0.34–0.43, saturation 0.42–0.66 (much more saturated than our toon look's 0.15–0.36). Median vignette 0.89 (slightly dark corners). Blacks almost pure black (p1 ≈ 0.003–0.007) except the bright families.
+Whole videos (B): **mean luma 95–123 of 255 (0.37–0.48), contrast (luma std) 47–65, saturation 0.49–0.70, darkest 1 % at 3–27, brightest 1 % at 193–219, warm bias (R − B)/255 of +0.09 to +0.27.** Day and interior scenes are warm; cool is for night. Deep blacks are fine at night.
+**Colour script.** One dominant hue per location (amber/teal desert, purple-orange dusk, warm interiors against deep-blue night streets), and the **whole palette changes at a story turn** (a ghost world graded cyan-green, a monster night in deep blue). Warm light on faces against a cool ambience. **No vignette** (corner ÷ centre brightness 0.96–1.27).
 
 ## 3. Camera grammar
-- Shot moves (660 shots): push in 41%, static 23%, static camera while the character moves 15%, pull out 10%, shake as the main move 6%. Shake appears on 26% of all shots (impacts, running, power moments). Roll on 6% (hits, falls).
-- Push-ins are real: median +0.9% per shot, but the average push is 8.6%, so many shots have a big punch-in.
-- Low angles close to the character, wide lens feel. Characters fill the frame on close-ups.
+- Shot moves (B, 576 shots): **push in on 79 %** (65–89 % per video; about 6 % zoom per second, many bigger punch-ins), pull out 9 %, **still only 6 %**. **Roll (a Dutch tilt that turns 3–8° during the shot, HYPOTHESIS for the angle) on about 37 %** (29 % in batch 1, 44 % in batch 2, 66 % in the busiest video), most on tense beats. Pans rare (8 %). Shake 14–22 %, mostly on impacts. `def.roll` and `MT.rollRamp` in `lib11.lua` (UNTESTED in Studio).
+- Angles are extreme and varied: faces filling the frame, straight top-down, worm's-eye, wide lens, objects passing close to the lens. A reveal gets one wide shot, then back in.
 - **Depth of field ON for close-ups:** background trees, walls and crowds are soft.
-- Big readable in-world signs carry facts ("100,000,000 GOLD", "SIGN UP HERE", "THE GRAND COMPETITION").
+- Big readable in-world signs carry facts ("TOWN RULE #1", "FISHING LAW", "BOUNTY #3007").
 
 ## 4. Edit rhythm
-- Median shot 0.93 s, average 1.04 s. 8–12.5 cuts per 10 s (the 2.8M video is fastest: 0.67 s median).
-- White/black flash frames on power and impact moments (148 in Forbidden Prison, 108 in The Last Guardian).
-- First 3 s: rule/premise line with a big set (palace, lava throne) and fast cuts; see `<video>/hook_sheet.jpg`.
+- **7–10.5 cuts per 10 s; mean shot 0.95–1.4 s, median 0.9–1.25 s; few shots over 3.5 s (0–4 per video, none over 6 s)**; 26–39 % of shots are under 1 s. Even across the runtime, including the first 3 s and the last 10 s. About 5 words per shot at 260 wpm.
+- **No flashes** (none found in B; A's white flashes are dropped). Impacts are a cut plus shake plus push.
+- First 3 s: the rule line over a big set, cutting at body pace. Cuts on sentence starts (57–82 % of sentence starts get a cut).
 
 ## 5. Characters and faces
-- Real R6 Roblox avatars with real clothing. The hero of 4 videos: black suit, cyan shirt, black tie, black messy hair.
+- Real R6 Roblox avatars with real clothing; a hero with a distinct hair and outfit.
 - Custom faces, not default decals: big white eyes with black pupils, thick angled brows, open mouths with teeth, sweat drops. A new face on almost every shot.
-- Fantasy characters: long white anime hair, gold armor, wings, glowing marks, villains in red/black.
-- Crowds fill stadiums and streets.
+- Fantasy characters: long white anime hair, gold armor, wings, glowing marks, villains in red/black. Crowds fill stadiums and streets.
 
 ## 6. Movement (characters don't just stand)
-- 63% of screen time has something moving on its own. 221 shots (33%) have sustained walking or running, 213 (32%) short bursts, 226 (34%) are still.
-- Classic Roblox R6 walk and run animations with big arm and leg swings.
-- Signature shot: character runs straight at a low static camera until he fills the frame (see `reference-3-last-guardian/motion/s019_strip.jpg`).
-- Characters walk across frame, enter and leave frame, get grabbed or pushed, fall, fly. Feet stay on the ground with hard sun shadows under them.
+- **Characters act in about half of the shots** (B: 33–67 % per video), animation continuous (run, climb, flinch, turn); never pose-and-hold.
+- Classic Roblox R6 walk and run animations with big arm and leg swings, at walking speed (≥ 8 studs/s walk, ≥ 14 run).
+- Signature shot: a character runs straight at a low camera until he fills the frame. Characters walk across frame, enter and leave frame, get grabbed or pushed, fall, fly. Feet stay on the ground with hard sun shadows.
 
 ## 7. Captions
-- 1–2 words at a time, lowercase, white, bold rounded sans, soft dark shadow (no thick outline).
-- Cap height about 50 px at 1080x1920 (about 2.7% of height), centered at about 65% of the height.
-- One key word per sentence in ALL CAPS red (about #e8452c): KILLER, GUARDIAN, INCH.
+Summary of `captions.md` (the spec): **one word per caption**, switching on every spoken word; white with a black outline plus soft shadow; no coloured key word; centre about 68 % of the height (y ≈ 1306); font about 84 px; normal capitalisation (I, names, times keep their case).
 
 ## 8. Effects
-- Bloom/glow on gold, wings, powers. Fire and lava glow. White flashes on reveals.
-- Screen shake on impacts and runs. Roll on hits.
-- Slight vignette. No grain.
+- Bloom/glow on neon, powers, lamps; fire and lava glow; fog and haze in horror; light shafts; dust, snow and spark particles; hard sun shadows by day.
+- Screen shake on impacts and runs; Dutch roll on tense beats (§3).
+- **No vignette, no exposure flashes, no grain.**
 
 ## 9. Never do
-- Grey, low-saturation scenes for normal life (that's our old toon look, not theirs).
-- Long static holds: almost nothing lasts over 2.5 s.
+- Grey, low-saturation scenes for normal life (our old toon look, not theirs).
+- Shots over 3.5 s; still shots over about 6 % of the cuts; pose-and-hold characters.
 - Plain block characters or default faces.
-- ALL-CAPS captions for every word.
+- A red or coloured caption word, ALL-CAPS captions, lowercase "I" or names.
+- A vignette or an exposure flash.
 
-## 10. What this file overrides (the one place conflicts are settled)
-`look.md`, `lighting-color.md`, `pacing.md` and `captions.md` were written for an older look (6 moody refs, 458 shots). Their method, checks and every rule **not** listed here still apply. Where they disagree with this table, this table wins. `legacy/style-toon.md` (bright-toon) is retired.
+## 10. What this file replaced (old files, one table, current values)
+`look.md`, `lighting-color.md`, `pacing.md`, `captions.md` and `legacy/style-toon.md` were written for earlier looks. Their method, checks and every rule **not** listed here still apply; where they quote a number from this table's left column, use the right column.
 
-| old file, rule | old value | v3 value |
+| old file, rule | old value | current value |
 |---|---|---|
-| pacing.md §2 rule 3, look.md L9 | mean shot 1.3–2.5 s, median 1.3–2.0 s, 20–48 cuts/min | **median 0.9–1.1 s, 8–12 cuts per 10 s** (§4) |
-| pacing.md §2 rule 4 | 5–6 words per shot | about 3–4 words per shot (follows from 1 s shots at 185–240 wpm) |
-| pacing.md §2 rule 6, look.md L9 | no shot over 3.5 s, 1–2 holds of 4–6 s | **nothing over 2.5 s except one designed hold** |
-| pacing.md §3 first 10 s | ≥4 cuts, shot 1 up to 3.0 s | cut at body pace from the start (8–12 per 10 s); hook on a big set (§4) |
-| look.md L7, L8, L20 | ≥70 % real in-engine moves, push-ins ≤40 % | push in ≈40 % (many big 5–15 % punch-ins), static with moving character ≈15 %, pull out ≈10 %, shake on ≈25 %, roll on hits (§3) |
-| look.md L15, §8 | stiff idle ≤40 %, posed ≥35 %; Motor6D poses, Moon Animator, RoMixamo | **something moves in ≈63 % of screen time, ≈⅓ of shots walk or run** (§6); real R6 avatars + Roblox R6 walk/run/idle clips, `studio.md` §3.1 |
-| look.md §7 face kit | 19 layered PNGs per character | bold custom faces, a new face on almost every shot (§5); kit: `studio_kit/make_faces_v2.py` (24 faces) |
+| pacing.md §2 rule 3, look.md L9 | mean shot 1.3–2.5 s, median 1.3–2.0 s, 20–48 cuts/min | **7–10 cuts per 10 s, mean 1.1–1.4 s, median 1.1–1.25 s** (§4) |
+| pacing.md §2 rule 4 | 5–6 words per shot | about 5 words per shot at 250–270 wpm (§4) |
+| pacing.md §2 rule 6, look.md L9 | no shot over 3.5 s, 1–2 holds of 4–6 s | **few shots over 3.5 s (0–4 per video, none over 6 s)**, no designed holds needed (§4) |
+| pacing.md §3 first 10 s | ≥4 cuts, shot 1 up to 3.0 s | cut at body pace from the start (7–10 per 10 s); hook on a big set |
+| look.md L7, L8, L20 | ≥70 % real in-engine moves, push-ins ≤40 % | **push in ≥ 75 %**, roll ≈ 28 %, still ≤ 6 %, shake ≈ 14 % (§3) |
+| look.md L15, §8 | stiff idle ≤40 %, posed ≥35 %; Motor6D poses, Moon Animator, RoMixamo | **characters act in about half of the shots** (§6); real R6 avatars + Roblox R6 walk/run/idle clips, `studio.md` §3.1 |
+| look.md §7 face kit | 19 layered PNGs per character | bold custom faces, a new face on almost every shot (§5); kit `studio_kit/make_faces_v2.py` |
 | look.md L19, §9 cast | custom hero rig | real R6-look avatars in real clothes and hair (§5; `studio.md` §3) |
-| lighting-color.md §1, §3 | mood presets in `lighting-presets.lua` (normalDay, sad, …) | 6 look families, files in `assets/lighting/reference/` (§2) |
-| lighting-color.md C1, C2 | median sat 0.35–0.50, ≤10 % of shots over 0.60 | **video sat 0.42–0.66**, brightness 0.34–0.43 (§2) |
-| lighting-color.md C4 | p1 10–25, little crush | near-pure blacks (p1 ≈ 0.003–0.007 of full scale) except the bright families (§2) |
-| lighting-color.md vignette row | none | slight vignette, median ≈0.89; bloom on gold, wings, powers (§2, §8) |
-| captions.md §1 (all of it), studio.md §9.3 | one word, Montserrat 104 px, black outline, yellow accent, centre 70 % | **1–2 words, lowercase white, soft shadow, cap height ≈50 px, centre 65 %, one red ALL-CAPS key word** (§7); as rendered since E01: 3 px outline, centre 73 % (`captions.md` §0) |
+| lighting-color.md §1, §3 | mood presets in `lighting-presets.lua` | 6 look families, files in `assets/lighting/reference/` (§2) |
+| lighting-color.md C1, C2 | median sat 0.35–0.50, ≤10 % of shots over 0.60 | **video sat 0.49–0.70**, mean luma 95–123 (§2) |
+| lighting-color.md C4 | p1 10–25, little crush | near-pure blacks allowed (p1 3–27), esp. at night (§2) |
+| lighting-color.md vignette row | none | **none** (§2) |
+| lighting-color.md colour script | mood per scene | one dominant hue per location, hard palette change at the turn (§2) |
+| captions.md (old §0, §1, accent rules) | 1–2 words lowercase red key word; or Montserrat 104 px, yellow accent, y 1344 | **one word, white, outline, y 1306, 84 px, normal case, no key word** (§7, `captions.md`); old looks in `legacy/captions-older-looks.md` |
+| audio.md §1.2, script.md §6 | 185–240 wpm, 2–3 designed pauses | **250–270 wpm, continuous; at most one or two short pauses (0.4–1.3 s; the usual one, 0.4–0.8 s, sits before the last line)** (`audio.md` §1.2, `script.md` §6) |
+| join.py grade | vignette 0.24, saturation +6 % | no vignette, contrast +6 % only |
+| loudness | −14 LUFS | unchanged: −14 LUFS, ≤ −1.0 dBTP (B's mix is about −17; the platforms normalise both) |
 
 Still the same in every file: cuts on sentence starts, rule object in shot 1 and ≥50 % of shots, readable signs, the twist-cut colour shift, no-clipping and physics rules, safe zones.
+Measured on E03 against these numbers: 4.8 cuts per 10 s, 37 % push-ins, 11 % roll, 31 % still, luma 83, warm −0.05, vignette 0.93, 186 wpm. The first episode built to this file is the proof (`gneef-study.md` §8).
 
 ## Status
-Lighting files in `lighting-<family>.lua` are STARTING values from these numbers. They still need the Step 7 match test in Roblox Studio (`compare.py` against `_summary/family_<family>.png`).
+Lighting files in `lighting-<family>.lua` are STARTING values from these numbers. They still need the Step 7 match test in Roblox Studio (`compare.py` against `_summary/family_<family>.png`). The B numbers (push, roll, cut rate, no flash, no vignette) are measured but not yet proved on a render.

@@ -62,6 +62,17 @@ local function addAccessoryFromLib(actor, libName, tintHex)
 	for _, d in ipairs(acc:GetDescendants()) do
 		if d:IsA("BasePart") then d.Anchored = false; d.CanCollide = false; d.CanQuery = true end
 	end
+	-- a bigger, chunkier hair (the @Gneef hero's hair is large and falls over the forehead): spec.hairScale = 1.25
+	local hk = actor.spec.hairScale
+	if hk and hk ~= 1 then
+		local hd = acc:FindFirstChild("Handle")
+		if hd then
+			local sm = hd:FindFirstChildWhichIsA("SpecialMesh")
+			if sm then sm.Scale = sm.Scale * hk; sm.Offset = sm.Offset * hk end
+			if hd:IsA("MeshPart") then hd.Size = hd.Size * hk end
+			local at = hd:FindFirstChildWhichIsA("Attachment"); if at then at.Position = at.Position * hk end
+		end
+	end
 	actor.hum:AddAccessory(acc)       -- welds by its Attachment on the R6 rig: no sinking, no floating
 	local h = acc:FindFirstChild("Handle")
 	if tintHex and h then
@@ -167,6 +178,15 @@ function MT.actor(name, spec, at, facing)
 	m.Parent = MT.root()
 	if spec.scale and spec.scale ~= 1 then m:ScaleTo(spec.scale) end
 	local head = m:FindFirstChild("Head")
+	-- spec.headScale = { w, h }: an egg-shaped head like the @Gneef hero ({1.1, 1.35}); the hair / hat / face attachments follow it
+	local hs = spec.headScale or MT.HEAD_SCALE
+	if hs then
+		local mesh = head:FindFirstChildOfClass("SpecialMesh")
+		if mesh then mesh.Scale = Vector3.new(1.25 * hs[1], 1.25 * hs[2], 1.25 * hs[1]) end
+		for _, at in ipairs(head:GetChildren()) do
+			if at:IsA("Attachment") then at.Position = Vector3.new(at.Position.X * hs[1], at.Position.Y * hs[2], at.Position.Z * hs[1]) end
+		end
+	end
 	local face = head:FindFirstChildOfClass("Decal") or Instance.new("Decal", head)
 	face.Name = "face"; face.Face = Enum.NormalId.Front
 	local actor = {

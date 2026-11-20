@@ -5,7 +5,10 @@
 # HYPOTHESIS). INFO lines are counts to read, not pass/fail.
 import re, sys
 from collections import Counter
-if len(sys.argv) != 2 or sys.argv[1] in ("-h", "--help"): sys.exit("usage: python shotlist_check.py shotlist.md")
+FAST = True       # look-reference.md (v3.1): push-ins on >=75 %, Dutch roll on about 28 %, shots <=3.5 s; --mode slow = the older reels
+if "--mode" in sys.argv:
+    _i = sys.argv.index("--mode"); FAST = sys.argv[_i + 1] != "slow"; del sys.argv[_i:_i + 2]
+if len(sys.argv) != 2 or sys.argv[1] in ("-h", "--help"): sys.exit("usage: python shotlist_check.py shotlist.md [--mode fast|slow]")
 rows, short, build, sec = [], [], [], ""
 for ln in open(sys.argv[1], encoding="utf-8"):
     if ln.startswith("## "): sec = ln
@@ -41,8 +44,8 @@ def line(name, val, ok): print(f"{name:44s} {val:>10s}  {ok if isinstance(ok, st
 close = pct([s in ("CU", "MCU", "ECU") for s in size]); wide = pct([s in ("WS", "EWS") for s in size]); ins = pct([s == "INS" for s in size])
 line("L1 close shots >=25%", f"{close:.0f}%", close >= 25)
 line("L2 MS <=40%", f"{pct([s == 'MS' for s in size]):.0f}%", pct([s == 'MS' for s in size]) <= 40)
-line("L3 wides (WS+EWS) 15-30%", f"{wide:.0f}%", 15 <= wide <= 30)
-line("L4 inserts (INS) 8-12%", f"{ins:.0f}%", 8 <= ins <= 12)
+line("L3 wides (WS+EWS) " + ("(count to read)" if FAST else "15-30%"), f"{wide:.0f}%", "INFO" if FAST else 15 <= wide <= 30)
+line("L4 inserts (INS) " + ("(count to read)" if FAST else "8-12%"), f"{ins:.0f}%", "INFO" if FAST else 8 <= ins <= 12)
 line("L5 readable face >=60%", f"{pct(face):.0f}%", pct(face) >= 60)
 kf = [face[i] for i in range(n) if key[i]]
 line("L5 key lines with readable face 100%", f"{sum(kf)}/{len(kf)}", all(kf))
@@ -50,19 +53,27 @@ line("L6 non-eye angles >=35%", f"{pct([a != 'eye' for a in ang]):.0f}%", pct([a
 line("L7 in-engine moves (E) >=70%", f"{pct([c == 'E' for c in cam]):.0f}%", pct([c == 'E' for c in cam]) >= 70)
 line("L8 edit-zoom only (Z) <=20%", f"{pct([c == 'Z' for c in cam]):.0f}%", pct([c == 'Z' for c in cam]) <= 20)
 line("L8 static (S) <=10%", f"{pct([c == 'S' for c in cam]):.0f}%", pct([c == 'S' for c in cam]) <= 10)
-line("L9 shots >3.5 s (holds) <=2, all <=6 s", f"{len(holds)}", len(holds) <= 2 and max(L) <= 6)
+if FAST: line("L9 shots >3.5 s <=4, none >6 s", f"{len(holds)}", len(holds) <= 4 and max(L) <= 6)
+else: line("L9 shots >3.5 s (holds) <=2, all <=6 s", f"{len(holds)}", len(holds) <= 2 and max(L) <= 6)
 line("L10 first cut <=2.5 s", f"{L[0]:.2f}s", L[0] <= 2.5)
 line("L11 rule object in shot 1 and >=50%", f"{pct(rule):.0f}%", rule[0] and pct(rule) >= 50)
 line("L12 RULE-CHANGE shots (each change shown)", f"{sum(change)}", "INFO")
 line("L14 shots with mouth flaps", f"{sum('flap' in r[7].lower() or 'flap' in r[6].lower() for r in rows)}", "INFO")
 line("L15 stiff idle <=40%", f"{pct(idle):.0f}%", pct(idle) <= 40)
-line("L16 locations 5-8", f"{len(set(r[8].lower() for r in rows))}", 5 <= len(set(r[8].lower() for r in rows)) <= 8)
+_loc = len(set(r[8].lower() for r in rows))
+if FAST: line("L16 locations <=6", f"{_loc}", _loc <= 6)
+else: line("L16 locations 5-8", f"{_loc}", 5 <= _loc <= 8)
 top = setups.most_common(1)[0]
 line("L17 max repeats of one setup <=2", f"{top[1]}", top[1] <= 2)
 if top[1] > 2: print(f"    most repeated: {top[0]}")
-line("L18 final shot >=3 s", f"{L[-1]:.2f}s", L[-1] >= 3)
+if FAST: line("L18 final shot >=1 s", f"{L[-1]:.2f}s", L[-1] >= 1.0)
+else: line("L18 final shot >=3 s", f"{L[-1]:.2f}s", L[-1] >= 3)
 mt, mc = moves.most_common(1)[0]
-line("L20 move variety: top type <=40 %, >=3 types", f"{mt} {100 * mc / n:.0f}%", 100 * mc / n <= 40 and len(moves) >= 3)
+if FAST:
+    push = pct(["push" in r[5].lower() for r in rows]); roll = pct(["roll" in (r[4] + " " + r[5]).lower() or "dutch" in (r[4] + " " + r[5]).lower() for r in rows])
+    line("L20 push-in shots >=75 %", f"{push:.0f}%", push >= 75)
+    line("L20 Dutch roll shots 15-40 % (n>=8)", f"{roll:.0f}%", "INFO" if n < 8 else 15 <= roll <= 40)
+else: line("L20 move variety: top type <=40 %, >=3 types", f"{mt} {100 * mc / n:.0f}%", 100 * mc / n <= 40 and len(moves) >= 3)
 over = []
 for c in build:
     nw = re.findall(r"\d+", c[1]); cap = re.findall(r"≤\s*(\d+)", c[3]) or re.findall(r"\d+", c[3])   # the first "≤N" is the cap

@@ -11,7 +11,8 @@
                      "duck":  [{"start": 41.2, "end": 42.4, "db": -14}, ...]
                      "sfx":   [{"file": "...", "t": 1.0, "db": -6}, ...]
 --no-duck          disable automatic voice-triggered sidechain ducking on the music bus.
---blur W           light motion blur: each frame = (1-2W) itself + W each neighbour in the same shot (default 0.2; 0 = off)
+--vignette A       dark corners, angle in radians (default 0 = none; the older refs measured 0.24)
+--blur W           light motion blur: each frame = (1-2W) itself + W each neighbour in the same shot (default 0.05; 0 = off; 0.2 ghosted a fast walk on ep04)
 Each shot gets exactly its frame count from shots.json; missing frames repeat the last good one (listed as short shots).
 Writes out/picture.mp4 (30 fps, no sound). With audio/vo.wav present it also writes out/final.mp4: captions burned in
 (--caps, an ASS file from tools/make_caps.py; fonts from <episode>/fonts/), voice + ducked music + SFX, -14 LUFS, -1.5 dBTP."""
@@ -29,8 +30,11 @@ cues_path = cues_arg or (episode.path(ep, "audio", "cues.json") if os.path.exist
 auto_duck = not bool(episode.pop_flag(argv, "--no-duck", False, has_value=False))
 # Reference grade (look-reference.md: slight vignette, corner/centre about 0.89; punchier contrast). vignette angle 0.24
 # measured on flat grey = 0.891. Applied to the picture before captions, so the captions stay white. --no-grade turns it off.
-GRADE = "" if episode.pop_flag(argv, "--no-grade", False, has_value=False) else ",eq=contrast=1.06:saturation=1.06,vignette=angle=0.24"
-BLUR = float(episode.pop_flag(argv, "--blur", "0.2"))
+# 2026-11-20 (gneef-study.md): the five newest @Gneef Shorts have no vignette (corner/centre 0.96-1.27) and saturation 0.49-0.70,
+# so the default is now contrast only. --vignette 0.24 brings back the older refs' dark corners; --no-grade turns the grade off.
+VIGN = float(episode.pop_flag(argv, "--vignette", "0"))
+GRADE = "" if episode.pop_flag(argv, "--no-grade", False, has_value=False) else ",eq=contrast=1.06" + (f",vignette=angle={VIGN}" if VIGN > 0 else "")
+BLUR = float(episode.pop_flag(argv, "--blur", "0.05"))
 if not 0 <= BLUR <= 0.33:
     sys.exit("--blur is 0 (off) to 0.33 (an even 3-frame blend); default 0.2")
 folder = {"hd": "hd", "4k": "4k", "raw1": "raw1"}.get(src) or sys.exit("--src is hd, 4k or raw1")

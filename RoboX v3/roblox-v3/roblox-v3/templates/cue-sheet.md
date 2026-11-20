@@ -30,7 +30,7 @@ Columns: **time | beat | music (file + action: in / out / drop / silence / swap 
 | | 6 Reveal / payoff | | | | |
 | | 7 Last line + tail | | | | |
 
-Per-row reminders: music on frame 1; <=2 rule-object sounds before 65 % (an opener using it counts); SFX 2-5 per min, >=35 % on cuts, >=50 % after 65 %; designed pauses per script.md §6 (A after the twist line, B before the last line); no cut on a music beat just because it is a beat.
+Per-row reminders: music on frame 1; <=2 rule-object sounds before 65 % (an opener using it counts); SFX 2-5 per min, >=35 % on cuts, >=50 % after 65 %; pauses per script.md §6 (fast read: at most two short ones; slow read: A after the twist line, B before the last line); no cut on a music beat just because it is a beat.
 
 ## Self-check (tick before export)
 - [ ] first word <= 0.2 s; music on frame 1; first cut <= 2.5 s

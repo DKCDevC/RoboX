@@ -18,7 +18,7 @@ HARD [plan]: rule stated in the first sentence, starting ≤0.2 s · no banned p
 - **Bonus (+1, the area stays ≤10) [read]:** blind guess test (script.md §3.3: fresh haiku reader, pre-twist lines only, never self-judged). Not guessed = +1; partial = OK; guessed on #1 = WARN (fix if cheap). The refs and golds were guessed on #1, so this is never a gate
 - (1) [plan] Logic pass done (script.md §3.4, all 10 questions): 3 "why doesn't X just…?" answered, every main character placed, the rule holds for background characters and in daylight, one rule grammar, nobody knows what he can't, and the world's belief about the rule is named
 - (1) [plan] One motif used ≥3 times, last use in the final 10 %; ≥3 concrete specifics per 100 s; any §9.2 staged contrast has its planted X quoted with a time
-- (1) [plan] Sentence mean 6–8 words; 45–65 % of sentences ≤6 words; every fragment adds a new fact
+- (1) [plan] Sentence mean 8–12.5 words and 30–55 % of sentences ≤6 words (fast read; slow read: mean 6–8, 45–65 % ≤6); every fragment adds a new fact
 - (1) [plan] Voice (script.md §0.1): casual markers about 1 per 15 s of narration, contractions, ≤1 simile per 30 s (`script_check.py`), and every line passes "would a 12-year-old say this to a friend?"
 - (1) [read] the user reads it aloud and changes nothing, or his changes are made. **Any named §0.1 pattern left in (movie line, aphorism, literary gesture) scores both voice points 0**
 - (1) [plan] The narrator's final choice costs him something he now knows the price of (script.md §3.3); the last line lands with no moral, doesn't name the mechanism or restate the final shot, and the extra payoff sits inside the final 15 %
@@ -38,7 +38,7 @@ HARD: custom hero avatar (no noob or classic) [plan] · no Roblox logo [cut] · 
 
 ## 3. Audio /10 (audio.md)
 HARD: no Roblox in-game music [cut] · no paid generation without the user's OK [plan] · true peak ≤ −1.0 dBTP [cut]
-- (2) [plan] Narration at 200–240 wpm (≤80 s: 160–240) with the designed pauses of script.md §6: 2–3 pauses of 0.6–1.3 s, A after the twist line and B before the last line ([cut]: `pacing_check.py` on the real words.json)
+- (2) [plan] Narration at 250–270 wpm with at most two short pauses (script.md §6; the usual one, 0.4–0.8 s, before the last line). Slow read: 200–240 wpm (≤80 s: 160–240) with 2–3 pauses of 0.6–1.3 s, A after the twist line and B before the last line ([cut]: `pacing_check.py` on the real words.json)
 - (2) [plan] 1–2 music events at 45–90 %, on a cut, landing on the climax or twist line; event-1 type differs from the last episode (audio.md §2)
 - (2) [plan] 2–5 real SFX per minute, ≥35 % on cuts, ≥50 % in the last 35 %; the rule object has its own sound, ≤2 before 65 %
 - (1) [plan] Character voices: ≤3 besides the narrator; designed voice or a shift ≤+10 st; menacing adults −4 to −6 st

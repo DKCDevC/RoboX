@@ -78,10 +78,11 @@ def place_window(fix=False):
     u.keybd_event(0x12, 0, 0, 0); u.keybd_event(0x12, 0, 2, 0)   # tap Alt: Windows only lets a foreground change through after input
     u.SetForegroundWindow(h)
     import time; time.sleep(0.8)
-    over, rc = cursor_over_view()
-    if over:
+    for _try in range(6):                       # the mouse may be moving (the user, a remote tool): park it again a few times
+        over, rc = cursor_over_view()
+        if not over: break
         u.SetCursorPos((rc.l + rc.r) // 2, rc.t + 10)   # park the mouse on the title bar
-    time.sleep(0.2)
+        time.sleep(0.4)
     left = [p for p, ok in (("minimised", not u.IsIconic(h)), ("not maximised", u.IsZoomed(h)), ("not in front", u.GetForegroundWindow() == h),
                             ("mouse still over the 3D view", not cursor_over_view()[0])) if not ok]
     if left:
