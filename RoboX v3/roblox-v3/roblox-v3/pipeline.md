@@ -41,6 +41,8 @@ Everything in `studio.md`, in its §7 order, from a copy of `studio_kit/episode_
 
 `join.py` applies the reference grade by default (contrast and saturation +6 %, vignette angle 0.24 = corner/centre 0.89 measured), before the captions; `--no-grade` turns it off.
 
+**One click:** `python build_episode.py --ep <episode>` runs the machine parts of Steps 4–9 in order (see studio.md §3.2); add `--resume` to continue an interrupted render. Before it starts, the user must have read the script sheet and the voice must be final; a voice change means re-timing and re-checking the shot list.
+
 ## Step 6. Captions
 Spec: `look-reference.md` §7 (1–2 words, lowercase white, soft shadow, one red ALL-CAPS key word, centre at 65 % height). Make `caps.ass` with `tools/make_caps.py` and the v3 flags in `captions.md` §0, burn in with ffmpeg. Colour tests always run on the caption-free picture.
 

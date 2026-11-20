@@ -28,6 +28,17 @@ Source: https://elevenlabs.io/docs/eleven-creative/playground/text-to-speech , h
 ### 1.1b Free voice (no credits): Windows SAPI
 `tools/tts_sapi.ps1` reads an SSML file (one sentence per sheet row, `<break>` for pause rows) with the built-in voice, pitches it up for a kid narrator and writes `audio/vo.wav` plus `words.json` with word timestamps from SAPI itself (no Whisper needed). E01 (2026-11-19): Microsoft Zira, SSML rate +18 %, `-Pitch 1.26 -Tempo 1.05` → 62.6 s, 215 wpm, designed pauses 0.9 s. It sounds clearly synthetic next to a clone; use it for tests and when the user says no credits. Two traps it handles: SAPI reports word positions at 16 kHz whatever the file rate (÷3 at 48 kHz), and `asetrate` speeds the read up by the pitch factor. Only adult voices ship with Windows (David, Zira). IG "AI info" label on.
 
+### 1.1c Neural voice, free, online: `tools/tts_edge.py` (added with E02/E03, 2026-11-20)
+`python tools/tts_edge.py --text script.txt --out <ep>/audio/vo.wav --words <ep>/words.json [--voice en-US-AndrewNeural] [--rate +15%] [--pitch +0Hz]` uses Microsoft's Edge read-aloud service (`edge-tts`, in requirements.txt) and writes word-level timestamps from the service itself. Pauses go in the text as `[pause 0.6]`. Recommended: en-US-AndrewNeural, en-US-AnaNeural, en-US-BrianNeural, en-US-GuyNeural, vi-VN-NamMinhNeural, vi-VN-HoaiMyNeural. It needs internet and sends the script text to the service: fine for scripts that are not private, say so to the user first. E03 used AndrewNeural at +15 %: 224 words, 72.2 s.
+
+### 1.1d Cue sheet for the mix: `<ep>/audio/cues.json` (read by join.py)
+```json
+{ "music": [{"file": "../../RoboX v3/roblox-story-bg.mp3", "start": 0.0, "end": 73.4, "db": -16, "fade": 0.8}],
+  "duck":  [{"start": 38.8, "end": 42.5, "db": -14}],
+  "sfx":   [{"file": "audio/sfx/buzz.wav", "t": 1.0, "db": -6}] }
+```
+`duck` lowers the music under the voice (and under the listed spans); `sfx` places a file at a time. Without a cue file, join.py makes one music bed and ducks it automatically under the voice (`--no-duck` turns that off). Write the duck spans from words.json, not from the plan.
+
 ### 1.2 Delivery speed
 - **Target 200-240 wpm for 100-180 s stories** (REF-RANGE: memories 222, town 245, dog 247 sound workable; monster 270 has 0 pauses >=0.2 s and a 3.3-4.4 dB voice-over-bed margin, so it is too dense). Never above 250 wpm, never a median line rate above 5.5 syl/s.
 - ≤80 s stories or action stories may sit at 160-200 wpm (bell 161, train 176).

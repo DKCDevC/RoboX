@@ -33,7 +33,16 @@ def run_step(label, args, fatal=True):
     return r.returncode == 0
 
 
+def keep_screen_on():
+    """Ask Windows to keep the display on (and so not lock) while this process runs, the way video players do.
+    E03, 2026-11-20: the PC locked itself 50 min into the render, every capture timed out and the bridge stopped."""
+    if os.name == "nt":
+        import ctypes
+        ctypes.windll.kernel32.SetThreadExecutionState(0x80000000 | 0x00000001 | 0x00000002)  # CONTINUOUS|SYSTEM|DISPLAY
+
+
 def wait_for_render():
+    keep_screen_on()
     qdir = os.path.join(KIT, "queue")
     prog = os.path.join(KIT, "render_progress.txt")
     stopped = os.path.join(KIT, "render_stopped.txt")

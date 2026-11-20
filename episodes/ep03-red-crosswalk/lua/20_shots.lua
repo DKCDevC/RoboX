@@ -2,7 +2,7 @@
 -- Rule: "In this town, the crosswalk light turns red when a bully steps onto it."
 local MT = shared.MT
 MT.resetShots()
-MT.HD_FACE = true
+MT.HD_FACE = false   -- the HD face plate rendered blank with edge lines on 2026-11-20; decal faces as in E01
 
 -- Cast (distinct outfits & verified R6 hairs)
 MT.CASTV.me = { shirt = "shirt_c8", pants = "pants_me", hair = "hair_floof", face = "smile" }
@@ -246,15 +246,15 @@ MT.shot("s07", {
 	speak = "me",
 	build = function()
 		oakStreet("green", "mid-neutral-normal", false)
-		MT.cast("me", { 6, -1 }, -70, "happy")
+		MT.cast("me", { 2.6, -0.6 }, -70, "happy")   -- was x=6: outside the 9:16 frame
 		dressHeroPatrol(true, true)
-		MT.cast("kid1", { -3, 0 }, 90, "smile")
-		MT.cast("kid2", { -6, -1 }, 90, "happy")
+		MT.cast("kid1", { -4, 0.4 }, 90, "smile")
+		MT.cast("kid2", { -7, -0.6 }, 90, "happy")
 		return { { 0, -13, 3.6 }, { 1, 0, 3.6 }, 32, push = 0.5 }
 	end,
 	act = function(f, n)
-		MT.walkTo("kid1", f, 1, n, { -3, 0 }, { 3, 0 })
-		MT.walkTo("kid2", f, 1, n, { -6, -1 }, { 0, -1 })
+		MT.walkTo("kid1", f, 1, n, { -4, 0.4 }, { 0.6, 0.4 })
+		MT.walkTo("kid2", f, 1, n, { -7, -0.6 }, { -2.4, -0.6 })
 		MT.talkGesture("me", f)
 	end,
 })
@@ -418,7 +418,7 @@ MT.shot("s18", {
 		return { { -3, -18, 7.2 }, { -11, -3, 3.8 }, 34, push = 0.7 }
 	end,
 	act = function(f)
-		MT.actPose("me", "look_around", f, 1)
+		MT.actPose("me", "think", f, 1)
 	end,
 })
 
@@ -440,7 +440,7 @@ MT.shot("s20", {
 		oakStreet("green", "mid-neutral-normal", false)
 		MT.cast("me", { -4, 0 }, 90, "smirk")
 		dressHeroPatrol(true, true)
-		return { { 2, -10, 2.8 }, { 1, 0, 3.8 }, 32, push = 0.6 }
+		return { { -0.5, -10, 2.8 }, { -1.5, 0, 3.8 }, 32, push = 0.6 }   -- was looking at x=1: the walker sat on the left edge
 	end,
 	act = function(f, n)
 		MT.walkTo("me", f, 1, n, { -4, 0 }, { 1, 0 })
