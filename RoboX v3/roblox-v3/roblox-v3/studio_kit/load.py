@@ -15,7 +15,7 @@ import episode, rb
 
 KIT_ORDER = ["faces.lua", "@faces.lua", "lib.lua", "lib2.lua", "lib3.lua", "hair.lua", "lib4.lua", "lib5.lua", "lib6.lua",
              "@cloth.lua", "lib7.lua", "lib8.lua", "lib9.lua", "lib10.lua", "lib11.lua", "lib12.lua", "lib13_sets.lua",
-             "lib14_cam.lua", "@anims.lua", "@@tiles4k.lua", "@@frames", "@@lipsync"]
+             "lib14_cam.lua", "lib15_world.lua", "lib16_rooms.lua", "@anims.lua", "@@tiles4k.lua", "@@frames", "@@lipsync"]
 
 
 def build_lipsync_lua(ep):

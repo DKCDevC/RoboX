@@ -1,0 +1,215 @@
+{
+ "source": "edge-tts en-US-AndrewNeural rate=+45% pitch=+25Hz",
+ "words": [
+  {
+   "word": "In",
+   "start": 0.069,
+   "end": 0.129
+  },
+  {
+   "word": "this",
+   "start": 0.138,
+   "end": 0.267
+  },
+  {
+   "word": "town",
+   "start": 0.276,
+   "end": 0.517
+  },
+  {
+   "word": "the",
+   "start": 0.724,
+   "end": 0.776
+  },
+  {
+   "word": "mayor",
+   "start": 0.784,
+   "end": 1.026
+  },
+  {
+   "word": "is",
+   "start": 1.034,
+   "end": 1.121
+  },
+  {
+   "word": "whoever",
+   "start": 1.129,
+   "end": 1.44
+  },
+  {
+   "word": "sneezes",
+   "start": 1.448,
+   "end": 1.793
+  },
+  {
+   "word": "the",
+   "start": 1.802,
+   "end": 1.879
+  },
+  {
+   "word": "loudest",
+   "start": 1.888,
+   "end": 2.25
+  },
+  {
+   "word": "on",
+   "start": 2.259,
+   "end": 2.336
+  },
+  {
+   "word": "January",
+   "start": 2.345,
+   "end": 2.672
+  },
+  {
+   "word": "first",
+   "start": 2.681,
+   "end": 3.043
+  },
+  {
+   "word": "You",
+   "start": 3.328,
+   "end": 3.405
+  },
+  {
+   "word": "see",
+   "start": 3.414,
+   "end": 3.664
+  },
+  {
+   "word": "the",
+   "start": 3.853,
+   "end": 3.914
+  },
+  {
+   "word": "whole",
+   "start": 3.922,
+   "end": 4.069
+  },
+  {
+   "word": "town",
+   "start": 4.078,
+   "end": 4.267
+  },
+  {
+   "word": "stands",
+   "start": 4.276,
+   "end": 4.535
+  },
+  {
+   "word": "in",
+   "start": 4.543,
+   "end": 4.586
+  },
+  {
+   "word": "the",
+   "start": 4.595,
+   "end": 4.638
+  },
+  {
+   "word": "square",
+   "start": 4.647,
+   "end": 4.905
+  },
+  {
+   "word": "at",
+   "start": 4.914,
+   "end": 4.983
+  },
+  {
+   "word": "noon",
+   "start": 4.991,
+   "end": 5.25
+  },
+  {
+   "word": "and",
+   "start": 5.353,
+   "end": 5.431
+  },
+  {
+   "word": "breathes",
+   "start": 5.44,
+   "end": 5.707
+  },
+  {
+   "word": "pepper",
+   "start": 5.715,
+   "end": 5.897
+  },
+  {
+   "word": "dust",
+   "start": 5.905,
+   "end": 6.241
+  },
+  {
+   "word": "A",
+   "start": 6.526,
+   "end": 6.569
+  },
+  {
+   "word": "judge",
+   "start": 6.578,
+   "end": 6.845
+  },
+  {
+   "word": "reads",
+   "start": 6.853,
+   "end": 7.233
+  },
+  {
+   "word": "every",
+   "start": 7.328,
+   "end": 7.534
+  },
+  {
+   "word": "sneeze",
+   "start": 7.543,
+   "end": 7.802
+  },
+  {
+   "word": "on",
+   "start": 7.81,
+   "end": 7.871
+  },
+  {
+   "word": "a",
+   "start": 7.879,
+   "end": 7.914
+  },
+  {
+   "word": "brass",
+   "start": 7.922,
+   "end": 8.207
+  },
+  {
+   "word": "dial",
+   "start": 8.216,
+   "end": 8.431
+  },
+  {
+   "word": "that",
+   "start": 8.44,
+   "end": 8.552
+  },
+  {
+   "word": "goes",
+   "start": 8.56,
+   "end": 8.759
+  },
+  {
+   "word": "up",
+   "start": 8.767,
+   "end": 8.862
+  },
+  {
+   "word": "to",
+   "start": 8.871,
+   "end": 8.931
+  },
+  {
+   "word": "100",
+   "start": 8.94,
+   "end": 9.345
+  }
+ ]
+}

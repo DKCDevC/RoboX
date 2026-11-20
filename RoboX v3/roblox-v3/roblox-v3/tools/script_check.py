@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """script_check.py - the numbers for script.md §9.3 from a script sheet. Zero tokens.
-usage: python script_check.py script-sheet.md [--target 117] [--tail 1.2] [--last-reveal 52] [--wpm 220]
+usage: python script_check.py script-sheet.md [--mode fast|slow] [--target 117] [--tail 1.2] [--last-reveal 52] [--wpm 260|220]
        [--log ROTATION-LOG.md] [--pretwist pretwist.txt] [--rules ../script.md]
   --log       checks the core rotation fields against the last episodes (templates/rotation-log.md). The plan's own
               row is skipped: --ep E04, or the sheet's "Episode" field, or a last row identical to this plan
@@ -17,12 +17,13 @@ import sheetlib
 from sheetlib import load, spoken, syl, sentences
 
 ap = argparse.ArgumentParser()
-ap.add_argument("sheet"); ap.add_argument("--wpm", type=float, default=220); ap.add_argument("--target", type=float); ap.add_argument("--tail", type=float, default=1.2)
+ap.add_argument("sheet"); ap.add_argument("--wpm", type=float, default=None); ap.add_argument("--mode", choices=["fast", "slow"], default="fast", help="fast = 250-270 wpm Gneef-style read (default, look-reference.md); slow = 200-240 wpm older reels with 2-3 designed pauses"); ap.add_argument("--target", type=float); ap.add_argument("--tail", type=float, default=1.2)
 ap.add_argument("--last-reveal", type=float); ap.add_argument("--log"); ap.add_argument("--pretwist"); ap.add_argument("--ep")
 HERE = os.path.dirname(os.path.abspath(__file__))
 ap.add_argument("--rules", default=os.path.join(HERE, "..", "script.md"))
 a = ap.parse_args()
-sheetlib.WPS = a.wpm / 60
+FAST = a.mode == "fast"
+sheetlib.WPS = (a.wpm or (260 if FAST else 220)) / 60
 D = load(a.sheet, a.tail); R = D["rows"]; RT = D["runtime"]
 L = [r for r in R if r["kind"] == "line"]; P = [r for r in R if r["kind"] == "pause"]
 TXT = open(a.sheet, encoding="utf-8").read()
@@ -54,16 +55,17 @@ lens = [n for _, _, n in S]; N = len(S); W = sum(r["words"] for r in L)
 
 # ---- 2 rule line ----
 r0 = L[0]; t0 = r0["text"]
-row("2", "line 1: 8-15 words, 'In this world/town,'", f"{r0['words']} words", 8 <= r0["words"] <= 15 and bool(re.match(r"in this (world|town),", t0, re.I)))
-row("2", "line 1 spoken in 2.0-4.5 s", f"{r0['end'] - r0['start']:.1f} s", 2.0 <= r0["end"] - r0["start"] <= 4.5)
+row("2", "line 1: 8-%d words, 'In this world/town,'" % (20 if FAST else 15), f"{r0['words']} words", 8 <= r0["words"] <= (20 if FAST else 15) and bool(re.match(r"in this (world|town|city|galaxy|country|school|house)," if FAST else r"in this (world|town),", t0, re.I)))
+row("2", "line 1 spoken in 2.0-%.1f s" % (6.0 if FAST else 4.5), f"{r0['end'] - r0['start']:.1f} s", 2.0 <= r0["end"] - r0["start"] <= (6.0 if FAST else 4.5))
 
 # ---- 3 stake + rule clear ----
 stake = next((r["start"] for r in L[1:] if any(re.sub(r"[^\w']", "", x).lower() in ("i", "me", "my", "mine", "i'm", "i'd", "i've")
                                                for x in r["tokens"])), None)
-row("3", "stake line (first I/me/my/mine) starts by 6 s", f"{stake:.1f} s" if stake is not None else "none", stake is not None and stake <= 6)
+row("3", "stake line (first I/me/my/mine) starts by %d s" % (20 if FAST else 6), f"{stake:.1f} s" if stake is not None else "none", stake is not None and stake <= (20 if FAST else 6))
 rc = [r for r in L if "rule clear" in r["beat"].lower()]
-if rc: row("3", "rule fully clear <=9 % and <=15 s", f"{rc[-1]['end']:.1f} s = {pct(rc[-1]['end']):.1f} %", pct(rc[-1]["end"]) <= 9 and rc[-1]["end"] <= 15)
-else: row("3", "rule fully clear <=9 % and <=15 s", "tag the row that completes the rule 'rule clear' in the beat column", "CHECK")
+_pc, _sc = (12, 18) if FAST else (9, 15)
+if rc: row("3", f"rule fully clear <={_pc} % and <={_sc} s", f"{rc[-1]['end']:.1f} s = {pct(rc[-1]['end']):.1f} %", pct(rc[-1]["end"]) <= _pc and rc[-1]["end"] <= _sc)
+else: row("3", f"rule fully clear <={_pc} % and <={_sc} s", "tag the row that completes the rule 'rule clear' in the beat column", "CHECK")
 
 # ---- 5 beats ----
 def first(pat, flags=re.I):
@@ -75,17 +77,24 @@ B["twist"] = B["twist"] or B["reveal"]
 def beat(name, r, lo, hi, note=""):
     if not r: row("5", f"{name} {lo}-{hi} %", "no row tagged", "CHECK"); return
     p = pct(r["start"]); row("5", f"{name} {lo}-{hi} %{note}", f"{r['start']:.1f} s = {p:.1f} %", lo <= p <= hi)
-beat("misread plant", B["misread"], 10, 36)
-if B["misread"] and not re.search(r"\b(said|says|say|called|call|thought|think|believed?|knew|everyone|everybody|kids|grown-ups|people|"
+if not FAST: beat("misread plant", B["misread"], 10, 36)
+if not FAST and B["misread"] and not re.search(r"\b(said|says|say|called|call|thought|think|believed?|knew|everyone|everybody|kids|grown-ups|people|"
                                     r"sign|poster|news|police|teacher|mom|dad|rumou?r)\b|\"", B["misread"]["text"], re.I):
     row("5", "misread row states the belief, attributed", f"'{B['misread']['text'][:50]}' reads as an observation", "CHECK")
-beat("reveal (first truth line)", B["reveal"], 49, 78)
-beat("twist line", B["twist"], 49, 78)
-beat("climax starts", B["climax"], 69, 96)
-beat("extra payoff", B["payoff"], 85, 100)
-beat("last line starts", B["last"], 92, 100)
+if FAST:  # Gneef long form (roblox-town-script SKILL.md s2): 10 stories
+    beat("inciting event (time marker)", B["inciting"], 15, 30)
+    beat("first reveal (Gneef 47-52 %, earliest 36 %)", B["reveal"], 35, 60)
+    beat("second turn, row tagged TURN (Gneef 78-89 %)", first(r"^\W*TURN", 0), 76, 90)
+    beat("climax starts", B["climax"], 69, 96)
+    beat("last line starts (Gneef ending >=93 %)", B["last"], 92, 100)
+else:
+    beat("reveal (first truth line)", B["reveal"], 49, 78)
+    beat("twist line", B["twist"], 49, 78)
+    beat("climax starts", B["climax"], 69, 96)
+    beat("extra payoff", B["payoff"], 85, 100)
+    beat("last line starts", B["last"], 92, 100)
 if B["doubt"] and B["reveal"]: row("5", "doubt before the reveal", f"{pct(B['doubt']['start']):.1f} %", B["doubt"]["start"] < B["reveal"]["start"])
-if B["turn"] and B["reveal"]: row("5", "turn after the reveal", f"{pct(B['turn']['start']):.1f} %", B["turn"]["start"] > B["reveal"]["start"])
+if B["turn"] and B["reveal"] and not FAST: row("5", "turn after the reveal", f"{pct(B['turn']['start']):.1f} %", B["turn"]["start"] > B["reveal"]["start"])
 if a.last_reveal is not None and B["twist"]:
     row("5", "reveal shift vs last episode >=10 points", f"{pct(B['twist']['start']) - a.last_reveal:+.1f}", abs(pct(B["twist"]["start"]) - a.last_reveal) >= 10)
 if B["inciting"] and B["reveal"]:
@@ -101,10 +110,15 @@ per100 = len(nums) / RT * 100
 row("8", ">=3 concrete specifics per 100 s (numbers only)", f"{len(nums)} = {per100:.1f}/100 s: {', '.join(nums[:14])}", True if per100 >= 3 else "CHECK")
 
 # ---- 9 sentence stats ----
-row("9", "sentences: mean 6-8 spoken words", f"{N} sentences, mean {st.mean(lens):.1f}", 6 <= st.mean(lens) <= 8)
 p6 = 100 * sum(n <= 6 for n in lens) / N; p3 = 100 * sum(n <= 3 for n in lens) / N
-row("9", "sentences <=6 words 45-65 %", f"{p6:.0f} %", 45 <= p6 <= 65)
-row("9", "sentences <=3 words 15-25 %", f"{p3:.0f} %", 15 <= p3 <= 25)
+if FAST:   # Gneef: mean 8.7-12.2, <=6 words 30-45 %, <=3 words 10-22 %
+    row("9", "sentences: mean 8-12.5 spoken words (fast read)", f"{N} sentences, mean {st.mean(lens):.1f}", 8 <= st.mean(lens) <= 12.5)
+    row("9", "sentences <=6 words 30-55 %", f"{p6:.0f} %", 30 <= p6 <= 55)
+    row("9", "sentences <=3 words 8-25 %", f"{p3:.0f} %", 8 <= p3 <= 25)
+else:
+    row("9", "sentences: mean 6-8 spoken words", f"{N} sentences, mean {st.mean(lens):.1f}", 6 <= st.mean(lens) <= 8)
+    row("9", "sentences <=6 words 45-65 %", f"{p6:.0f} %", 45 <= p6 <= 65)
+    row("9", "sentences <=3 words 15-25 %", f"{p3:.0f} %", 15 <= p3 <= 25)
 row("9", "longest sentence <=20 words", f"{max(lens)}", max(lens) <= 20)
 starts = [bool(re.match(r"^[\"“]?(and|but|so|then)\b", s, re.I)) for _, s, _ in S]
 run3 = any(all(starts[i:i + 3]) for i in range(len(starts) - 2))
@@ -124,7 +138,7 @@ row("9", "verbless fragments 12-25 %, each adds a fact", f"{100 * len(frag) / N:
 sw = [w for r in L for x in r["tokens"] for w in spoken(x)]
 sy = [syl(w) for w in sw]
 fk = 0.39 * len(sw) / N + 11.8 * sum(sy) / len(sw) - 15.59
-row("0", "Flesch-Kincaid grade <=2.5 (heuristic syllables)", f"{fk:.1f}", fk <= 2.5)
+row("0", "Flesch-Kincaid grade <=%s (heuristic syllables)" % ("5.5" if FAST else "2.5"), f"{fk:.1f}", fk <= (5.5 if FAST else 2.5))
 long = sorted({w.lower() for w, n in zip(sw, sy) if n >= 3})
 row("0", "3+ syllable words <=5 %, concrete nouns only", f"{100 * sum(n >= 3 for n in sy) / len(sw):.1f} %: {', '.join(long[:14])}", True if sum(n >= 3 for n in sy) / len(sw) <= .05 else False)
 
@@ -139,7 +153,7 @@ for _, m in mk:
     for x in m: used[x] = used.get(x, 0) + 1
 tic = [k for k, v in used.items() if v >= 4]
 row("0.1", "casual markers ~1 per 15 s of narration", f"{nmk} for {narr_secs:.0f} s (need {need:.0f}){' 2 in one: ' + str(double[:2]) if double else ''}{' tic: ' + str(tic) if tic else ''}",
-    nmk >= need - 0.5 and not double and not tic)
+    (True if FAST else nmk >= need - 0.5) and not double and not tic)
 tone = list(dict.fromkeys((s, lab) for _, s, _ in S for rx, lab, _ in PAT["narrator-tone"] if rx.search(s)))
 row("0.1", "narrator-tone / written-English patterns: 0", f"{len(tone)} {[f'{l}: {x[:40]}' for x, l in tone[:5]]}", not tone)
 unc = [s for _, s, _ in S if any(rx.search(s) for rx, _, _ in PAT["uncontracted"])]
@@ -295,7 +309,7 @@ for r in L:
         cur, run = None, 0
         for q in re.findall(r"[\"“]([^\"”]+)[\"”]", r["text"]):
             n = sum(len(spoken(x)) for x in q.split()); dlg_words += n; longest = max(longest, n)
-row("10", "dialogue 3-20 % of words (incl. narrated quotes)", f"{100 * dlg_words / W:.1f} %", 3 <= 100 * dlg_words / W <= 20)
+row("10", "dialogue 3-20 % of words (incl. narrated quotes)", f"{100 * dlg_words / W:.1f} %", (0 if FAST else 3) <= 100 * dlg_words / W <= 20)
 row("10", "dialogue line <=10 words; run <=3 sentences", f"longest {longest}, run {mx}", longest <= 10 and mx <= 3)
 spk = sorted({r["speaker"] for r in L} - {"NARR", "SIGN", "TEXT"})
 row("10", "other speakers 2-4 (voices <=3 besides NARR)", f"{len(spk)}: {', '.join(spk)}", True if 2 <= len(spk) <= 4 else "CHECK")
@@ -330,19 +344,26 @@ qv = [s for sp, s, _ in S if sp == "NARR" and s.endswith("?") and not s.startswi
 row("11", "narrator questions max 1", f"{len(qv)} {qv[:3]}", len(qv) <= 1)
 dash = sum(full.count(c) for c in ("—", " – ", ";", "...", "…"))
 row("11", "no em dashes / semicolons / ellipses", f"{dash}", dash == 0)
-adv = re.findall(r"\b(?:said|says|asked|whispered|shouted|yelled)\s+\w+ly\b|\b\w+ly\s+(?:said|asked|whispered)\b", full, re.I)
+adv = re.findall(r"\b(?:said|says|asked|whispered|shouted|yelled)\s+\w+ly\b", full, re.I) + re.findall(r"\b[a-z]\w*ly\s+(?:said|asked|whispered)\b", full)  # lower-case only: names like Tilly are not adverbs
 row("11", "no adverb + said", f"{adv}", not adv)
 
 # ---- 12 timing + pauses (the one pause rule: script.md §6) ----
 speech = sum(r["end"] - r["start"] for r in L)
 lo = 160 if RT <= 80 else 200
-row("12", f"wpm (speech only, slow reads in) {lo}-240", f"{W / speech * 60:.0f} ({W} words / {speech:.1f} s)", lo <= W / speech * 60 <= 240)
+if FAST:
+    row("12", "wpm (speech only) 245-285 (fast read)", f"{W / speech * 60:.0f} ({W} words / {speech:.1f} s)", 245 <= W / speech * 60 <= 285)
+else:
+    row("12", f"wpm (speech only, slow reads in) {lo}-240", f"{W / speech * 60:.0f} ({W} words / {speech:.1f} s)", lo <= W / speech * 60 <= 240)
 tw = B["twist"] or B["reveal"]
 pa = [p for p in P if tw and 0 <= p["start"] - tw["start"] <= 3 + (tw["end"] - tw["start"]) and 0.8 <= p["secs"] <= 1.3]
 li = R.index(B["last"]); pb = R[li - 1] if li and R[li - 1]["kind"] == "pause" else None
-row("12", "2-3 designed pauses, each 0.6-1.3 s", ", ".join(f"{p['secs']:.1f}" for p in P) or "none", 2 <= len(P) <= 3 and all(.6 <= p["secs"] <= 1.3 for p in P))
-row("12", "pause A 0.8-1.3 s right after the twist line", f"{pa[0]['secs']:.1f} s at {pa[0]['start']:.1f}" if pa else "missing", bool(pa))
-row("12", "pause B 0.6-1.0 s right before the last line", f"{pb['secs']:.1f} s" if pb else "missing", bool(pb) and .6 <= pb["secs"] <= 1.0)
+if FAST:
+    row("12", "at most 2 pauses, each 0.4-1.3 s (best: one, 0.4-0.8 s, before the last line)", ", ".join(f"{p['secs']:.1f}" for p in P) or "none",
+        len(P) <= 2 and all(.4 <= p["secs"] <= 1.3 for p in P))
+else:
+    row("12", "2-3 designed pauses, each 0.6-1.3 s", ", ".join(f"{p['secs']:.1f}" for p in P) or "none", 2 <= len(P) <= 3 and all(.6 <= p["secs"] <= 1.3 for p in P))
+    row("12", "pause A 0.8-1.3 s right after the twist line", f"{pa[0]['secs']:.1f} s at {pa[0]['start']:.1f}" if pa else "missing", bool(pa))
+    row("12", "pause B 0.6-1.0 s right before the last line", f"{pb['secs']:.1f} s" if pb else "missing", bool(pb) and .6 <= pb["secs"] <= 1.0)
 tgt = a.target
 if tgt is None and re.search(r"(\d{2,3}(?:\.\d)?)\s*s", hdr("target runtime")):
     tgt = float(re.search(r"(\d{2,3}(?:\.\d)?)\s*s", hdr("target runtime"))[1])
@@ -351,6 +372,35 @@ if tgt is None:
     tgt = float(m[1]) if m else None
 row("12", "runtime = target +-5 % (60-180 s)", f"{RT:.1f} s vs target {tgt}" if tgt else f"{RT:.1f} s (no target found: pass --target)",
     (abs(RT - tgt) / tgt <= .05 and 60 <= tgt <= 180) if tgt else "CHECK")
+
+# ---- 14 language fingerprint of the @Gneef scripts (roblox-town-script gneef-scripts.md, 10 stories) ----
+def _syl(w):
+    w = re.sub(r"[^a-z]", "", w.lower())
+    if not w: return 0
+    n = len(re.findall(r"[aeiouy]+", w))
+    if w.endswith("e") and n > 1 and not w.endswith("le"): n -= 1
+    return max(1, n)
+_words = [x for r in L for x in r["tokens"]]
+_txt = " ".join(r["text"] for r in L)
+if _words:
+    _fk = 0.39 * len(_words) / max(1, N) + 11.8 * sum(_syl(x) for x in _words) / len(_words) - 15.59
+    row("14", "Flesch-Kincaid grade <= 5.5 (Gneef 2.0-4.9)", f"{_fk:.1f}", _fk <= 5.5)
+    _mono = 100 * sum(_syl(x) == 1 for x in _words) / len(_words)
+    row("14", "one-syllable words >= 68 % (Gneef 71-79 %)", f"{_mono:.0f} %", _mono >= 68)
+    _tm = len(re.findall(r"\b(last (night|week|summer|month|year|spring|tuesday)|that night|the next (night|morning|day)|one (night|morning)|every (night|morning|sunday|year|day)|in (april|june|august|the spring)|day (nine|fourteen|twenty|one|two|three)|at midnight)\b", _txt, re.I))
+    row("14", "time markers >= 2.5 per 100 s (Gneef 2.5-12)", f"{100 * _tm / RT:.1f}", 100 * _tm / RT >= 2.5)
+    _I = 100 * sum(bool(re.match(r"^[\"“]?i\b", s_, re.I)) for _, s_, _ in S) / N
+    row("14", "sentences starting with I <= 20 % (Gneef 3-18 %)", f"{_I:.0f} %", _I <= 20)
+    _q = 100 * sum(s_.rstrip('"”').endswith("?") for _, s_, _ in S) / N; _e = 100 * sum(s_.rstrip('"”').endswith("!") for _, s_, _ in S) / N
+    row("14", "questions <= 5 %, exclamations <= 8 % (Gneef 0-4 %, 0-6 %)", f"{_q:.0f} % / {_e:.0f} %", _q <= 5 and _e <= 8)
+    _lw = [w_.lower().strip(".,!?\"'“”") for w_ in _words]
+    _g = {}
+    for i_ in range(len(_lw) - 3):
+        k_ = " ".join(_lw[i_:i_ + 4]); _g[k_] = _g.get(k_, 0) + 1
+    _rep = [k_ for k_, c_ in _g.items() if c_ >= 2 and len(set(k_.split())) >= 3 and not all(t_ in ("the", "a", "of", "and", "to", "in", "i", "it", "was") for t_ in k_.split())]
+    row("14", "a repeated line (callback / planted phrase), Gneef: every story", ("; ".join(_rep[:3]) or "none"), True if _rep else "CHECK")
+    _f = S[0][1].split() if S else []
+    row("14", "first sentence 8-20 words and starts 'In this' (Gneef 8-20, 10/10)", f"{len(_f)} words, '{' '.join(_f[:3])}'", 8 <= len(_f) <= 20 and " ".join(_f[:2]).lower().strip(",") == "in this")
 
 # ---- caption highlights (captions.md §1.1) ----
 post = [r for r in L[1:]]

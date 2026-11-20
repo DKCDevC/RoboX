@@ -1,0 +1,100 @@
+{
+ "source": "edge-tts en-US-AndrewNeural rate=+45% pitch=+25Hz",
+ "words": [
+  {
+   "word": "In",
+   "start": 0.069,
+   "end": 0.129
+  },
+  {
+   "word": "this",
+   "start": 0.138,
+   "end": 0.241
+  },
+  {
+   "word": "house",
+   "start": 0.25,
+   "end": 0.552
+  },
+  {
+   "word": "the",
+   "start": 0.681,
+   "end": 0.741
+  },
+  {
+   "word": "walls",
+   "start": 0.75,
+   "end": 0.931
+  },
+  {
+   "word": "knock",
+   "start": 0.94,
+   "end": 1.129
+  },
+  {
+   "word": "back",
+   "start": 1.138,
+   "end": 1.414
+  },
+  {
+   "word": "Last",
+   "start": 1.698,
+   "end": 1.879
+  },
+  {
+   "word": "night",
+   "start": 1.888,
+   "end": 2.069
+  },
+  {
+   "word": "they",
+   "start": 2.19,
+   "end": 2.25
+  },
+  {
+   "word": "knocked",
+   "start": 2.259,
+   "end": 2.466
+  },
+  {
+   "word": "my",
+   "start": 2.474,
+   "end": 2.543
+  },
+  {
+   "word": "name",
+   "start": 2.552,
+   "end": 2.767
+  },
+  {
+   "word": "Mom",
+   "start": 3.052,
+   "end": 3.207
+  },
+  {
+   "word": "says",
+   "start": 3.216,
+   "end": 3.362
+  },
+  {
+   "word": "never",
+   "start": 3.371,
+   "end": 3.578
+  },
+  {
+   "word": "answer",
+   "start": 3.586,
+   "end": 3.862
+  },
+  {
+   "word": "I",
+   "start": 4.155,
+   "end": 4.215
+  },
+  {
+   "word": "answered",
+   "start": 4.224,
+   "end": 4.5
+  }
+ ]
+}

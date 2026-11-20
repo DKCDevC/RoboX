@@ -1,10 +1,95 @@
 {
   "music": [
-    { "file": "../../RoboX v3/roblox-story-bg.mp3", "start": 0.0, "end": 73.40, "db": -16, "fade": 0.8 }
+    {
+      "file": "../../RoboX v3/roblox-story-bg.mp3",
+      "start": 0.0,
+      "end": 73.4,
+      "db": -16,
+      "fade": 0.8
+    }
   ],
   "duck": [
-    { "start": 38.80, "end": 42.46, "db": -14 },
-    { "start": 68.40, "end": 73.40, "db": -12 }
+    {
+      "start": 38.8,
+      "end": 42.46,
+      "db": -14
+    },
+    {
+      "start": 68.4,
+      "end": 73.4,
+      "db": -12
+    }
   ],
-  "sfx": []
+  "sfx": [
+    {
+      "file": "audio/sfx/buzz.wav",
+      "t": 2.13,
+      "db": -8
+    },
+    {
+      "file": "audio/sfx/steps.wav",
+      "t": 6.99,
+      "db": -12
+    },
+    {
+      "file": "audio/sfx/buzz.wav",
+      "t": 8.87,
+      "db": -6
+    },
+    {
+      "file": "audio/sfx/clatter.wav",
+      "t": 10.04,
+      "db": -8
+    },
+    {
+      "file": "audio/sfx/hiss.wav",
+      "t": 15.17,
+      "db": -10
+    },
+    {
+      "file": "audio/sfx/buzz.wav",
+      "t": 17.87,
+      "db": -9
+    },
+    {
+      "file": "audio/sfx/buzz.wav",
+      "t": 26.49,
+      "db": -6
+    },
+    {
+      "file": "audio/sfx/chime.wav",
+      "t": 36.7,
+      "db": -10
+    },
+    {
+      "file": "audio/sfx/steps.wav",
+      "t": 37.59,
+      "db": -12
+    },
+    {
+      "file": "audio/sfx/alarm.wav",
+      "t": 39.9,
+      "db": -4
+    },
+    {
+      "file": "audio/sfx/chime.wav",
+      "t": 45.34,
+      "db": -8
+    },
+    {
+      "file": "audio/sfx/buzz.wav",
+      "t": 47.49,
+      "db": -5
+    },
+    {
+      "file": "audio/sfx/steps.wav",
+      "t": 67.36,
+      "db": -13
+    },
+    {
+      "file": "audio/sfx/buzz.wav",
+      "t": 71.96,
+      "db": -7
+    }
+  ]
 }

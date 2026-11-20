@@ -33,7 +33,7 @@ function MT.frame(id, f)
 	dof.Enabled = true
 	dof.FocusDistance = d
 	dof.InFocusRadius = math.max(5, d * 0.7)
-	dof.FarIntensity = 0.22
+	dof.FarIntensity = MT.dofFar or 0.22
 	dof.NearIntensity = 0.0
 end
 -- hair that keeps the eyes clear (bangs over the eyes hide the new faces)

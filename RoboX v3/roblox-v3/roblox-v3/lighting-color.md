@@ -1,7 +1,6 @@
 # lighting-color.md: renderer, moods, colour script, measurement
 
-> **v3 (2026-11-19):** the target look is `look-reference.md`. Its §10 lists every number in this file it replaces; everything else here still applies. Build route: Roblox Studio, `studio.md`. The mood presets in §3 and `lighting-presets.lua` (now in `legacy/templates/`) are replaced by the 6 look families in `assets/lighting/reference/`; the colour-script logic in §4 (one look per scene, a hard shift on the twist cut) stays.
-
+> **Current numbers (v3.1, 2026-11-20):** the target look and its numbers are `look-reference.md` §2 (families, palette, exposure) and §10 (this file's old numbers replaced). In short: no vignette; warm bias +0.09 to +0.27 in day and interior scenes; mean luma 95–123 of 255; video saturation 0.49–0.70; **one dominant hue per location and a hard palette change at the story turn** (plan it in the colour script, §4); warm light on faces against a cool ambience; deep blacks allowed at night; no exposure flashes. Build route: Roblox Studio, `studio.md`; the mood presets in §3 and `lighting-presets.lua` (in `legacy/templates/`) are replaced by the 6 look families.
 
 Tags: **REF-RANGE** = measured in the 6 reference reels. **HYPOTHESIS** = a beat-the-refs bet; A/B it on the user's own analytics.
 Metrics (all 0–1 unless noted, measured on a frame with the top and bottom 8 % cut off): **bright** = mean HSV value, **sat** = mean HSV saturation, **contrast** = std of grey, **warm** = mean (R − B)/255, **p1 / p99** = 1st / 99th percentile of grey (0–255), **clip** = % pixels ≥250, **crush** = % pixels ≤12. For the refs, p99 means "mean of per-shot keyframe p99".

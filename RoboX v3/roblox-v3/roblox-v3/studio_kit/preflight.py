@@ -7,8 +7,9 @@ Checks, in order (each failure stops with what to do):
   1. the Studio in studio_txt is connected                (bridge running, MCP on)
   2. it is in Edit mode, not Play                         (Play: the scene code cannot run; E01 lost 367 frames to it)
   3. only one Studio is open                              (a second window dropped the MCP link on E01; warning only)
-  3b. the place window is not minimised, is maximised and in front (Windows check; --fix restores it, render.py does that
-      by default and stops only when it cannot)
+  3b. the place window is not minimised, is maximised and in front, and the mouse is not over the 3D view (Windows check;
+      --fix restores the window and parks the mouse on its title bar; render.py does that by default and stops only when
+      it cannot)
   4. the kit and the episode are loaded                   (shared.MT, the first shot in MT.SHOTS)
   5. a real capture of the first shot is not blank        (hidden, covered or minimised window = white picture)
   6. the capture size matches the episode's first render  (<episode>/capture_size.json; a smaller window = softer frames)
@@ -49,12 +50,27 @@ def place_window(fix=False):
     if len(found) > 1:
         print("preflight WARNING: several place windows:", ", ".join(t for _, t in found), "- the first one is checked")
     h, title = found[0]
+
+    class RECT(ctypes.Structure):
+        _fields_ = [("l", ctypes.c_long), ("t", ctypes.c_long), ("r", ctypes.c_long), ("b", ctypes.c_long)]
+
+    class PT(ctypes.Structure):
+        _fields_ = [("x", ctypes.c_long), ("y", ctypes.c_long)]
+
+    def cursor_over_view():
+        # Studio draws a thin hover outline around whatever part sits under the mouse, and that outline is captured
+        # (E03, 2026-11-20: white lines around every head). Anything below the title bar counts.
+        rc, pt = RECT(), PT()
+        u.GetWindowRect(h, ctypes.byref(rc)); u.GetCursorPos(ctypes.byref(pt))
+        return rc.l <= pt.x <= rc.r and rc.t + 40 <= pt.y <= rc.b, rc
+
     problems = []
     if u.IsIconic(h): problems.append("minimised")
     if not u.IsZoomed(h): problems.append("not maximised")
     if u.GetForegroundWindow() != h: problems.append("not the front window (other windows may cover it)")
+    if cursor_over_view()[0]: problems.append("the mouse is over the 3D view (Studio would draw hover outlines into the frames)")
     if not problems:
-        return f"window \"{title}\" maximised and in front"
+        return f"window \"{title}\" maximised and in front, mouse clear"
     if not fix:
         fail(f"the Studio window \"{title}\" is {', '.join(problems)}. Studio stops drawing the 3D view when it is hidden. "
              "Maximise it and bring it to the front, or run again with --fix to do that automatically.")
@@ -62,7 +78,13 @@ def place_window(fix=False):
     u.keybd_event(0x12, 0, 0, 0); u.keybd_event(0x12, 0, 2, 0)   # tap Alt: Windows only lets a foreground change through after input
     u.SetForegroundWindow(h)
     import time; time.sleep(0.8)
-    left = [p for p, ok in (("minimised", not u.IsIconic(h)), ("not maximised", u.IsZoomed(h)), ("not in front", u.GetForegroundWindow() == h)) if not ok]
+    for _try in range(6):                       # the mouse may be moving (the user, a remote tool): park it again a few times
+        over, rc = cursor_over_view()
+        if not over: break
+        u.SetCursorPos((rc.l + rc.r) // 2, rc.t + 10)   # park the mouse on the title bar
+        time.sleep(0.4)
+    left = [p for p, ok in (("minimised", not u.IsIconic(h)), ("not maximised", u.IsZoomed(h)), ("not in front", u.GetForegroundWindow() == h),
+                            ("mouse still over the 3D view", not cursor_over_view()[0])) if not ok]
     if left:
         fail(f"could not fix the Studio window ({', '.join(left)}). Bring \"{title}\" to the front by hand.")
     return f"window \"{title}\" fixed: was {', '.join(problems)}"

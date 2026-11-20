@@ -2,7 +2,7 @@
 """Free, natural neural TTS + exact word-level timestamps using Microsoft Edge-TTS (no API key required).
 
   python tools/tts_edge.py --text script.txt --out ep/audio/vo.wav --words ep/words.json
-                           [--voice en-US-AndrewNeural] [--rate +10%] [--pitch +0Hz]
+                           [--voice en-US-AndrewNeural] [--rate +45%] [--pitch +25Hz]   (these are the defaults: the voice the user chose on 2026-11-20)
   python tools/tts_edge.py --list-voices
 
 Supports designed pauses inline in your script:
@@ -141,8 +141,8 @@ def main():
     ap.add_argument("--out", help="Output WAV path (e.g. ep/audio/vo.wav)")
     ap.add_argument("--words", help="Output words.json path (e.g. ep/words.json)")
     ap.add_argument("--voice", default="en-US-AndrewNeural", help="Edge-TTS voice name")
-    ap.add_argument("--rate", default="+10%", help="Speaking rate, e.g. +10%%, +15%%, -5%%")
-    ap.add_argument("--pitch", default="+0Hz", help="Pitch shift, e.g. +0Hz, +4Hz")
+    ap.add_argument("--rate", default="+45%", help="Speaking rate. Default +45%% = about 255 wpm for Andrew (measured on ep07: 257 wpm); +60%% = 284 wpm")
+    ap.add_argument("--pitch", default="+25Hz", help="Pitch shift (Hz). Default +25Hz = the pitched-up voice the user chose; it does not change the length")
     ap.add_argument("--list-voices", action="store_true", help="Print recommended storyteller voices")
     args = ap.parse_args()
 

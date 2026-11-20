@@ -28,11 +28,35 @@ Source: https://elevenlabs.io/docs/eleven-creative/playground/text-to-speech , h
 ### 1.1b Free voice (no credits): Windows SAPI
 `tools/tts_sapi.ps1` reads an SSML file (one sentence per sheet row, `<break>` for pause rows) with the built-in voice, pitches it up for a kid narrator and writes `audio/vo.wav` plus `words.json` with word timestamps from SAPI itself (no Whisper needed). E01 (2026-11-19): Microsoft Zira, SSML rate +18 %, `-Pitch 1.26 -Tempo 1.05` → 62.6 s, 215 wpm, designed pauses 0.9 s. It sounds clearly synthetic next to a clone; use it for tests and when the user says no credits. Two traps it handles: SAPI reports word positions at 16 kHz whatever the file rate (÷3 at 48 kHz), and `asetrate` speeds the read up by the pitch factor. Only adult voices ship with Windows (David, Zira). IG "AI info" label on.
 
+### 1.1c DEFAULT VOICE: Microsoft Edge neural voice, free, online: `tools/tts_edge.py` (the user's choice, 2026-11-20)
+**Use this voice for every episode unless the user says otherwise: `en-US-AndrewNeural`, `--rate +45%`, `--pitch +25Hz`** (those are the script's defaults). `python tools/tts_edge.py --text script.txt --out <ep>/audio/vo.wav --words <ep>/words.json` writes the voice and word-level timestamps from the service itself (no Whisper). Pauses go in the text as `[pause 0.6]`.
+- **Measured (ep07, a 19-word script):** `+45 %` 257 wpm over the speech (239 wpm over the 4.78 s file); `+60 %` 284 wpm; `+75 %` 310 wpm. Pitch changes nothing about the length. E03 at `+15 %` read 186 wpm, so 250+ wpm needs about `+45 %`. The target is 250–270 wpm (`look-reference.md`): measure the file, then re-time the cuts from `words.json` (the cut frames move by only a few frames between rates).
+- **It needs internet and sends the script text to Microsoft's service:** fine for scripts that are not private; say so to the user the first time. Free, no credits.
+- Other voices if asked: en-US-AnaNeural (young), en-US-BrianNeural, en-US-GuyNeural, vi-VN-NamMinhNeural, vi-VN-HoaiMyNeural.
+- Fallback with no internet: `tools/tts_sapi.ps1` (§1.1b, the Windows voice Zira, pitched up).
+
+### 1.1d Cue sheet for the mix: `<ep>/audio/cues.json` (read by join.py)
+```json
+{ "music": [{"file": "../../RoboX v3/roblox-story-bg.mp3", "start": 0.0, "end": 73.4, "db": -16, "fade": 0.8}],
+  "duck":  [{"start": 38.8, "end": 42.5, "db": -14}],
+  "sfx":   [{"file": "audio/sfx/buzz.wav", "t": 1.0, "db": -6}] }
+```
+`duck` lowers the music under the voice (and under the listed spans); `sfx` places a file at a time. Without a cue file, join.py makes one music bed and ducks it automatically under the voice (`--no-duck` turns that off). Write the duck spans from words.json, not from the plan.
+
 ### 1.2 Delivery speed
+- **Current (v3.1, `look-reference.md` §4, §10):** the @Gneef Shorts run **250–270 wpm continuous with no designed silences** (mix about −17 LUFS; we keep −14). New episodes aim at 250+ wpm; the free voices read 186–215 wpm at +15–18 %, so generate at about `--rate +55%` to `+60%` (E03: 186 wpm at +15 %, about 162 at +0 %; `+20 %` reaches only about 195 wpm; UNTESTED, listen for clarity first, §1.1c) and measure the result before the shot list. The 200–240 wpm targets and the pause advice below are the **slow mode** (older refs); `script.md` §6 and the tools take `--mode fast|slow`.
 - **Target 200-240 wpm for 100-180 s stories** (REF-RANGE: memories 222, town 245, dog 247 sound workable; monster 270 has 0 pauses >=0.2 s and a 3.3-4.4 dB voice-over-bed margin, so it is too dense). Never above 250 wpm, never a median line rate above 5.5 syl/s.
 - ≤80 s stories or action stories may sit at 160-200 wpm (bell 161, train 176).
 - If the clone reads at about 150-170 wpm at speed 1.0, set speed 1.10-1.20 first. If still short, time-stretch in the editor by at most 1.10 with pitch preserved (HYPOTHESIS: speed near 1.2 may degrade quality, the docs warn "extreme values").
 - **wpm = word count / speech duration**, measured from first word start to last word end, minus the designed pauses (`pacing_check.py` does this). Measure it on the first take before generating more takes (saves credits).
+
+### 1.2b Speed up or pitch up an existing voice (free, local, E03 2026-11-20)
+- **Speed and pitch change the length, so they change the whole episode.** Tempo 1.2 turns a 72.5 s voice into 60.4 s. Every shot, cut, mouth, caption and cue moves with it, so after a tempo change re-derive the times from the new `words.json` (divide by the factor), re-count frames per shot (`shots.json`, `MT.N`), re-check the sheet and re-render. Do this only when the user asks for it, and say the render cost first.
+- **Pitch only (length kept):** no re-timing needed. Shift by F = 2^(semitones/12). Use `rubberband=pitch=F` (keeps the length); the `asetrate` route needs a tempo fix below.
+- **Speed + pitch together:** `rubberband=tempo=T:pitch=F` (T = 1.2, F = 1.122 for +2 st). Measured on E03: 72.55 s → 60.46 s. Check the file's duration with `ffprobe`, then listen once before using it.
+- **asetrate trap:** `asetrate=48000*F,aresample=48000,atempo=T/F` gives the same result as rubberband, but only if you do the atempo step; without it the voice speeds up by F and drops the tempo you wanted.
+- Keep the original as `vo_orig.wav` next to the new `vo.wav`; the SAPI and edge-tts `words.json` files are timed to the original.
+- Limits (HYPOTHESIS): above about 1.2 tempo or +4 st pitch the voice gets metallic; if it does, lower the factor or regenerate with the service's own rate and pitch (`tts_edge.py --rate`, `--pitch`) instead.
 
 ### 1.3 Pauses (set in the editor, not in the model)
 **The pause rule is script.md §6** (one rule for the whole skill): default sentence gap 0.15-0.30 s; 2-3 designed pauses of 0.6-1.3 s, **A** 0.8-1.3 s right after the twist line (REF-RANGE n=2: bell 1.29 s, memories 0.88 s), **B** 0.6-1.0 s right before the last line (HYPOTHESIS: no ref gives the last line more than 0.38 s), **C** optional at the climax line; nothing else ≥0.5 s. A pause's length is the whole silence between the two words: set the gap in the editor to that length.

@@ -7,7 +7,7 @@ Evidence for each gap is in `your analysis folder`. BET = hypothesis: keep it on
 |---|---|---|---|
 | U1 | New twist family (not used in the last 5 episodes; never "secret sacrifice for a dying relative" by default) | Twist log entry is different from the last 5 | script.md §4 |
 | U2 | No stock lines ("for the first time", "I finally understood", "Everyone thought…") and no copied gold/ref line shapes | 0 hits in `script_check.py` (banned list + no-copy check) | script.md §9 |
-| U3 | The voice breathes: 200–240 wpm with the designed pauses of script.md §6 (2–3 of 0.6–1.3 s: after the twist line and before the last line) | `pacing_check.py` on the voice file's word timestamps | script.md §6 |
+| U3 | The voice keeps pace: 250–270 wpm with at most two short pauses (script.md §6); slow read 200–240 wpm with 2–3 pauses of 0.6–1.3 s | `pacing_check.py` on the voice file's word timestamps | script.md §6 |
 | U4 | 1–2 music events at 45–90 % landing on the climax or twist line; event-1 type differs from the last episode's | Cue sheet + energy curve | audio.md §2 |
 | U5 | 2–5 real SFX per minute, ≥35 % on cuts, and the rule object has its own sound motif | Cue sheet count | audio.md |
 | U6 | Close shots ≥25 %; readable face on every key line | Shot list count | look.md |

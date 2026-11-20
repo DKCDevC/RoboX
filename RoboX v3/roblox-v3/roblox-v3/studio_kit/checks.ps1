@@ -41,7 +41,8 @@ foreach ($pair in $args) {
 shared.MT.roll = 0
 local ok, e = pcall(function() shared.MT.cur = nil; shared.MT.frame("$id", $fr) end)
 task.wait(0.8)
-return ok and "ok" or ("ERR " .. tostring(e))
+local slow = shared.MT.slowWalkList and shared.MT.slowWalkList("$id") or ""
+return (ok and "ok" or ("ERR " .. tostring(e))) .. (slow ~= "" and ("  SLOW WALK (studs/s): " .. slow) or "")
 "@
     [System.IO.File]::WriteAllText((Join-Path $PSScriptRoot "_ck.lua"), $lua, $utf8NoBom)
     $r = & $py rb.py lua _ck.lua

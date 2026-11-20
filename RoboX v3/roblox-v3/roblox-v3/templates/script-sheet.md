@@ -34,7 +34,7 @@ The tools read this table by its header names: `tools/plan_timing.py` fills the 
 - **Designed pauses** follow `script.md` §6 (the one pause rule): 2-3 pause rows of 0.6-1.3 s, A right after the twist line, B right before the last line, C optional at the climax. Each is its own row: `*(pause 0.8 s, hold the shot)*`; its length is the whole silence. Normal sentence gaps (0.15-0.30 s) are already inside the 220 wpm average; don't add them.
 - Add a 0.5-1.5 s tail after the last word (the tools assume 1.2 s; `--tail` changes it). Runtime = last word end + tail.
 - Write `start-end (pct %)` in the time column. pct = start / runtime × 100. Check every beat against `script.md` §3.
-- Shot length: mean 1.3-2.5 s; no shot over 3.5 s except 1-2 designed 4-6 s holds at the reveal or the ending. A row of 10+ words or over 3.5 s gets a second cut on a phrase break; note it in the shot column.
+- Shot length: mean 1.1-1.4 s (slow read: 1.3-2.5 s); few shots over 3.5 s (0-4, none over 6 s). A row of 10+ words or over 3.5 s gets a second cut on a phrase break; note it in the shot column.
 - Cut on the sentence start, 0-65 ms before the first word. Never cut on music beats.
 - After drafting, read the whole sheet aloud with a stopwatch. If it is >5 % off the computed runtime, fix the words, not the voice speed.
 
