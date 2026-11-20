@@ -1,0 +1,14 @@
+{
+ "cast": {
+  "approved": "2026-11-20T17:27:39",
+  "note": "user approved in chat after the cast sheet"
+ },
+ "set": {
+  "approved": "2026-11-20T17:27:39",
+  "note": "user approved in chat after the set sheet"
+ },
+ "storyboard": {
+  "approved": "2026-11-20T17:27:39",
+  "note": "user approved in chat after the storyboard sheet (5 shots, 5.0 s)"
+ }
+}

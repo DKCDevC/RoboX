@@ -1,0 +1,32 @@
+[Script Info]
+ScriptType: v4.00+
+PlayResX: 1080
+PlayResY: 1920
+WrapStyle: 2
+ScaledBorderAndShadow: yes
+
+[V4+ Styles]
+Format: Name,Fontname,Fontsize,PrimaryColour,SecondaryColour,OutlineColour,BackColour,Bold,Italic,Underline,StrikeOut,ScaleX,ScaleY,Spacing,Angle,BorderStyle,Outline,Shadow,Alignment,MarginL,MarginR,MarginV,Encoding
+Style: Cap,Poppins ExtraBold,84,&H00FFFFFF&,&H00FFFFFF&,&H00000000&,&H00000000&,0,0,0,0,100,100,0,0,1,4,4,5,60,60,0,1
+
+[Events]
+Format: Layer,Start,End,Style,Name,MarginL,MarginR,MarginV,Effect,Text
+Dialogue: 0,0:00:00.02,0:00:00.12,Cap,,0,0,0,,{\an5\pos(540,1306)\1c&H00FFFFFF&\bord4\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}In
+Dialogue: 0,0:00:00.08,0:00:00.18,Cap,,0,0,0,,{\an5\pos(540,1306)\1c&H00FFFFFF&\bord4\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}this
+Dialogue: 0,0:00:00.18,0:00:00.62,Cap,,0,0,0,,{\an5\pos(540,1306)\1c&H00FFFFFF&\bord4\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}house
+Dialogue: 0,0:00:00.62,0:00:00.72,Cap,,0,0,0,,{\an5\pos(540,1306)\1c&H00FFFFFF&\bord4\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}the
+Dialogue: 0,0:00:00.67,0:00:00.84,Cap,,0,0,0,,{\an5\pos(540,1306)\1c&H00FFFFFF&\bord4\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}walls
+Dialogue: 0,0:00:00.84,0:00:00.97,Cap,,0,0,0,,{\an5\pos(540,1306)\1c&H00FFFFFF&\bord4\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}knock
+Dialogue: 0,0:00:00.97,0:00:01.58,Cap,,0,0,0,,{\an5\pos(540,1306)\1c&H00FFFFFF&\bord4\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}back
+Dialogue: 0,0:00:01.63,0:00:01.81,Cap,,0,0,0,,{\an5\pos(540,1306)\1c&H00FFFFFF&\bord4\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}Last
+Dialogue: 0,0:00:01.81,0:00:02.20,Cap,,0,0,0,,{\an5\pos(540,1306)\1c&H00FFFFFF&\bord4\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}night
+Dialogue: 0,0:00:02.20,0:00:02.30,Cap,,0,0,0,,{\an5\pos(540,1306)\1c&H00FFFFFF&\bord4\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}they
+Dialogue: 0,0:00:02.26,0:00:02.41,Cap,,0,0,0,,{\an5\pos(540,1306)\1c&H00FFFFFF&\bord4\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}knocked
+Dialogue: 0,0:00:02.41,0:00:02.51,Cap,,0,0,0,,{\an5\pos(540,1306)\1c&H00FFFFFF&\bord4\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}my
+Dialogue: 0,0:00:02.50,0:00:03.10,Cap,,0,0,0,,{\an5\pos(540,1306)\1c&H00FFFFFF&\bord4\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}name
+Dialogue: 0,0:00:03.16,0:00:03.31,Cap,,0,0,0,,{\an5\pos(540,1306)\1c&H00FFFFFF&\bord4\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}Mom
+Dialogue: 0,0:00:03.31,0:00:03.46,Cap,,0,0,0,,{\an5\pos(540,1306)\1c&H00FFFFFF&\bord4\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}says
+Dialogue: 0,0:00:03.46,0:00:03.62,Cap,,0,0,0,,{\an5\pos(540,1306)\1c&H00FFFFFF&\bord4\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}never
+Dialogue: 0,0:00:03.62,0:00:04.28,Cap,,0,0,0,,{\an5\pos(540,1306)\1c&H00FFFFFF&\bord4\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}answer
+Dialogue: 0,0:00:04.28,0:00:04.38,Cap,,0,0,0,,{\an5\pos(540,1306)\1c&H00FFFFFF&\bord4\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}I
+Dialogue: 0,0:00:04.35,0:00:05.09,Cap,,0,0,0,,{\an5\pos(540,1306)\1c&H00FFFFFF&\bord4\xshad0\yshad4\blur1\fscx125\fscy125\t(0,133,\fscx100\fscy100)}answered
